@@ -1,0 +1,71 @@
+@font-face {
+    font-family: 'hyperspaceregular';
+    src: url('hyperspace-webfont.woff2') format('woff2'),
+         url('hyperspace-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+  body{
+
+            background-color: rgba(30, 30, 30, 1);
+            overflow: hidden;
+        }
+        .rockAnim {
+            /*width:100px;
+            height:100px;*/
+            display:block;
+            font-size:2em;
+            position: absolute;
+            left: -100px;
+            top:-100px;
+            /*
+             *border: 3px solid red;
+             *border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.3);
+            */
+            fill: rgba(255, 255, 255, 0.3);
+
+        }
+
+        .rockAnim span{
+            position: relative;
+            font-weight: 700;
+            font-size:2em;
+
+            top: 10%;
+            left:10%;
+        }
+        .container {
+
+            position: relative;
+
+            z-index:20;
+        }
+
+        h1 {
+            font-weight:700;
+            margin-left:30px;
+            margin-top:30px;
+            position: relative;
+            z-index: 10000;
+
+        }
+        p{
+            margin-left:30px;
+        }
+        #controls{
+            position: absolute;
+            z-index: 10000;
+            margin:0 auto;
+            bottom: 50px;
+            width:350px;
+        }
+
+        .cntrlButton{
+            margin-right:20px;
+        }
+        cntrlButton:last-child{
+            margin-right:0px;
+        }
