@@ -1,7 +1,7 @@
 @font-face {
     font-family: 'hyperspaceregular';
-    src: url('hyperspace-webfont.woff2') format('woff2'),
-         url('hyperspace-webfont.woff') format('woff');
+    src: url('../fonts/hyperspace-webfont.woff2') format('woff2'),
+         url('../fonts/hyperspace-webfont.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 
@@ -26,6 +26,7 @@
             background-color: rgba(255, 255, 255, 0.3);
             */
             fill: rgba(255, 255, 255, 0.3);
+            font-family: 'hyperspaceregular';
 
         }
 
@@ -33,7 +34,7 @@
             position: relative;
             font-weight: 700;
             font-size:2em;
-
+            font-family: 'hyperspaceregular';
             top: 10%;
             left:10%;
         }
@@ -45,11 +46,14 @@
         }
 
         h1 {
-            font-weight:700;
+            font-weight:300;
             margin-left:30px;
             margin-top:30px;
             position: relative;
             z-index: 10000;
+            color: rgba(255, 255, 255, 0.3);
+            font-family: 'hyperspaceregular';
+
 
         }
         p{
