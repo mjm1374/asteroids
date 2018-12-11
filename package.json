@@ -1,0 +1,44 @@
+{
+  "name": "asteroids",
+  "version": "1.0.0",
+  "description": "HTML/JS/CSS version of the classic Asteroids from atari",
+  "main": "Gruntfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mjm1374/asteroids.git"
+  },
+  "author": "Mike McAllister",
+  "license": "ISC",
+  "dependencies": {
+    "autoprefixer": "^9.3.1",
+    "bootstrap": "^4.1.3",
+    "bootstrap-scss": "^4.1.3",
+    "grunt": "^1.0.3",
+    "grunt-browserify": "^5.3.0",
+    "grunt-contrib-cssmin": "^3.0.0",
+    "grunt-contrib-sass": "^1.0.0",
+    "grunt-contrib-uglify": "^4.0.0",
+    "grunt-contrib-uglify-es": "^3.3.0",
+    "grunt-contrib-watch": "^1.1.0",
+    "grunt-postcss": "^0.9.0",
+    "jquery": "^3.3.1",
+    "ruby": "^0.6.1",
+    "sass": "^1.15.1"
+  },
+  "devDependencies": {
+    "autoprefixer": "^9.3.1",
+    "grunt-browserify": "^5.3.0",
+    "grunt-contrib-cssmin": "^3.0.0",
+    "grunt-contrib-uglify": "^4.0.0",
+    "grunt-contrib-uglify-es": "^3.3.0",
+    "grunt-contrib-watch": "^1.1.0",
+    "grunt-postcss": "^0.9.0"
+  },
+  "bugs": {
+    "url": "https://github.com/mjm1374/asteroids/issues"
+  },
+  "homepage": "https://github.com/mjm1374/asteroids#readme"
+}

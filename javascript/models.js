@@ -1,0 +1,84 @@
+// Constructor function for Person objects
+    function Asteroid( id, title, width, height, xcord, ycord, xvel, yvel, color, type, oob) {
+        this.id = id;
+        this.title = title;
+        this.width = width;
+        this.height = height;
+        this.xcord = xcord;
+        this.ycord = ycord;
+        this.xvel = xvel;
+        this.yvel = yvel;
+        this.color = color;
+        this.type = type;
+        this.oob = oob; // Out of bounds
+        this.gravity = 0.1;
+        this.gravitySpeed = 0;
+        this.bounce = 0.4; 
+
+        this.resetGravity = function(){
+           // this.gravity =  0.05;
+           // this.gravitySpeed = 0;
+
+        };
+
+        this.newPos = function() {
+            this.gravitySpeed += this.gravity;
+            this.xcord += this.xvel;
+            var gavVel = this.yvel;
+            if(this.yvel < 0){
+                gavVel = 0;
+                }
+                gavVel = 0;
+            this.ycord += gavVel + this.gravitySpeed;
+            this.hitBottom();
+        };
+
+        this.hitBottom = function() {
+            //var rockbottom = window.screen.availHeight - this.height;
+            var rockbottom = window.innerHeight - this.height;
+            if (this.ycord > rockbottom) {
+                this.ycord = rockbottom;
+                this.gravitySpeed = -(this.gravitySpeed * this.bounce);
+            };
+
+            if (this.xcord > (window.innerWidth + this.width)){
+                this.xcord = (0 - this.width);
+
+            };
+
+            if (this.xcord < (0 - this.width)){
+                this.xcord = (window.innerWidth + this.width);
+
+            };
+        };
+
+        this.changeColor = function (color) {
+            this.color = color;
+        };
+
+        this.oob = function (oob) {
+            this.oob = oob;
+        };
+
+        this.changeVelocity = function (dir,speed) {
+
+            if(dir == 'x'){
+                this.xvel = speed;
+            }
+            if(dir == 'y'){
+                this.yvel = speed;
+            }
+        };
+
+        this.changePosition = function (x,y) {
+                this.xcord = x;
+                this.ycord = y;
+        };
+
+
+        this.getVelocity = function (direction) {
+          return this.direction; // I should return the requested directional velocity
+
+        };
+
+    }
