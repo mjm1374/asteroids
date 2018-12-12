@@ -13,7 +13,7 @@
         this.oob = oob; // Out of bounds
         this.gravity = 0.1;
         this.gravitySpeed = 0;
-        this.bounce = 0.4; 
+        this.bounce = 0.4;
 
         this.resetGravity = function(){
            // this.gravity =  0.05;
@@ -82,3 +82,17 @@
         };
 
     }
+
+
+     function Spaceship(x,y,vx,vy,theta,yaw, x_points,y_points){
+
+            this.x = x;
+            this.y = y;
+            this.vx = 0;
+            this.vy = 0;
+            this.theta = 0;
+            this.yaw = 0;
+            this.shape ="M 6.0055459,0.26400664 0.13363476,14.295661 l 5.87191114,-2.40543 5.4202261,2.40543 z";
+            //this.x_points = [-params.size,-params.size,2*params.size],
+            //this.y_points = [-params.size,params.size,0]
+          }

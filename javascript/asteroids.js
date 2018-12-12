@@ -4,12 +4,13 @@
  	yLimit = resetWindowLimit("y") - 1,
  	//sqFt = (xLimit * yLimit),
  	mode = 'asteroids',
- 	bubbleCnt = 10;
+ 	rockCnt = 10,
+  spaceship = new Spaceship((xLimit/2), (yLimit/2),0,0,0,0,0,0), //(x,y,vx,vy,theta,yaw, x_points,y_points)
   colors = ['#edc951', '#eb6841', '#cc2a36', '#4f372d', '#00a0b0'];
  //console.log(sqFt);
  //Box( id, title, xcord, ycord, xvel, yvel, color, type, oob)
  //Make me some asteroids
- for (i = 0; i < bubbleCnt; i++) {
+ for (i = 0; i < rockCnt; i++) {
  	thisRockSize = Math.floor(getRandomFloat(50, 100));
  	thisRockSize = 100;
  	asteroids.push(new Asteroid(i, 'test', thisRockSize, thisRockSize, getRandomFloat(0, (xLimit - 150)), getRandomFloat(0, (yLimit - 150)), getRandomFloat(-5, 5), getRandomFloat(-5, 5), colors[Math.floor(getRandomFloat(0, 5))], 'generic', false));
@@ -80,6 +81,8 @@
 
 
 
+    //paint the screen
+    $('#spaceship').css('left', spaceship.x).css('top', spaceship.y);
 
  			$('#rockAnim' + asteroids[key].id)
  				.css('left', asteroids[key].xcord).css('top', asteroids[key].ycord);
@@ -94,6 +97,61 @@
  function getRandomFloat(min, max) {
  	return Math.random() * (max - min) + min;
  }
+
+ //state
+  var _this = this;
+  this.thrust = 0; //1 = forward, -1 = backward
+  this.turn = 0; //1 = right, -1 = left
+
+  //params
+  this.turn_per_milli = .1;
+  this.thrust_per_milli = .00005;
+  this.key_delay = 50;
+
+  window.onkeydown = function(e) {
+   var key = e.keyCode;
+    switch(key){
+      case 68://d = yaw left
+        _this.turn = 1;
+        console.log('left');
+      break;
+      case 65://a = yaw right
+        _this.turn = -1;
+        console.log('right');
+      break;
+      case 87://w = forward
+        _this.thrust = 1;
+        console.log('forward');
+      break;
+      case 83://s = backward
+        _this.thrust = -1;
+        console.log('backward');
+      break;
+     case 32://s = shoot
+        //_this.thrust = -1;
+        console.log('Pew, pew pew!');
+      break;
+    }
+  };
+
+  window.onkeyup = function(e) {
+    var key = e.keyCode;
+    switch(key){
+      case 65://a = yaw left
+        _this.turn = 0;
+      break;
+      case 68://d = yaw right
+        _this.turn = 0;
+      break;
+      case 87://w = forward
+        _this.thrust = 0;
+      break;
+      case 83://s = backward
+        _this.thrust = 0;
+      break;
+    }
+  };
+
 
  $( document ).ready(function() {
 
@@ -110,6 +168,9 @@
  			//console.log(asteroids[key].color);
  		}
  	}
+
+  //Add space ship
+  $('body').append("<svg id='spaceship' class=''><path cx='50' cy='50' r='50' stroke='#ffffff' stroke-width='2' d='" + spaceship.shape + "'  id='outerSHip' /></svg>");
 
 
 

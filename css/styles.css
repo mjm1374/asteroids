@@ -6116,6 +6116,14 @@ body {
   overflow: hidden;
 }
 
+#spaceship {
+  display: block;
+  position: absolute;
+  left: -100px;
+  top: -100px;
+  fill: rgba(255, 255, 255, 0.3);
+}
+
 .rockAnim {
   /*width:100px;
   height:100px;*/
