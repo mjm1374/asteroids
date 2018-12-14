@@ -88,10 +88,12 @@
 
             this.x = x;
             this.y = y;
-            this.vx = 0;
-            this.vy = 0;
-            this.theta = 0;
-            this.yaw = 0;
+            this.vx = vx;
+            this.vy = vy;
+            this.theta = theta;
+            this.yaw = yaw;
+            this. x_points = x_points;
+            this. y_points = y_points;
             this.shape ="M 6.0055459,0.26400664 0.13363476,14.295661 l 5.87191114,-2.40543 5.4202261,2.40543 z";
             //this.x_points = [-params.size,-params.size,2*params.size],
             //this.y_points = [-params.size,params.size,0]

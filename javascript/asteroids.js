@@ -1,3 +1,5 @@
+
+//initialize the environment
  var asteroids = [],
  rocksLrg = ["M 26.087899,1.0434852 49.503787,26.009091 74.220561,2.6541843 96.335572,25.203747 85.278067,50.974686 98.286898,75.940275 62.512619,99.295186 26.087905,100.10053 0.7206885,77.55096 1.3711312,27.619771 Z", "M 27.46638,2.6445482 66.467442,0.98983643 99.048213,24.999426 V 35.822504 L 65.202598,51.325844 98.421452,73.55696 76.484471,97.835645 H 72.723845 L 60.501821,85.842551 27.596351,98.713169 0.95859607,63.02645 1.8987487,25.29194 H 36.997914 Z", "M 14.670645,48.844427 1.9670478,25.614646 27.37424,2.3848478 48.335078,12.875719 73.107033,1.6354928 97.878992,24.865291 75.012591,39.102909 97.878992,60.834007 75.012591,97.552066 39.442599,87.061197 26.739004,99.050766 1.3318868,75.820971 Z"];
  	xLimit = resetWindowLimit("x") - 1,
@@ -5,10 +7,16 @@
  	//sqFt = (xLimit * yLimit),
  	mode = 'asteroids',
  	rockCnt = 10,
-  spaceship = new Spaceship((xLimit/2), (yLimit/2),0,0,0,0,0,0), //(x,y,vx,vy,theta,yaw, x_points,y_points)
+  delta_time = 20,
+  turn = 0,
+  thrust = 0,
+  turn_per_milli = .1,
+  thrust_per_milli = .00005,
+  key_delay = 50,
+  //Spaceship(x,y,vx,vy,theta,yaw, x_points,y_points)
+  spaceship = new Spaceship((xLimit/2), (yLimit/2),0,0,0,0,0,0),
   colors = ['#edc951', '#eb6841', '#cc2a36', '#4f372d', '#00a0b0'];
- //console.log(sqFt);
- //Box( id, title, xcord, ycord, xvel, yvel, color, type, oob)
+ //Asteroid( id, title, xcord, ycord, xvel, yvel, color, type, oob)
  //Make me some asteroids
  for (i = 0; i < rockCnt; i++) {
  	thisRockSize = Math.floor(getRandomFloat(50, 100));
@@ -45,7 +53,7 @@
  	return newDim;
  }
 
- function animateBoxes(obj) {
+ function animateScreen(obj) {
  	var asteroids = obj;
 
  	for (var key in asteroids) {
@@ -79,16 +87,61 @@
  			}
 
 
-
-
-    //paint the screen
-    $('#spaceship').css('left', spaceship.x).css('top', spaceship.y);
-
- 			$('#rockAnim' + asteroids[key].id)
- 				.css('left', asteroids[key].xcord).css('top', asteroids[key].ycord);
  		}
 
- 	}
+   	$('#rockAnim' + asteroids[key].id).css('left', asteroids[key].xcord).css('top', asteroids[key].ycord);
+
+ 	} //end asteroids
+
+  //spaceship controls
+
+  function moveSpaceship(delta_time) {
+
+  var deg2rad = Math.PI/180;
+  if(turn != 0) {
+    spaceship.theta = spaceship.theta + turn*turn_per_milli*delta_time;
+  }
+  if(thrust != 0) {
+   console.log("thrusting");
+    var del_v = thrust*thrust_per_milli*delta_time;
+    var del_vx = del_v*Math.cos(spaceship.theta*deg2rad);
+    var del_vy = del_v*Math.sin(spaceship.theta*deg2rad);
+  } else {
+    var del_vx = 0;
+    var del_vy = 0;
+  }
+  spaceship.vx = spaceship.vx + del_vx;
+  spaceship.vy = spaceship.vy + del_vy;
+
+  //Body.prototype.integrate.call(this,delta_time);
+}
+
+  //this will turn and adjust the spaceship
+     function updateSpaceship(delta_time) {
+
+      spaceship.theta += spaceship.yaw*delta_time;
+      spaceship.x += spaceship.vx*delta_time;
+      spaceship.y += spaceship.vy*delta_time;
+      console.log("turn", spaceship.turn , spaceship.x, spaceship.y);
+      $('#spaceship').css('left', spaceship.x).css('top', spaceship.y);
+
+    }
+
+    moveSpaceship(delta_time);
+    updateSpaceship(delta_time) ;
+    //Body.prototype.redraw = function() {
+    //  this.body
+    //  .data([this])
+   //
+
+   //$('#spaceship').attr('transform', function(d) { return "translate("+ d.x +" "+ d.y +") rotate(" + d.theta + " 0 0)";});
+    //}
+    //
+
+    //paint the screen
+
+
+
 
 
  }
@@ -99,32 +152,30 @@
  }
 
  //state
-  var _this = this;
+  var _this = spaceship;
   this.thrust = 0; //1 = forward, -1 = backward
   this.turn = 0; //1 = right, -1 = left
 
   //params
-  this.turn_per_milli = .1;
-  this.thrust_per_milli = .00005;
-  this.key_delay = 50;
+
 
   window.onkeydown = function(e) {
    var key = e.keyCode;
     switch(key){
       case 68://d = yaw left
-        _this.turn = 1;
+        turn = 1;
         console.log('left');
       break;
       case 65://a = yaw right
-        _this.turn = -1;
+        turn = -1;
         console.log('right');
       break;
       case 87://w = forward
-        _this.thrust = 1;
+        thrust = 1;
         console.log('forward');
       break;
       case 83://s = backward
-        _this.thrust = -1;
+        thrust = -1;
         console.log('backward');
       break;
      case 32://s = shoot
@@ -138,16 +189,16 @@
     var key = e.keyCode;
     switch(key){
       case 65://a = yaw left
-        _this.turn = 0;
+        turn = 0;
       break;
       case 68://d = yaw right
-        _this.turn = 0;
+        turn = 0;
       break;
       case 87://w = forward
-        _this.thrust = 0;
+        thrust = 0;
       break;
       case 83://s = backward
-        _this.thrust = 0;
+        thrust = 0;
       break;
     }
   };
@@ -209,8 +260,8 @@
 
  	//kick off animation
  	var startBubbletron = setInterval(function() {
- 		animateBoxes(asteroids);
- 	}, 20);
+ 		animateScreen(asteroids);
+ 	}, delta_time);
 
 
 
