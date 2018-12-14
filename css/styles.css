@@ -6116,6 +6116,10 @@ body {
   overflow: hidden;
 }
 
+.atari {
+  font-family: "hyperspaceregular";
+}
+
 #spaceship {
   display: block;
   position: absolute;

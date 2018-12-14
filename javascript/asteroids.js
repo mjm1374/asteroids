@@ -13,7 +13,7 @@
   turn = 0,
   thrust = 0,
   turn_per_milli = .1,
-  thrust_per_milli = .00005,
+  thrust_per_milli = .00015,
   key_delay = 50,
   //Spaceship(x,y,vx,vy,theta,yaw, x_points,y_points)
   spaceship = new Spaceship((xLimit/2), (yLimit/2),0,0,0,0,0,0),
@@ -216,11 +216,11 @@
    console.log(key);
     switch(key){
       case 'btnLeft'://d = yaw left
-        turn = 1;
+        turn = -1;
         //console.log('left');
       break;
       case 'btnRight'://a = yaw right
-        turn = -1;
+        turn = 1;
         //console.log('right');
       break;
       case 'btnUp'://w = forward
@@ -232,11 +232,11 @@
         //console.log('backward');
       break;
      case 'glyphLeft'://d = yaw left
-        turn = 1;
+        turn = -1;
         //console.log('left');
       break;
       case 'glyphRight'://a = yaw right
-        turn = -1;
+        turn = 1;
         //console.log('right');
       break;
       case 'glyphUp'://w = forward
@@ -323,7 +323,7 @@
 
 
    $('#welcomeModel').modal('show');
-  
+
  //
 
  	$('.cntrlButton').click(function() {
