@@ -1,6 +1,8 @@
 
 //initialize the environment
  var asteroids = [],
+ sndEfx = ["thrust.mp3"],
+ sndPlayer = document.getElementById("sndPlayer"),
  rocksLrg = ["M 26.087899,1.0434852 49.503787,26.009091 74.220561,2.6541843 96.335572,25.203747 85.278067,50.974686 98.286898,75.940275 62.512619,99.295186 26.087905,100.10053 0.7206885,77.55096 1.3711312,27.619771 Z", "M 27.46638,2.6445482 66.467442,0.98983643 99.048213,24.999426 V 35.822504 L 65.202598,51.325844 98.421452,73.55696 76.484471,97.835645 H 72.723845 L 60.501821,85.842551 27.596351,98.713169 0.95859607,63.02645 1.8987487,25.29194 H 36.997914 Z", "M 14.670645,48.844427 1.9670478,25.614646 27.37424,2.3848478 48.335078,12.875719 73.107033,1.6354928 97.878992,24.865291 75.012591,39.102909 97.878992,60.834007 75.012591,97.552066 39.442599,87.061197 26.739004,99.050766 1.3318868,75.820971 Z"];
  	xLimit = resetWindowLimit("x") - 1,
  	yLimit = resetWindowLimit("y") - 1,
@@ -21,7 +23,7 @@
  for (i = 0; i < rockCnt; i++) {
  	thisRockSize = Math.floor(getRandomFloat(50, 100));
  	thisRockSize = 100;
- 	asteroids.push(new Asteroid(i, 'test', thisRockSize, thisRockSize, getRandomFloat(0, (xLimit - 150)), getRandomFloat(0, (yLimit - 150)), getRandomFloat(-5, 5), getRandomFloat(-5, 5), colors[Math.floor(getRandomFloat(0, 5))], 'generic', false));
+ 	asteroids.push(new Asteroid(i, 'test', thisRockSize, thisRockSize, getRandomFloat(0, (xLimit - 150)), getRandomFloat(0, (yLimit - 150)), getRandomFloat(-3, 3), getRandomFloat(-3, 3), colors[Math.floor(getRandomFloat(0, 5))], 'generic', false));
  }
 
 
@@ -98,51 +100,53 @@
   function moveSpaceship(delta_time) {
 
   var deg2rad = Math.PI/180;
-  if(turn != 0) {
+  if(turn != 0 && turn != undefined) {
     spaceship.theta = spaceship.theta + turn*turn_per_milli*delta_time;
+    //$('#sndPlayer').get(0).src = "snd/hiss.mp3";
+    $('#sndTurn').get(0).play();
+
+  }else{
+    $('#sndTurn').get(0).pause();
+    $('#sndTurn').get(0).currentTime = 0
   }
-  if(thrust != 0) {
-   console.log("thrusting");
+  if(thrust != 0 && thrust != undefined) {
+   //console.log("thrusting");
     var del_v = thrust*thrust_per_milli*delta_time;
     var del_vx = del_v*Math.cos(spaceship.theta*deg2rad);
     var del_vy = del_v*Math.sin(spaceship.theta*deg2rad);
+    //$('#sndPlayer').get(0).src = "snd/thrust.mp3";
+    $('#sndPlayer').get(0).play();
   } else {
     var del_vx = 0;
     var del_vy = 0;
+
+    $('#sndPlayer').get(0).pause();
+    $('#sndPlayer').get(0).currentTime = 0
   }
   spaceship.vx = spaceship.vx + del_vx;
   spaceship.vy = spaceship.vy + del_vy;
 
-  //Body.prototype.integrate.call(this,delta_time);
+
 }
 
   //this will turn and adjust the spaceship
      function updateSpaceship(delta_time) {
 
+      if(spaceship.x >= xLimit) {spaceship.x = 0;}
+      if(spaceship.x < 0) {spaceship.x = xLimit;}
+      if(spaceship.y >= yLimit) {spaceship.y = 0;}
+      if(spaceship.y < 0) {spaceship.y = yLimit;}
+
       spaceship.theta += spaceship.yaw*delta_time;
       spaceship.x += spaceship.vx*delta_time;
       spaceship.y += spaceship.vy*delta_time;
-      console.log("turn", spaceship.turn , spaceship.x, spaceship.y);
-      $('#spaceship').css('left', spaceship.x).css('top', spaceship.y);
+      //console.log("turn", spaceship.turn , spaceship.x, spaceship.y);
+      $('#spaceship').css('left', spaceship.x).css('top', spaceship.y).css({'transform' : 'rotate('+ spaceship.theta +'deg)'});
 
     }
 
     moveSpaceship(delta_time);
     updateSpaceship(delta_time) ;
-    //Body.prototype.redraw = function() {
-    //  this.body
-    //  .data([this])
-   //
-
-   //$('#spaceship').attr('transform', function(d) { return "translate("+ d.x +" "+ d.y +") rotate(" + d.theta + " 0 0)";});
-    //}
-    //
-
-    //paint the screen
-
-
-
-
 
  }
 
@@ -151,45 +155,42 @@
  	return Math.random() * (max - min) + min;
  }
 
- //state
-  var _this = spaceship;
-  this.thrust = 0; //1 = forward, -1 = backward
-  this.turn = 0; //1 = right, -1 = left
-
-  //params
 
 
-  window.onkeydown = function(e) {
+
+  document.onkeydown = function(e) {
    var key = e.keyCode;
     switch(key){
       case 68://d = yaw left
         turn = 1;
-        console.log('left');
+        //console.log('left');
       break;
       case 65://a = yaw right
         turn = -1;
-        console.log('right');
+        //console.log('right');
       break;
       case 87://w = forward
         thrust = 1;
-        console.log('forward');
+        //console.log('forward');
       break;
       case 83://s = backward
         thrust = -1;
-        console.log('backward');
+        //console.log('backward');
       break;
      case 32://s = shoot
         //_this.thrust = -1;
+        $('#sndLaser').get(0).play();
         console.log('Pew, pew pew!');
       break;
     }
   };
 
-  window.onkeyup = function(e) {
+  document.onkeyup = function(e) {
     var key = e.keyCode;
     switch(key){
       case 65://a = yaw left
         turn = 0;
+
       break;
       case 68://d = yaw right
         turn = 0;
@@ -200,8 +201,104 @@
       case 83://s = backward
         thrust = 0;
       break;
+      case 32:
+       $('#sndLaser').get(0).pause();
+       $('#sndLaser').get(0).currentTime = 0
+      break;
     }
   };
+
+  //mobile control
+
+   $(document).on('touchstart', '.gameBtn, .glyphicon', function(e){
+    e.preventDefault();
+   var key = e.target.id;
+   console.log(key);
+    switch(key){
+      case 'btnLeft'://d = yaw left
+        turn = 1;
+        //console.log('left');
+      break;
+      case 'btnRight'://a = yaw right
+        turn = -1;
+        //console.log('right');
+      break;
+      case 'btnUp'://w = forward
+        thrust = 1;
+        //console.log('forward');
+      break;
+      case 'btnDown'://s = backward
+        thrust = -1;
+        //console.log('backward');
+      break;
+     case 'glyphLeft'://d = yaw left
+        turn = 1;
+        //console.log('left');
+      break;
+      case 'glyphRight'://a = yaw right
+        turn = -1;
+        //console.log('right');
+      break;
+      case 'glyphUp'://w = forward
+        thrust = 1;
+        //console.log('forward');
+      break;
+      case 'glyphDown'://s = backward
+        thrust = -1;
+        //console.log('backward');
+      break;
+     case 32://s = shoot
+        //_this.thrust = -1;
+        $('#sndLaser').get(0).play();
+        console.log('Pew, pew pew!');
+      break;
+    }
+  });
+
+  $(document).on('touchend', '.gameBtn, .glyphicon', function(e){
+   var key = e.target.id;
+    switch(key){
+      case 'btnLeft'://d = yaw left
+        turn = 0;
+        //console.log('left');
+      break;
+      case 'btnRight'://a = yaw right
+        turn = 0;
+        //console.log('right');
+      break;
+      case 'btnUp'://w = forward
+        thrust = 0;
+        //console.log('forward');
+      break;
+      case 'btnDown'://s = backward
+        thrust = 0;
+        //console.log('backward');
+      break
+     case 'glyphLeft'://d = yaw left
+        turn = 0;
+        //console.log('left');
+      break;
+      case 'glyphRight'://a = yaw right
+        turn = 0;
+        //console.log('right');
+      break;
+      case 'glyphUp'://w = forward
+        thrust = 0;
+        //console.log('forward');
+      break;
+      case 'glyphDown'://s = backward
+        thrust = 0;
+        //console.log('backward');
+      break;
+     case 32://s = shoot
+        //_this.thrust = -1;
+        $('#sndLaser').get(0).play();
+        console.log('Pew, pew pew!');
+      break;
+    }
+  });
+
+
 
 
  $( document ).ready(function() {
@@ -221,12 +318,16 @@
  	}
 
   //Add space ship
-  $('body').append("<svg id='spaceship' class=''><path cx='50' cy='50' r='50' stroke='#ffffff' stroke-width='2' d='" + spaceship.shape + "'  id='outerSHip' /></svg>");
+  $('body').append("<svg id='spaceship' class=''><path cx='5' cy='5' r='10' stroke='#ffffff' stroke-width='2' d='" + spaceship.shape + "'  id='outerShip' /></svg>");
 
 
+
+   $('#welcomeModel').modal('show');
+  
+ //
 
  	$('.cntrlButton').click(function() {
- 		console.log($(this).data("mode"));
+
 
  		mode = $(this).data("mode");
 
@@ -238,16 +339,6 @@
  			}
  		}
 
- 		if (mode == 'gravity') {
- 			for (var key in asteroids) {
- 				asteroids[key].resetGravity();
- 			}
- 		}
-
- 		if (mode == 'stop') {
-    console.log("here");
- 			clearInterval('startBubbletron');
- 		}
 
  	});
 

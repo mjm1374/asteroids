@@ -6122,6 +6122,8 @@ body {
   left: -100px;
   top: -100px;
   fill: rgba(255, 255, 255, 0.3);
+  width: 20px;
+  height: 15px;
 }
 
 .rockAnim {
@@ -6146,8 +6148,8 @@ body {
   font-weight: 700;
   font-size: 2em;
   font-family: "hyperspaceregular";
-  top: 10%;
-  left: 10%;
+  top: 12%;
+  left: 12%;
 }
 
 .container {
@@ -6183,6 +6185,50 @@ p {
 
 cntrlButton:last-child {
   margin-right: 0px;
+}
+
+#gamepad {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 175px;
+  width: 100%;
+  display: none;
+}
+#gamepad .gameBtn {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  color: #ff0000;
+  border: 1px solid white;
+  display: block;
+}
+#gamepad .gameBtn .glyphicon {
+  position: relative;
+  top: 30%;
+  left: 15px;
+}
+#gamepad #btnUp {
+  top: 5px;
+  left: 65px;
+}
+#gamepad #btnDown {
+  top: 85px;
+  left: 65px;
+}
+#gamepad #btnLeft {
+  top: 45px;
+  left: 5px;
+}
+#gamepad #btnRight {
+  top: 45px;
+  left: 127px;
+}
+
+@media screen and (max-width: 760px) {
+  #gamepad {
+    display: block;
+  }
 }
 
 /*# sourceMappingURL=styles.css.map */

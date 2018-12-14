@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Asteroids</title>
+<title>JS Asteroids</title>
 
 
     <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
@@ -9,37 +9,110 @@
     <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
     <link rel="manifest" href="img/site.webmanifest">
     <link rel="mask-icon" href="img/safari-pinned-tab.svg" color="#5bbad5">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="user-scalable=no,initial-scale=1">
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
 
+    <meta property="og:image:width" content="180">
+    <meta property="og:image:height" content="94">
+    <meta property="og:description" content="A simple HTML5/JS/CSS versions of the classic Atari game">
+    <meta property="og:title" content="JS Asteroids">
+    <meta property="og:url" content="http://logikbox.com/asteroids">
+    <meta property="og:image" content="http://logikbox.com/asteroids/img/og-image.png">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="js/script.min.js"></script>
-    <script src="js/vendor.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
     <link href="https://fonts.googleapis.com/css?family=Tajawal" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="css/styles.min.css" rel="stylesheet" />
 
     <style>
-      
+
 
 
     </style>
 </head>
 <body>
 
-<h1>Asteroids</h1>
+<h1>JS Asteroids</h1>
 
-<!--<div class="container">
-       <input id="whatBubbule" type="text"><br />
-       <button class="cntrlButton btn" data-mode="stop">Stop</button>
-</div>-->
-<!--<div style="position: absolute; left: 50%; bottom:50px;">
-    <div id="controls" style="position: relative; left: -50%;">
-        <button id="bubbles" class="cntrlButton btn" data-mode="bubbles">Bubbles</button>
-        <button id="atreoids" class="cntrlButton btn" data-mode="asteroids">Asteroids</button>
-        <button id="gravity" class="cntrlButton btn" data-mode="gravity">Gravity</button>
+<div id="gamepad" class="container bottom">
+    <div class="right">
+        <div id="btnLeft" class="gameBtn">
+            <span id="glyphLeft" class="glyphicon glyphicon-arrow-left"></span>
+        </div>
+        <div id="btnUp" class="gameBtn">
+            <span id="glyphUp" class="glyphicon glyphicon-arrow-up"></span>
+        </div>
+        <div id="btnDown" class="gameBtn">
+            <span id="glyphDown" class="glyphicon glyphicon-arrow-down"></span>
+        </div>
+        <div id="btnRight" class="gameBtn">
+            <span id="glyphRight" class="glyphicon glyphicon-arrow-right"></span>
+        </div>
     </div>
-</div>-->
+    <div class="">
+
+
+    </div>
+
+
+
+
+</div>
+
+<div class="modal fade" id="welcomeModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">JS Asteroids</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body"><p><b>Desktop controls</b></p>
+        <p>Use A & D to turn, W & S to thrust.</p><P>No collisions yet, now pew pew yet.</P>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+      </div>
+    </div>
+  </div>
+</div
+
+
+
+<audio controls>
+
+</audio>
+<audio id="sndPlayer" preload="preload">
+    <source src="snd/thrust.mp3" type="audio/mpeg">
+</audio>
+<audio id="sndTurn" preload="preload">
+    <source src="snd/hiss.mp3" type="audio/mpeg">
+</audio>
+<audio id="sndLaser" preload="preload">
+    <source src="snd/laser.mp3" type="audio/mpeg">
+</audio>
+
 </body>
+
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-38537843-1"></script>
+<script>
+	window.dataLayer = window.dataLayer || [];
+
+	function gtag() {
+		dataLayer.push(arguments);
+	}
+	gtag('js', new Date());
+
+	gtag('config', 'UA-38537843-1');
+</script>
 </html>
