@@ -6114,6 +6114,7 @@ a.text-danger:focus, a.text-danger:hover {
 body {
   background-color: #1e1e1e;
   overflow: hidden;
+  background: #000000 url("../img/space2.jpg") no-repeat right top;
 }
 
 .atari {
@@ -6125,7 +6126,7 @@ body {
   position: absolute;
   left: -100px;
   top: -100px;
-  fill: rgba(255, 255, 255, 0.3);
+  fill: rgba(255, 255, 255, 0.6);
   width: 20px;
   height: 15px;
 }
@@ -6143,7 +6144,7 @@ body {
    *border-radius: 50%;
   background-color: rgba(255, 255, 255, 0.3);
   */
-  fill: rgba(255, 255, 255, 0.3);
+  fill: rgba(255, 255, 255, 0.6);
   font-family: "hyperspaceregular";
 }
 
