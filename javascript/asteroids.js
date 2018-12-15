@@ -22,6 +22,9 @@
   //Spaceship(x,y,vx,vy,theta,yaw, x_points,y_points)
   spaceship = new Spaceship((xLimit/2), (yLimit/2),0,0,0,0,0,0),
   colors = ['#edc951', '#eb6841', '#cc2a36', '#4f372d', '#00a0b0'];
+
+
+
  //Asteroid( id, title, xcord, ycord, xvel, yvel, color, type, oob)
  //Make me some asteroids
  for (i = 0; i < rockCnt; i++) {
@@ -165,6 +168,19 @@
  function getRandomFloat(min, max) {
  	return Math.random() * (max - min) + min;
  }
+
+ 
+
+//+ Jonas Raoni Soares Silva
+//@ http://jsfromhell.com/math/is-point-in-poly [rev. #0]
+
+function isPointInPoly(poly, pt){
+    for(var c = false, i = -1, l = poly.length, j = l - 1; ++i < l; j = i)
+        ((poly[i].y <= pt.y && pt.y < poly[j].y) || (poly[j].y <= pt.y && pt.y < poly[i].y))
+        && (pt.x < (poly[j].x - poly[i].x) * (pt.y - poly[i].y) / (poly[j].y - poly[i].y) + poly[i].x)
+        && (c = !c);
+    return c;
+}
 
 
 //you died!
@@ -343,24 +359,24 @@ function endpew(){
           turn = 0;
           //console.log('left');
         break;
-        case 'glyphRight'://a = yaw right
-          turn = 0;
-          //console.log('right');
-        break;
-        case 'glyphUp'://w = forward
-          thrust = 0;
-          //console.log('forward');
-        break;
-        case 'glyphDown'://s = backward
-          thrust = 0;
-          //console.log('backward');
-        break;
+        //case 'glyphRight'://a = yaw right
+        //  turn = 0;
+        //  //console.log('right');
+        //break;
+        //case 'glyphUp'://w = forward
+        //  thrust = 0;
+        //  //console.log('forward');
+        //break;
+        //case 'glyphDown'://s = backward
+        //  thrust = 0;
+        //  //console.log('backward');
+        //break;
         case 'btnShoot'://s = shoot
           endpew();
         break;
-       case 'glyphShoot'://s = shoot
-          endpew();
-        break;
+       //case 'glyphShoot'://s = shoot
+       //   endpew();
+       // break;
       }
     });
 

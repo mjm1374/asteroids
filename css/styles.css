@@ -6283,7 +6283,7 @@ cntrlButton:last-child {
   background-color: rgba(215, 215, 215, 0.75);
 }
 
-@media screen and (max-width: 760px) {
+@media screen and (max-width: 768px) {
   h1 {
     font-size: 2em;
     margin: 5px 0px 0px 5px;
