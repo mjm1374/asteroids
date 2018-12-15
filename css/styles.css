@@ -6121,6 +6121,19 @@ body {
   font-family: "hyperspaceregular";
 }
 
+#scorecard {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  display: block;
+  width: 200px;
+  height: 70px;
+  color: #ffffff;
+  font-weight: 700;
+  padding: 10px;
+  text-align: right;
+}
+
 #spaceship {
   display: block;
   position: absolute;

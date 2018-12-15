@@ -6,7 +6,9 @@
  rocksLrg = ["M 26.087899,1.0434852 49.503787,26.009091 74.220561,2.6541843 96.335572,25.203747 85.278067,50.974686 98.286898,75.940275 62.512619,99.295186 26.087905,100.10053 0.7206885,77.55096 1.3711312,27.619771 Z", "M 27.46638,2.6445482 66.467442,0.98983643 99.048213,24.999426 V 35.822504 L 65.202598,51.325844 98.421452,73.55696 76.484471,97.835645 H 72.723845 L 60.501821,85.842551 27.596351,98.713169 0.95859607,63.02645 1.8987487,25.29194 H 36.997914 Z", "M 14.670645,48.844427 1.9670478,25.614646 27.37424,2.3848478 48.335078,12.875719 73.107033,1.6354928 97.878992,24.865291 75.012591,39.102909 97.878992,60.834007 75.012591,97.552066 39.442599,87.061197 26.739004,99.050766 1.3318868,75.820971 Z"];
  	xLimit = resetWindowLimit("x") - 1,
  	yLimit = resetWindowLimit("y") - 1,
+  lifeCnt = 3,
   jumpCnt = 3,
+  score = 0,
  	//sqFt = (xLimit * yLimit),
  	mode = 'asteroids',
  	rockCnt = 10,
@@ -58,6 +60,9 @@
 
  function animateScreen(obj) {
  	var asteroids = obj;
+  $('#lifeCnt span').html(lifeCnt);
+  $('#HSCnt span').html(jumpCnt);
+  $('#scoreCnt span').html(score);
 
  	for (var key in asteroids) {
  		if (asteroids.hasOwnProperty(key)) {
@@ -324,13 +329,11 @@ function hyperspace(){
 
  		if (asteroids.hasOwnProperty(key)) {
  			$('body')
- 				.append("<svg id='rockAnim" + asteroids[key].id + "' data-id='" + asteroids[key].id + "' class='clicker'><path cx='" + (asteroids[key].width) + "' cy='"+ (asteroids[key].height) + "' r='" + (asteroids[key].width /2 -5) + "' stroke='" + asteroids[key].color + "' stroke-width='2' d='" + rocksLrg[Math.floor(getRandomFloat(0, 3))] + "'  id='path81' /><text x='20' y='50' fill='" + asteroids[key].color + "'>" + asteroids[key].id + "</text></svg>");
+ 				.append("<svg id='rockAnim" + asteroids[key].id + "' data-id='" + asteroids[key].id + "' class='clicker'><path cx='" + (asteroids[key].width) + "' cy='"+ (asteroids[key].height) + "' r='" + (asteroids[key].width /2 -5) + "' stroke='" + asteroids[key].color + "' stroke-width='2' d='" + rocksLrg[Math.floor(getRandomFloat(0, 3))] + "'  id='path81' /><text x='20' y='55' fill='" + asteroids[key].color + "'>" + asteroids[key].id + "</text></svg>");
 
-                //.append("<svg id='rockAnim" + asteroids[key].id + "' data-id='" + asteroids[key].id + "' class='clicker'><image xlink:href='img/asteroid_lrg_" + Math.floor(getRandomFloat(1, 4)) + ".svg' x='10' y='25' height='100' width='100' cx='" + (asteroids[key].width) + "' cy='"+ (asteroids[key].height) + "' r='" + (asteroids[key].width /2 -5) + "' stroke='" + asteroids[key].color + "' stroke-width='2'><text x='20' y='50' fill='" + asteroids[key].color + "'>" + asteroids[key].id + "</text></svg>");
  			$('#rockAnim' + asteroids[key].id)
  				.css('color', asteroids[key].color).css('border-color', asteroids[key].color).css('width', asteroids[key].width).css('height', asteroids[key].height).addClass('rockAnim');
- 			//$('#rockAnim'  + asteroids[key].id ).html('<span>' + asteroids[key].id  + '</span>');
- 			//console.log(asteroids[key].color);
+
  		}
  	}
 
