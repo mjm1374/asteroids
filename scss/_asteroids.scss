@@ -28,6 +28,7 @@
          font-weight: 700;
          padding:10px;
          text-align: right;
+         text-shadow: 2px 2px #000000;
         }
 
         #spaceship {
@@ -129,37 +130,73 @@
             color: #ff0000;
             border: 1px solid white;
             display: block;
+            z-index: 1000;
+            background: url('../img/arrow-alt-down.png') center no-repeat;
+            background-size: cover;
+            background-color: rgba(215, 215, 215, 0.75);
 
             .glyphicon{
               position: relative;
               top:30%;
-              left: 15px
+              left: 15px;
+              z-index: -1000;
+              display:none;
 
             }
 
           }
           #btnUp{
             top:5px;
-            left: 65px;
+            left: 75px;
+            -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
           }
           #btnDown{
             top:85px;
-            left: 65px;
+            left: 75px;
+
           }
 
           #btnLeft{
             top:45px;
-            left: 5px;
+            left: 15px;
+            -webkit-transform: rotate(90deg);
+            transform: rotate(90deg);
           }
           #btnRight{
             top:45px;
-            left: 127px;
+            left: 137px;
+            -webkit-transform: rotate(-90deg);
+            transform: rotate(-90deg);
+          }
+
+          #btnHS{
+           top:5px;
+           right: 20px;
+           background: url('../img/hyperspace.png') center no-repeat;
+            background-size: cover;
+            background-color: rgba(215, 215, 215, 0.75);
+
+          }
+
+          #btnShoot{
+           top:85px;
+           right: 20px;
+           background: url('../img/shoot.png') center no-repeat;
+           background-size: cover;
+           background-color: rgba(215, 215, 215, 0.75);
+
           }
 
         }
 
  @media screen and (max-width:760px)
   {
+
+   h1{
+    font-size:2em;
+    margin: 5px 0px 0px 5px;
+   }
    #gamepad{
      display: block;
    }

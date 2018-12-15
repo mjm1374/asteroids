@@ -129,7 +129,7 @@
     var del_vy = 0;
 
     $('#sndPlayer').get(0).pause();
-    $('#sndPlayer').get(0).currentTime = 0
+    $('#sndPlayer').get(0).currentTime = 0;
   }
   spaceship.vx = spaceship.vx + del_vx;
   spaceship.vy = spaceship.vy + del_vy;
@@ -185,7 +185,9 @@ function resetSpaceship(){
 
 
 function hyperspace(){
+ console.log('jump');
  if(jumpCnt > 0){
+  $('#sndHyperspace').get(0).currentTime = 0;
   $('#sndHyperspace').get(0).play();
   spaceship.x = getRandomFloat(1, (xLimit-5));
   spaceship.y = getRandomFloat(1, (yLimit-5));
@@ -196,156 +198,163 @@ function hyperspace(){
  }
 
 }
+
+function pewpew(){
+ if(lifeCnt > 0){
+  $('#sndLaser').get(0).play();
+ }
+}
+
+function endpew(){
+ $('#sndLaser').get(0).pause();
+ $('#sndLaser').get(0).currentTime = 0;
+}
+
+
+
   if(lifeCnt > 0){
-  document.onkeydown = function(e) {
-   var key = e.keyCode;
-    switch(key){
-      case 68://d = yaw left
-        turn = 1;
-        //console.log('left');
-      break;
-      case 65://a = yaw right
-        turn = -1;
-        //console.log('right');
-      break;
-      case 87://w = forward
-        thrust = 1;
-        //console.log('forward');
-      break;
-      case 83://s = backward
-        thrust = -1;
-        //console.log('backward');
-      break;
-     case 32://s = shoot
-        //_this.thrust = -1;
-        $('#sndLaser').get(0).play();
-        console.log('Pew, pew pew!');
-      break;
-     case 13: // enter = hyperspace
-      hyperspace();
-      break;
-     case 8:
-      boom();
-     break;
-     case 46:
-      boom();
-     break;
-    }
-  };
+    document.onkeydown = function(e) {
+     var key = e.keyCode;
+      switch(key){
+        case 68://d = yaw left
+          turn = 1;
+        break;
+        case 65://a = yaw right
+          turn = -1;
+        break;
+        case 87://w = forward
+          thrust = 1;
+        break;
+        case 83://s = backward
+          thrust = -1;
+        break;
+       case 32://s = shoot
+          pewpew();
+        break;
+       case 13: // enter = hyperspace
+        hyperspace();
+        break;
+       case 8:
+        boom();
+       break;
+       case 46:
+        boom();
+       break;
+      }
+    };
 
-  document.onkeyup = function(e) {
-    var key = e.keyCode;
-    switch(key){
-      case 65://a = yaw left
-        turn = 0;
+    document.onkeyup = function(e) {
+      var key = e.keyCode;
+      switch(key){
+        case 65://a = yaw left
+          turn = 0;
+        break;
+        case 68://d = yaw right
+          turn = 0;
+        break;
+        case 87://w = forward
+          thrust = 0;
+        break;
+        case 83://s = backward
+          thrust = 0;
+        break;
+        case 32:
+         endpew();
+        break;
 
-      break;
-      case 68://d = yaw right
-        turn = 0;
-      break;
-      case 87://w = forward
-        thrust = 0;
-      break;
-      case 83://s = backward
-        thrust = 0;
-      break;
-      case 32:
-       $('#sndLaser').get(0).pause();
-       $('#sndLaser').get(0).currentTime = 0
-      break;
+      }
+    };
 
-    }
-  };
+    //mobile control
 
-  //mobile control
+     $(document).on('touchstart', ' .gameBtn', function(e){
+      //e.preventDefault();
+     var key = e.target.id;
+     console.log(key);
+      switch(key){
+        case 'btnLeft'://d = yaw left
+          turn = -1;
+        break;
+        case 'btnRight'://a = yaw right
+          turn = 1;
+        break;
+        case 'btnUp'://w = forward
+          thrust = 1;
+        break;
+        case 'btnDown'://s = backward
+          thrust = -1;
+        break;
+       //case 'glyphLeft'://d = yaw left
+       //   turn = -1;
+       // break;
+       // case 'glyphRight'://a = yaw right
+       //   turn = 1;
+       // break;
+       // case 'glyphUp'://w = forward
+       //   thrust = 1;
+       // break;
+       // case 'glyphDown'://s = backward
+       //   thrust = -1;
+       // break;
+       case 'btnShoot'://s = shoot
+          pewpew();
+        break;
+       case 'glyphShoot'://s = shoot
+          pewpew();
+        break;
+        //case 'glyphHS': // enter = hyperspace
+        // hyperspace();
+        //break;
+        case 'btnHS': // enter = hyperspace
+         hyperspace();
+        break;
 
-   $(document).on('touchstart', '.gameBtn, .glyphicon', function(e){
-    e.preventDefault();
-   var key = e.target.id;
-   console.log(key);
-    switch(key){
-      case 'btnLeft'://d = yaw left
-        turn = -1;
-        //console.log('left');
-      break;
-      case 'btnRight'://a = yaw right
-        turn = 1;
-        //console.log('right');
-      break;
-      case 'btnUp'://w = forward
-        thrust = 1;
-        //console.log('forward');
-      break;
-      case 'btnDown'://s = backward
-        thrust = -1;
-        //console.log('backward');
-      break;
-     case 'glyphLeft'://d = yaw left
-        turn = -1;
-        //console.log('left');
-      break;
-      case 'glyphRight'://a = yaw right
-        turn = 1;
-        //console.log('right');
-      break;
-      case 'glyphUp'://w = forward
-        thrust = 1;
-        //console.log('forward');
-      break;
-      case 'glyphDown'://s = backward
-        thrust = -1;
-        //console.log('backward');
-      break;
-     case 32://s = shoot
-        //_this.thrust = -1;
-        $('#sndLaser').get(0).play();
-        console.log('Pew, pew pew!');
-      break;
-    }
-  });
+      }
+    });
 
-  $(document).on('touchend', '.gameBtn, .glyphicon', function(e){
-   var key = e.target.id;
-    switch(key){
-      case 'btnLeft'://d = yaw left
-        turn = 0;
-        //console.log('left');
-      break;
-      case 'btnRight'://a = yaw right
-        turn = 0;
-        //console.log('right');
-      break;
-      case 'btnUp'://w = forward
-        thrust = 0;
-        //console.log('forward');
-      break;
-      case 'btnDown'://s = backward
-        thrust = 0;
-        //console.log('backward');
-      break;
-     case 'glyphLeft'://d = yaw left
-        turn = 0;
-        //console.log('left');
-      break;
-      case 'glyphRight'://a = yaw right
-        turn = 0;
-        //console.log('right');
-      break;
-      case 'glyphUp'://w = forward
-        thrust = 0;
-        //console.log('forward');
-      break;
-      case 'glyphDown'://s = backward
-        thrust = 0;
-        //console.log('backward');
-      break;
-     case 32://s = shoot
-        //_this.thrust = -1;
-        $('#sndLaser').get(0).play();
-        console.log('Pew, pew pew!');
-      break;
-    }
-  });
+    $(document).on('touchend', '.gameBtn', function(e){
+     var key = e.target.id;
+      switch(key){
+        case 'btnLeft'://d = yaw left
+          turn = 0;
+          //console.log('left');
+        break;
+        case 'btnRight'://a = yaw right
+          turn = 0;
+          //console.log('right');
+        break;
+        case 'btnUp'://w = forward
+          thrust = 0;
+          //console.log('forward');
+        break;
+        case 'btnDown'://s = backward
+          thrust = 0;
+          //console.log('backward');
+        break;
+       case 'glyphLeft'://d = yaw left
+          turn = 0;
+          //console.log('left');
+        break;
+        case 'glyphRight'://a = yaw right
+          turn = 0;
+          //console.log('right');
+        break;
+        case 'glyphUp'://w = forward
+          thrust = 0;
+          //console.log('forward');
+        break;
+        case 'glyphDown'://s = backward
+          thrust = 0;
+          //console.log('backward');
+        break;
+        case 'btnShoot'://s = shoot
+          endpew();
+        break;
+       case 'glyphShoot'://s = shoot
+          endpew();
+        break;
+      }
+    });
 
 
   }
