@@ -6,7 +6,7 @@ var asteroids = [],
 	lifeCnt = 3,
 	jumpCnt = 3,
 	score = 0,
-	//sqFt = (xLimit * yLimit),
+	inPlay = false,
 	mode = 'asteroids',
 	rockCnt = 10,
 	delta_time = 20,
@@ -26,11 +26,7 @@ var asteroids = [],
 //Asteroid( id, title, x, y, xv, yv, color, type, oob)
 //Make me some asteroids
 
-for (i = 0; i < rockCnt; i++) {
-	thisRockSize = Math.floor(getRandomFloat(50, 100));
-	thisRockSize = 100;
-	asteroids.push(new Asteroid(i, 'test', thisRockSize, thisRockSize, getRandomFloat(0, (xLimit - 150)), getRandomFloat(0, (yLimit - 150)), getRandomFloat(-3, 3), getRandomFloat(-3, 3), colors[Math.floor(getRandomFloat(0, 5))], 'generic', false));
-}
+
 
 
 function resetWindowLimit(whatDim) {
@@ -67,7 +63,8 @@ function resetWindowLimit(whatDim) {
 
 function animateScreen(obj) {
 	var asteroids = obj;
-
+console.log("inplay", inPlay);
+//console.log($("#welcomeModel").data('bs.modal'));
 	//need to move when we build scoring functions
 	$('#scoreCnt span').html(score);
 
@@ -75,7 +72,7 @@ function animateScreen(obj) {
 
   if (asteroids.hasOwnProperty(key)) {
 			var newVel;
- 
+
 			asteroids[key].changePosition((asteroids[key].x + asteroids[key].xv), (asteroids[key].y + asteroids[key].yv));
 
 			if (mode == "asteroids") {
@@ -95,7 +92,14 @@ function animateScreen(obj) {
 					}
 				}
 			}
-   //console.log(inCollision(asteroids[key]));
+
+   // cheeck for collision
+   if(inPlay == true){
+    if(inCollision(asteroids[key])){
+    boom();
+   }
+   }
+
 		}
 
 		$('#rockAnim' + asteroids[key].id).css('left', asteroids[key].x).css('top', asteroids[key].y); // paint the rocks
@@ -328,23 +332,34 @@ function isPointInPoly(poly, pt) {
 
 //you died!
 function boom() {
+ $('#spaceship').hide();
+ inPlay = false;
+
+ $('#sndBoom').get(0).play();
 
 	if (lifeCnt > 0) {
 		lifeCnt--;
 		$('#lifeCnt span').html(lifeCnt);
 		jumpCnt = 3;
 		$('#HSCnt span').html(jumpCnt);
-		resetSpaceship();
+  setTimeout(function(){ resetSpaceship(); }, 3000);
+
 	}
 
 }
 
 function resetSpaceship() {
 	if (lifeCnt > 0) {
+  $('#spaceship').show();
+  if(!($("#welcomeModel").data('bs.modal') || {})._isShown ){
+   inPlay = true;
+  }
+
 		spaceship = new Spaceship((xLimit / 2), (yLimit / 2), 0, 0, 0, 0, 0, 0);
 	} else {
+  inPlay = false;
 		$('#spaceship').hide();
-		$('#gameover').css('display', 'block');
+		$('#gameOverBoard').css('display', 'block');
 	}
 
 }
@@ -383,19 +398,25 @@ $(window).resize(function() {
 	yLimit = resetWindowLimit("y");
 });
 
+function resetgame(){
+ $("#gameOverBoard").hide();
+ $(".asteroid").remove();
+ lifeCnt = 3;
+ jumpCnt = 3;
+ score = 0;
+ asteroids = [];
 
-// Kick it off!
+ for (i = 0; i < rockCnt; i++) {
+	thisRockSize = Math.floor(getRandomFloat(50, 100));
+	thisRockSize = 100;
+	asteroids.push(new Asteroid(i, 'test', thisRockSize, thisRockSize, getRandomFloat(0, (xLimit - 150)), getRandomFloat(0, (yLimit - 150)), getRandomFloat(-3, 3), getRandomFloat(-3, 3), colors[Math.floor(getRandomFloat(0, 5))], 'generic', false));
+}
 
-
-$(document).ready(function() {
-	$('#lifeCnt span').html(lifeCnt);
-	$('#HSCnt span').html(jumpCnt);
-
-	for (var key in asteroids) {
+for (var key in asteroids) {
 
 		if (asteroids.hasOwnProperty(key)) {
 			$('body')
-				.append("<svg id='rockAnim" + asteroids[key].id + "' data-id='" + asteroids[key].id + "' class='clicker'><path cx='" + (asteroids[key].width) + "' cy='" + (asteroids[key].height) + "' r='" + (asteroids[key].width / 2 - 5) + "' stroke='" + asteroids[key].color + "' stroke-width='2' d='M " + rocksLrg[Math.floor(getRandomFloat(0, 3))] + " Z'  id='path81' /><text x='20' y='55' fill='" + asteroids[key].color + "'>" + asteroids[key].id + "</text></svg>");
+				.append("<svg id='rockAnim" + asteroids[key].id + "' data-id='" + asteroids[key].id + "' class='asteroid'><path cx='" + (asteroids[key].width) + "' cy='" + (asteroids[key].height) + "' r='" + (asteroids[key].width / 2 - 5) + "' stroke='" + asteroids[key].color + "' stroke-width='2' d='M " + rocksLrg[Math.floor(getRandomFloat(0, 3))] + " Z'  id='path81' /><text x='20' y='55' fill='" + asteroids[key].color + "'>" + asteroids[key].id + "</text></svg>");
 
 			$('#rockAnim' + asteroids[key].id)
 				.css('color', asteroids[key].color).css('border-color', asteroids[key].color).css('width', asteroids[key].width).css('height', asteroids[key].height).addClass('rockAnim');
@@ -406,11 +427,35 @@ $(document).ready(function() {
 	//Add space ship
 	$('body').append("<svg id='spaceship' class=''><path cx='5' cy='5' r='10' stroke='#ffffff' stroke-width='2' d='M " + spaceship.shape + " Z'  id='outerShip' /></svg>");
 
+ $('#lifeCnt span').html(lifeCnt);
+	$('#HSCnt span').html(jumpCnt);
+
+ resetSpaceship();
+
+}
+
+
+// Kick it off!
+
+
+$(document).ready(function() {
+ resetgame();
+
+
+
+ inPlay = true;
 
 // show instructions for desktop
 if(xLimit > 768){
+ inPlay = false;
 	$('#welcomeModel').modal('show');
+
+ $('#welcomeModel').on('hidden.bs.modal', function (e) {
+  inPlay = true;
+});
+
 }
+
 
 
 	//kick off animation
