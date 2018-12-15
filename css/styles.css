@@ -6185,6 +6185,18 @@ h1 {
   font-family: "hyperspaceregular";
 }
 
+#gameover {
+  position: absolute;
+  display: none;
+  top: 50%;
+  left: 50%;
+  font-weight: 900;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  text-shadow: 2px 2px #000000;
+  color: rgba(215, 255, 44, 0.9);
+}
+
 p {
   margin-left: 30px;
 }

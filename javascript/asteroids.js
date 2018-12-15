@@ -108,8 +108,9 @@
   var deg2rad = Math.PI/180;
   if(turn != 0 && turn != undefined) {
     spaceship.theta = spaceship.theta + turn*turn_per_milli*delta_time;
-    //$('#sndPlayer').get(0).src = "snd/hiss.mp3";
-    $('#sndTurn').get(0).play();
+    if(lifeCnt > 0){
+     $('#sndTurn').get(0).play();
+    }
 
   }else{
     $('#sndTurn').get(0).pause();
@@ -120,8 +121,9 @@
     var del_v = thrust*thrust_per_milli*delta_time;
     var del_vx = del_v*Math.cos(spaceship.theta*deg2rad);
     var del_vy = del_v*Math.sin(spaceship.theta*deg2rad);
-    //$('#sndPlayer').get(0).src = "snd/thrust.mp3";
-    $('#sndPlayer').get(0).play();
+    if(lifeCnt > 0){
+     $('#sndPlayer').get(0).play();
+    }
   } else {
     var del_vx = 0;
     var del_vy = 0;
@@ -161,6 +163,26 @@
  	return Math.random() * (max - min) + min;
  }
 
+ function boom(){
+
+  if(lifeCnt > 0){
+   lifeCnt--;
+   jumpCnt = 3;
+   resetSpaceship();
+  }
+
+ }
+
+function resetSpaceship(){
+ if(lifeCnt > 0 ){
+  spaceship = new Spaceship((xLimit/2), (yLimit/2),0,0,0,0,0,0);
+ }else{
+  $('#spaceship').hide();
+  $('#gameover').css('display','block');
+ }
+
+}
+
 
 function hyperspace(){
  if(jumpCnt > 0){
@@ -174,7 +196,7 @@ function hyperspace(){
  }
 
 }
-
+  if(lifeCnt > 0){
   document.onkeydown = function(e) {
    var key = e.keyCode;
     switch(key){
@@ -201,8 +223,13 @@ function hyperspace(){
       break;
      case 13: // enter = hyperspace
       hyperspace();
-
       break;
+     case 8:
+      boom();
+     break;
+     case 46:
+      boom();
+     break;
     }
   };
 
@@ -295,7 +322,7 @@ function hyperspace(){
       case 'btnDown'://s = backward
         thrust = 0;
         //console.log('backward');
-      break
+      break;
      case 'glyphLeft'://d = yaw left
         turn = 0;
         //console.log('left');
@@ -321,6 +348,7 @@ function hyperspace(){
   });
 
 
+  }
 
 
  $( document ).ready(function() {
