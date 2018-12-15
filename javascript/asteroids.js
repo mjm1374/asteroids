@@ -16,6 +16,9 @@
   turn_per_milli = .1,
   thrust_per_milli = .00015,
   key_delay = 50,
+  del_v = 0,
+  del_vx = 0,
+  del_vy = 0,
   //Spaceship(x,y,vx,vy,theta,yaw, x_points,y_points)
   spaceship = new Spaceship((xLimit/2), (yLimit/2),0,0,0,0,0,0),
   colors = ['#edc951', '#eb6841', '#cc2a36', '#4f372d', '#00a0b0'];
@@ -99,8 +102,8 @@
 
  	} //end asteroids
 
-  //spaceship controls
 
+  //spaceship controls
   function moveSpaceship(delta_time) {
 
   var deg2rad = Math.PI/180;
@@ -112,25 +115,27 @@
 
   }else{
     $('#sndTurn').get(0).pause();
-    $('#sndTurn').get(0).currentTime = 0
+    $('#sndTurn').get(0).currentTime = 0;
   }
   if(thrust != 0 && thrust != undefined) {
    //console.log("thrusting");
-    var del_v = thrust*thrust_per_milli*delta_time;
-    var del_vx = del_v*Math.cos(spaceship.theta*deg2rad);
-    var del_vy = del_v*Math.sin(spaceship.theta*deg2rad);
+     del_v = thrust*thrust_per_milli*delta_time;
+     del_vx = del_v*Math.cos(spaceship.theta*deg2rad);
+     del_vy = del_v*Math.sin(spaceship.theta*deg2rad);
+
     if(lifeCnt > 0){
      $('#sndPlayer').get(0).play();
     }
   } else {
-    var del_vx = 0;
-    var del_vy = 0;
+     del_vx = 0;
+     del_vy = 0;
 
     $('#sndPlayer').get(0).pause();
     $('#sndPlayer').get(0).currentTime = 0;
   }
   spaceship.vx = spaceship.vx + del_vx;
   spaceship.vy = spaceship.vy + del_vy;
+  //console.log(spaceship.vx, spaceship.vy); - this is the speed issue, need to limit
 
 
 }
@@ -161,6 +166,8 @@
  	return Math.random() * (max - min) + min;
  }
 
+
+//you died!
  function boom(){
 
   if(lifeCnt > 0){
@@ -183,23 +190,23 @@ function resetSpaceship(){
 
 }
 
-
+// Traveling through hyperspace ain't like dusting crops, boy! Without precise calculations we could fly right through a star or bounce too close to a supernova and that'd end your trip real quick, wouldn't it?
 function hyperspace(){
- console.log('jump');
- if(jumpCnt > 0){
-  $('#sndHyperspace').get(0).currentTime = 0;
-  $('#sndHyperspace').get(0).play();
-  spaceship.x = getRandomFloat(1, (xLimit-5));
-  spaceship.y = getRandomFloat(1, (yLimit-5));
-  jumpCnt--;
-  $('#HSCnt span').html(jumpCnt);
+  if(jumpCnt > 0){
+    $('#sndHyperspace').get(0).currentTime = 0;
+    $('#sndHyperspace').get(0).play();
+    spaceship.x = getRandomFloat(1, (xLimit-5));
+    spaceship.y = getRandomFloat(1, (yLimit-5));
+    jumpCnt--;
+    $('#HSCnt span').html(jumpCnt);
 
- }else{
-  $('#sndHyperspaceFail').get(0).play();
- }
+  }else{
+    $('#sndHyperspaceFail').get(0).play();
+  }
 
 }
 
+// one AG-2G quad laser cannon - must install more
 function pewpew(){
  if(lifeCnt > 0){
   $('#sndLaser').get(0).play();
