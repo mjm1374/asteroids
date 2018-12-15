@@ -6270,7 +6270,7 @@ cntrlButton:last-child {
 #gamepad #btnHS {
   top: 5px;
   right: 20px;
-  background: url("../img/hyperspace.png") center no-repeat;
+  background: url("../img/h.png") center no-repeat;
   background-size: cover;
   background-color: rgba(215, 215, 215, 0.75);
 }
