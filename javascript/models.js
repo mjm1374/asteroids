@@ -4,10 +4,10 @@
         this.title = title;
         this.width = width;
         this.height = height;
-        this.xcord = xcord;
-        this.ycord = ycord;
-        this.xvel = xvel;
-        this.yvel = yvel;
+        this.x = xcord;
+        this.y = ycord;
+        this.xv = xvel;
+        this.yv = yvel;
         this.color = color;
         this.type = type;
         this.oob = oob; // Out of bounds
@@ -23,31 +23,31 @@
 
         this.newPos = function() {
             this.gravitySpeed += this.gravity;
-            this.xcord += this.xvel;
-            var gavVel = this.yvel;
-            if(this.yvel < 0){
+            this.x += this.xvel;
+            var gavVel = this.yv;
+            if(this.yv < 0){
                 gavVel = 0;
                 }
                 gavVel = 0;
-            this.ycord += gavVel + this.gravitySpeed;
+            this.y += gavVel + this.gravitySpeed;
             this.hitBottom();
         };
 
         this.hitBottom = function() {
             //var rockbottom = window.screen.availHeight - this.height;
             var rockbottom = window.innerHeight - this.height;
-            if (this.ycord > rockbottom) {
-                this.ycord = rockbottom;
+            if (this.y > rockbottom) {
+                this.x = rockbottom;
                 this.gravitySpeed = -(this.gravitySpeed * this.bounce);
             };
 
-            if (this.xcord > (window.innerWidth + this.width)){
-                this.xcord = (0 - this.width);
+            if (this.x > (window.innerWidth + this.width)){
+                this.x = (0 - this.width);
 
             };
 
-            if (this.xcord < (0 - this.width)){
-                this.xcord = (window.innerWidth + this.width);
+            if (this.x < (0 - this.width)){
+                this.x = (window.innerWidth + this.width);
 
             };
         };
@@ -63,16 +63,16 @@
         this.changeVelocity = function (dir,speed) {
 
             if(dir == 'x'){
-                this.xvel = speed;
+                this.xv = speed;
             }
             if(dir == 'y'){
-                this.yvel = speed;
+                this.yv = speed;
             }
         };
 
         this.changePosition = function (x,y) {
-                this.xcord = x;
-                this.ycord = y;
+                this.x = x;
+                this.y = y;
         };
 
 
@@ -91,10 +91,12 @@
             this.vx = vx;
             this.vy = vy;
             this.theta = theta;
+            this.width = 20;
+            this.height = 15;
             this.yaw = yaw;
             this. x_points = x_points;
             this. y_points = y_points;
-            this.shape ="M 14.383032,5.9181762 0.35137621,0.04626516 2.7568063,5.9181762 0.35137621,11.338401 Z";
+            this.shape ="14.383032,5.9181762 0.35137621,0.04626516 2.7568063,5.9181762 0.35137621,11.338401";
             //this.x_points = [-params.size,-params.size,2*params.size],
             //this.y_points = [-params.size,params.size,0]
           }
