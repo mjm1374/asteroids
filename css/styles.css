@@ -6162,6 +6162,13 @@ body {
   font-family: "hyperspaceregular";
 }
 
+.shot {
+  display: block;
+  position: absolute;
+  left: -100px;
+  top: -100px;
+}
+
 .rockAnim span {
   position: relative;
   font-weight: 700;
@@ -6186,16 +6193,26 @@ h1 {
   font-family: "hyperspaceregular";
 }
 
-#gameover {
+#gameOverBoard {
   position: absolute;
   display: none;
   top: 50%;
   left: 50%;
-  font-weight: 900;
+  z-index: 100;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
+}
+#gameOverBoard #gameover {
   text-shadow: 2px 2px #000000;
   color: rgba(215, 255, 44, 0.9);
+  font-weight: 900;
+}
+#gameOverBoard #startover {
+  position: absolute;
+  top: 131%;
+  left: 59%;
+  -webkit-transform: translate(-60%, -50%);
+          transform: translate(-60%, -50%);
 }
 
 p {

@@ -45,7 +45,11 @@
   <div id="HSCnt" class="atari">Hyperspace: <span></span></div>
 </div>
 
-<h1 id="gameover">Game Over</h1>
+<div id="gameOverBoard">
+  <h1 id="gameover">Game Over</h1>
+  <button id="startover" onclick="resetgame();">Start Over</button>
+</div>
+
 
 <div id="gamepad" class="container bottom">
     <div class="right">
@@ -90,8 +94,8 @@
         </button>
       </div>
       <div class="modal-body"><p><b>Desktop controls</b></p>
-        <p>Use A & D to turn, W & S to thrust. Enter to jump to hyperspace</p><P>No collisions yet, no pew pew yet.</P>
-
+        <p>Use A & D to turn, W & S to thrust. Enter to jump to hyperspace</p>
+        <P>No pew pew yet. :(</P>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -122,7 +126,7 @@
     <source src="snd/Power-failure.mp3" type="audio/mpeg">
 </audio>
 <audio id="sndBoom" preload="preload">
-    <source src="snd/boom.mp3" type="audio/mpeg">
+    <source src="snd/boom2.mp3" type="audio/mpeg">
 </audio>
 </body>
 

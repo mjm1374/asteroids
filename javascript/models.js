@@ -100,3 +100,23 @@
             //this.x_points = [-params.size,-params.size,2*params.size],
             //this.y_points = [-params.size,params.size,0]
           }
+
+
+     function Shot(id,x,y,vx,vy,theta,yaw, x_points,y_points){
+            this.id = id;
+            this.x = x;
+            this.y = y;
+            this.vx = vx;
+            this.vy = vy;
+            this.theta = theta;
+            this.width = 6;
+            this.height = 6;
+            this.yaw = yaw;
+            this. x_points = x_points;
+            this. y_points = y_points;
+
+            this.changePosition = function (x,y) {
+                this.x = x;
+                this.y = y;
+        };
+     }
