@@ -76,8 +76,8 @@ console.log("inplay", inPlay);
 		}
 
   for (var idx in shots) {
-   //shots[idx].changePosition((shots[idx].x + shots[idx].xv), (shots[idx].y + shots[idx].yv));
-   console.log(idx, shots[idx].x, shots[idx].y);
+   shots[idx].changePosition((shots[idx].x + (shots[idx].vx )* 10), (shots[idx].y + (shots[idx].vy * 10)));
+   console.log(idx, shots[idx].vx, shots[idx].vy);
    $('#shot' + shots[idx].id).css('left', shots[idx].x).css('top', shots[idx].y); // paint the shot
 
   }
@@ -225,20 +225,12 @@ function hyperspace() {
 
 }
 
-
-
 function makeShot(){
-
  shotCnt++;
- shots.push(new Shot(shotCnt,spaceship.x,spaceship.y,spaceship.xv,spaceship.theta,spaceship.yaw,0,0));
+ shots.push(new Shot(shotCnt,spaceship.x,spaceship.y,spaceship.vx,spaceship.vy,spaceship.theta,spaceship.yaw,1800,0,0));
  //var newShot = shots.lastIndexOf();
- console.log("newShot",shots);
- console.log(shots.length);
-
  $('body')
      .append("<svg id='shot" + shotCnt + "' data-id='" + shotCnt + "' class='shot' height='6' width='6'><circle cx='3' cy='3' r='3' stroke='white' stroke-width='2' fill='red' /></svg>");
-
-
 }
 
 // one AG-2G quad laser cannon - must install more

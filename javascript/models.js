@@ -102,7 +102,7 @@
           }
 
 
-     function Shot(id,x,y,vx,vy,theta,yaw, x_points,y_points){
+     function Shot(id,x,y,vx,vy,theta,yaw, life,x_points,y_points){
             this.id = id;
             this.x = x;
             this.y = y;
@@ -112,11 +112,17 @@
             this.width = 6;
             this.height = 6;
             this.yaw = yaw;
+            this.life =  life;
             this. x_points = x_points;
             this. y_points = y_points;
 
             this.changePosition = function (x,y) {
                 this.x = x;
                 this.y = y;
+        };
+
+        this.changeLife = function (l) {
+                this.life = l;
+                
         };
      }
