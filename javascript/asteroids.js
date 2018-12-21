@@ -161,9 +161,13 @@ console.log("inplay", inPlay);
 
 
 function inCollision(obj){
- var b = obj;
  var a = spaceship;
+ var b = obj;
 
+
+ console.log(
+    document.getElementById( 'astroPath' + b.id).getTotalLength()
+);
 
  return !(
         ((a.y + a.height) < (b.y)) ||
@@ -284,7 +288,7 @@ function RegeneratgeAsteroids(){
 
    if (asteroids.hasOwnProperty(key)) {
     $('body')
-     .append("<svg id='rockAnim" + asteroids[key].id + "' data-id='" + asteroids[key].id + "' class='asteroid'><path cx='" + (asteroids[key].width) + "' cy='" + (asteroids[key].height) + "' r='" + (asteroids[key].width / 2 - 5) + "' stroke='" + asteroids[key].color + "' stroke-width='2' d='M " + rocksLrg[Math.floor(getRandomFloat(0, 3))] + " Z'  id='path81' /><text x='20' y='55' fill='" + asteroids[key].color + "'>" + asteroids[key].id + "</text></svg>");
+     .append("<svg id='rockAnim" + asteroids[key].id + "' data-id='" + asteroids[key].id + "' class='asteroid'><path cx='" + (asteroids[key].width) + "' cy='" + (asteroids[key].height) + "' r='" + (asteroids[key].width / 2 - 5) + "' stroke='" + asteroids[key].color + "' stroke-width='2' d='M " + rocksLrg[Math.floor(getRandomFloat(0, 3))] + " Z'  id='astroPath" + asteroids[key].id + "' /><text x='20' y='55' fill='" + asteroids[key].color + "'>" + asteroids[key].id + "</text></svg>");
 
     $('#rockAnim' + asteroids[key].id)
      .css('color', asteroids[key].color).css('border-color', asteroids[key].color).css('width', asteroids[key].width).css('height', asteroids[key].height).addClass('rockAnim');
