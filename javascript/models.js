@@ -123,6 +123,6 @@
 
         this.changeLife = function (l) {
                 this.life = l;
-                
+
         };
      }

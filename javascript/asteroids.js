@@ -82,25 +82,27 @@ console.log("inplay", inPlay);
   for (var idx in shots) {
   var thisVX = (Math.cos(shots[idx].theta * Math.PI/180) * 10 + shots[idx].x);
   var thisVY = (Math.sin(shots[idx].theta * Math.PI/180) * 10 + shots[idx].y);
-// console.log(shots[idx].theta,thisVX,thisVY);
- var thisLife = shots[idx].life - 20;
+  var thisLife = shots[idx].life - 20;
 
- shots[idx].changeLife(thisLife);
- if(shots[idx].life < 0){
-  $('#shot' + shots[idx].id).remove();
-  shots.splice(0,1);
- }
+  shots[idx].changeLife(thisLife);
+   if(shots[idx].life < 0){
+    $('#shot' + shots[idx].id).remove();
+    shots.splice(0,1);
+   } else{
+    shots[idx].changePosition(thisVX,thisVY);
+    //console.log(idx, shots[idx].vx, shots[idx].vy);
 
+    if(isHit(shots[idx])){
+     console.log("boom");
+    }
 
+    $('#shot' + shots[idx].id).css('left', shots[idx].x).css('top', shots[idx].y); // paint the shot
 
-   //shots[idx].changePosition((shots[idx].x + (shots[idx].vx )), (shots[idx].y + (shots[idx].vy)));
-   shots[idx].changePosition(thisVX,thisVY);
-   //console.log(idx, shots[idx].vx, shots[idx].vy);
-   $('#shot' + shots[idx].id).css('left', shots[idx].x).css('top', shots[idx].y); // paint the shot
+   }
 
   }
 
-		$('#rockAnim' + asteroids[key].id).css('left', asteroids[key].x).css('top', asteroids[key].y); // paint the rocks
+ $('#rockAnim' + asteroids[key].id).css('left', asteroids[key].x).css('top', asteroids[key].y); // paint the rocks
 
 
 	} //end asteroids
@@ -197,6 +199,23 @@ function inCollision(obj){
     );
 
 }
+
+function isHit(obj){
+ var a = asteroids;
+ var b = obj;
+ //var isHit = false;
+ //console.log("here");
+
+ for (i=0;i < asteroids.length;i++){
+  return !(((a[i].y + a[i].height) < (b.y)) ||
+        (a[i].y > (b.y + b.height)) ||
+        ((a[i].x + a[i].width) < b.x) ||
+        (a[i].x > (b.x + b.width)))
+
+
+ }
+}
+
 //this does not work with different svg's
 function checkPathTouch(obj){
  var a = spaceship;
@@ -296,6 +315,7 @@ function pewpew() {
 	if (lifeCnt > 0 && resetGun == true) {
 		$('#sndLaser').get(0).play();
   makeShot();
+  resetGun = false;
 	}
 }
 
