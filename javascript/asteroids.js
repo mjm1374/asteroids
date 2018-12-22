@@ -13,7 +13,7 @@ var asteroids = [],
  resetGun = true,
 	inPlay = false,
 	mode = 'asteroids',
-	rockCnt = 1,
+	rockCnt = 3,
 	delta_time = 20,
 	turn = 0,
 	thrust = 0,
@@ -37,7 +37,7 @@ var asteroids = [],
 function animateScreen(obj, shots) {
 	var asteroids = obj;
  var shots = shots;
-console.log("inplay", inPlay);
+//console.log("inplay", inPlay);
 //console.log($("#welcomeModel").data('bs.modal'));
 	//need to move when we build scoring functions
 	$('#scoreCnt span').html(score);
@@ -80,20 +80,21 @@ console.log("inplay", inPlay);
 		}
 
   for (var idx in shots) {
-  var thisVX = (Math.cos(shots[idx].theta * Math.PI/180) * 10 + shots[idx].x);
-  var thisVY = (Math.sin(shots[idx].theta * Math.PI/180) * 10 + shots[idx].y);
-  var thisLife = shots[idx].life - 20;
+  var thisVX = (Math.cos(shots[idx].theta * Math.PI/180) * 2 + shots[idx].x);
+  var thisVY = (Math.sin(shots[idx].theta * Math.PI/180) * 2 + shots[idx].y);
+  var thisLife = shots[idx].life - 5;
 
   shots[idx].changeLife(thisLife);
    if(shots[idx].life < 0){
-    $('#shot' + shots[idx].id).remove();
-    shots.splice(0,1);
+    clearBullet(idx);
    } else{
     shots[idx].changePosition(thisVX,thisVY);
     //console.log(idx, shots[idx].vx, shots[idx].vy);
 
     if(isHit(shots[idx])){
-     console.log("boom");
+     console.log("boom!", idx);
+     score =  score + 10;
+     clearBullet(idx);
     }
 
     $('#shot' + shots[idx].id).css('left', shots[idx].x).css('top', shots[idx].y); // paint the shot
@@ -204,13 +205,17 @@ function isHit(obj){
  var a = asteroids;
  var b = obj;
  //var isHit = false;
- //console.log("here");
+ //console.log("astro length: ",a.length);
 
- for (i=0;i < asteroids.length;i++){
-  return !(((a[i].y + a[i].height) < (b.y)) ||
+ for (i=0;i < a.length;i++){
+  //console.log("iu: ", i);
+  if((((a[i].y + a[i].height) < (b.y)) ||
         (a[i].y > (b.y + b.height)) ||
         ((a[i].x + a[i].width) < b.x) ||
-        (a[i].x > (b.x + b.width)))
+        (a[i].x > (b.x + b.width))) ==false){
+   //console.log("boom");
+   return true;
+  }
 
 
  }

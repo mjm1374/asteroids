@@ -35,6 +35,14 @@ function getRandomFloat(min, max) {
 	return Math.random() * (max - min) + min;
 }
 
+function clearBullet(idx){
+console.log("index:",idx);
+    $('#shot' + shots[idx].id).remove();
+    shots.splice(idx,1);
+
+
+}
+
 
 
 
@@ -178,6 +186,3 @@ if (lifeCnt > 0) {
 }
 
 // End Input CONTROLS ---------------------------------------------------------------------------
-
-
-
