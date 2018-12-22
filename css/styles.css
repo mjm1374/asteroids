@@ -6114,7 +6114,7 @@ a.text-danger:focus, a.text-danger:hover {
 body {
   background-color: #1e1e1e;
   overflow: hidden;
-  background: #000000 url("../img/space2.jpg") no-repeat right top;
+  background: #000000 url("../img/space2.jpg") no-repeat center center fixed;
   background-size: cover;
 }
 

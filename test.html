@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>JS Asteroids Test</title>
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+    <link rel="manifest" href="img/site.webmanifest">
+    <link rel="mask-icon" href="img/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="viewport" content="user-scalable=no,initial-scale=1">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Tajawal" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="css/styles.min.css" rel="stylesheet" />
+
+    <style>
+        #mySVG{border: 1px dotted white;}
+
+
+
+    </style>
+
+</head>
+<body>
+
+<h1>SVG Test</h1>
+<p class="atari">&copy; 2018 Mike McAllister</p>
+
+<svg id="mySVG" width="500" height="500">
+    <!--  <path id="myPath" transform="translate(200,200)" fill="none" stroke-width="2" stroke="violet" d="M 26.087899,1.0434852 49.503787,26.009091 74.220561,2.6541843 96.335572,25.203747 85.278067,50.974686 98.286898,75.940275 62.512619,99.295186 26.087905,100.10053 0.7206885,77.55096 1.3711312,27.619771 z">
+</path>
+
+   <!-- <path id="myPath2" transform="translate(100,100)" fill="none" stroke-width="2" stroke="red" d="M 14.383032,5.9181762 0.35137621,0.04626516 2.7568063,5.9181762 0.35137621,11.338401z">
+</path>-->
+
+<polygon id="myPath" transform="translate(200,200)" fill="none" stroke-width="2" stroke="violet" points="26.088 1.043, 49.504 26.009, 74.221 2.654, 96.336 25.204, 85.278 50.975, 98.287 75.940, 62.513 99.295, 26.088 100.101, 0.721 77.551, 1.371 27.620"></polygon>
+    <polygon id="myPolygon" stroke="darkorange" fill="none" stroke-width="2" points="14.383 5.918, 0.351 0.046, 2.757 5.918, 0.351 11.338">
+</polygon>
+</svg>
+<canvas id="myCanvas" width="400" height="400"
+style="border:1px solid #ffffff;">
+</canvas>
+</body>
+<script>
+var c = document.getElementById("myCanvas");
+var ctx = c.getContext("2d");
+x1 = 30;
+y1 = 40;
+r =  50;
+theta = 0.5;
+ctx.moveTo(x1, y1);
+ctx.lineTo(x1 + r * Math.cos(theta), y1 + r * Math.sin(theta));
+ctx.stroke();
+
+
+    var svgroot = document.getElementById('mySVG');
+    var myElem1 = document.getElementById('myPath');
+    var myElem2 =  document.getElementById('myPolygon');
+    var matrix = svgroot.createSVGMatrix();
+    var x = 0;
+    var y = 0;
+
+
+console.log('myElem1: ' + myElem1.getTotalLength());
+console.log('myElem2: ' + myElem2.getTotalLength());
+
+var shape1 = [];
+var shape2 = [];
+
+for (i=0; i < 200; i = i + 1){
+    myElem2.setAttribute("transform", "translate("  + i + ","  + i + ")");
+    //console.log(myElem1.getPointAtLength(i));
+    //console.log(i);
+    }
+
+
+for (i=0; i < myElem1.getTotalLength(); i = i + 1){
+    shape1.push(myElem1.getPointAtLength(i));
+    //console.log(myElem1.getPointAtLength(i));
+}
+
+for (i=0; i < myElem2.getTotalLength(); i = i + 1){
+    shape2.push(myElem2.getPointAtLength(i));
+    //console.log(myElem1.getPointAtLength(i));
+}
+
+
+for (i=0; i < shape1.length; i++){
+    var testx = Math.floor(shape1[i].x);
+    var testy = Math.floor(shape1[i].y);
+    for (j=0; j < shape2.length; j++){
+        //console.log("x:" + testx);
+        if(testx == Math.floor(shape2[j].x) && testy  == Math.floor(shape2[j].y) ){
+            console.log( Math.floor(shape2[j].x) + "- " +  Math.floor(shape2[j].y));
+        }
+
+    }
+
+}
+
+//=============Elements to Polygons===================
+function polygon2Polygon(myPolygon,intersectPolygon)
+{
+    var myPoints=intersectPolygon.points;
+    myPoints.clear();
+
+    intersectPolygon.setAttribute("points",myPolygon.getAttribute("points"));
+
+    if(myPolygon.getAttribute("transform") )
+    {
+        var trfm=myPolygon.getAttribute("transform");
+        intersectPolygon.setAttribute("transform",trfm);
+        ctmPolygon(intersectPolygon);
+    }
+
+}
+
+//---remove transform, create screen points for polygon---
+function ctmPolygon(myPoly)
+{
+	var ctm = myPoly.getCTM();
+	var svgRoot = myPoly.ownerSVGElement;
+
+	var pointsList = myPoly.points;
+	var n = pointsList.numberOfItems;
+
+	for(var m=0; m < n; m++)
+	{
+		var mySVGPoint = svgRoot.createSVGPoint();
+		mySVGPoint.x = pointsList.getItem(m).x;
+		mySVGPoint.y = pointsList.getItem(m).y;
+		mySVGPointTrans = mySVGPoint.matrixTransform(ctm);
+		pointsList.getItem(m).x=mySVGPointTrans.x;
+		pointsList.getItem(m).y=mySVGPointTrans.y;
+	}
+
+	myPoly.removeAttribute("transform");
+}
+
+setInterval(function() {moveIt()},10);
+
+function moveIt(){
+    x++;
+    y++;
+
+    if(x== 500){
+        x = 0;
+        y=0;
+    }
+    myElem2.setAttribute("transform", "translate("  + x + ","  + y + ")");
+   // polygon2Polygon(myElem1,myElem2);
+
+}
+
+</script>
+
+
+
+</html>
