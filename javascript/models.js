@@ -1,5 +1,5 @@
 // Constructor function for Person objects
-    function Asteroid( id, title, width, height, xcord, ycord, xvel, yvel, color, type, oob) {
+    function Asteroid( id, title, width, height, xcord, ycord, xvel, yvel, color, type, oob,points) {
         this.id = id;
         this.title = title;
         this.width = width;
@@ -11,6 +11,7 @@
         this.color = color;
         this.type = type;
         this.oob = oob; // Out of bounds
+        this.points = points
         this.gravity = 0.1;
         this.gravitySpeed = 0;
         this.bounce = 0.4;

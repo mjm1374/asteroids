@@ -92,8 +92,6 @@ function animateScreen(obj, shots) {
     //console.log(idx, shots[idx].vx, shots[idx].vy);
 
     if(isHit(shots[idx])){
-     console.log("boom!", idx);
-     score =  score + 10;
      clearBullet(idx);
     }
 
@@ -214,10 +212,20 @@ function isHit(obj){
         ((a[i].x + a[i].width) < b.x) ||
         (a[i].x > (b.x + b.width))) ==false){
    //console.log("boom");
+   blowupAsteroid(a[i],i);
    return true;
   }
+ }
+}
 
-
+function blowupAsteroid(obj,idx){
+ var a = obj;
+ score = score + obj.points;
+ $('#rockAnim' + a.id).remove();
+ asteroids.splice(idx,1);
+ console.log(asteroids.length);
+ if(asteroids.length == 0){
+  regenerateAsteroids();
  }
 }
 
@@ -343,7 +351,7 @@ function resetgame(){
  score = 0;
  asteroids = [];
 
- RegeneratgeAsteroids();
+ regenerateAsteroids();
 
 	//Add space ship
 	$('body').append("<svg id='spaceship' class=''><path cx='5' cy='5' r='10' stroke='#ffffff' stroke-width='2' d='M " + spaceship.shape + " Z'  id='outerShip' /></svg>");
@@ -356,11 +364,11 @@ function resetgame(){
 }
 
 
-function RegeneratgeAsteroids(){
+function regenerateAsteroids(){
  for (i = 0; i < rockCnt; i++) {
    thisRockSize = Math.floor(getRandomFloat(50, 100));
    thisRockSize = 100;
-   asteroids.push(new Asteroid(i, 'test', thisRockSize, thisRockSize, getRandomFloat(0, (xLimit - 150)), getRandomFloat(0, (yLimit - 150)), getRandomFloat(-3, 3), getRandomFloat(-3, 3), colors[Math.floor(getRandomFloat(0, 5))], 'generic', false));
+   asteroids.push(new Asteroid(i, 'test', thisRockSize, thisRockSize, getRandomFloat(0, (xLimit - 150)), getRandomFloat(0, (yLimit - 150)), getRandomFloat(-3, 3), getRandomFloat(-3, 3), colors[Math.floor(getRandomFloat(0, 5))], 'generic', false,20));
   }
 
  for (var key in asteroids) {
