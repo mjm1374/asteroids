@@ -10,6 +10,8 @@ var asteroids = [],
 	lifeCnt = 3,
 	jumpCnt = 3,
 	score = 0,
+ newLifeTarget = 10000,
+ newLife = newLifeTarget,
  resetGun = true,
 	inPlay = false,
 	mode = 'asteroids',
@@ -41,6 +43,7 @@ function animateScreen(obj, shots) {
 //console.log($("#welcomeModel").data('bs.modal'));
 	//need to move when we build scoring functions
 	$('#scoreCnt span').html(score);
+ $('#lifeCnt span').html(lifeCnt);
 
 	for (var key in asteroids) {
 
@@ -104,8 +107,6 @@ function animateScreen(obj, shots) {
      clearBullet(idx);
     }
 
-
-
    }
 
   }
@@ -162,16 +163,30 @@ function isHit(obj){
 }
 
 function blowupAsteroid(obj,idx){
+ $('#sndAstroBoom').get(0).pause();
+ $('#sndAstroBoom').get(0).currentTime = 0;
+ $('#sndAstroBoom').get(0).play();
  var a = obj;
- score = score + obj.points;
+ pointCnt(obj.points);
+
  $('#rockAnim' + a.id).remove();
  asteroids.splice(idx,1);
- //a.changeExistance = false;
- console.log("A: ", asteroids.length , idx);
- console.log(asteroids.length);
+
+ //console.log("A: ", asteroids.length , idx);
+ //console.log(asteroids.length);
  if(asteroids.length == 0){
   regenerateAsteroids();
  }
+}
+
+function pointCnt(num){
+ score = score + num;
+ newLife = newLife - num;
+ if(newLife < 0){
+  lifeCnt++;
+  newLife = newLifeTarget + newLife;
+ }
+ //console.log(newLife);
 }
 
 //this does not work with different svg's
@@ -236,6 +251,7 @@ function resetSpaceship() {
   inPlay = false;
 		$('#spaceship').hide();
 		$('#gameOverBoard').css('display', 'block');
+  checkHighScoreCookie();
 	}
 
 }
