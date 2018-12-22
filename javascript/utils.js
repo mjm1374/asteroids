@@ -2,6 +2,11 @@
 // Utilities for Asteroids
 
 
+$(window).resize(function() {
+	xLimit = resetWindowLimit("x");
+	yLimit = resetWindowLimit("y");
+});
+
 function resetWindowLimit(whatDim) {
 
 	var newDim, newDimx, newDimy;
@@ -35,16 +40,96 @@ function getRandomFloat(min, max) {
 	return Math.random() * (max - min) + min;
 }
 
+
+
 function clearBullet(idx){
-console.log("index:",idx);
+//console.log("index:",idx);
     $('#shot' + shots[idx].id).remove();
     shots.splice(idx,1);
 
 
 }
 
+	//spaceship controls || Speed & thrust
+	function moveSpaceship(delta_time) {
+  //console.log("theata:" + spaceship.theta + " - Yaw: " + spaceship.yaw );
+
+		var deg2rad = Math.PI / 180;
+		if (turn != 0 && turn != undefined) {
+			spaceship.theta = spaceship.theta + turn * turn_per_milli * delta_time;
+			if (lifeCnt > 0) {
+				$('#sndTurn').get(0).play();
+			}
+
+		} else {
+			$('#sndTurn').get(0).pause();
+			$('#sndTurn').get(0).currentTime = 0;
+		}
+		if (thrust != 0 && thrust != undefined) {
+			//console.log("thrusting");
+			del_v = thrust * thrust_per_milli * delta_time;
+			del_vx = del_v * Math.cos(spaceship.theta * deg2rad);
+			del_vy = del_v * Math.sin(spaceship.theta * deg2rad);
+
+			if (lifeCnt > 0) {
+				$('#sndPlayer').get(0).play();
+			}
+		} else {
+			del_vx = 0;
+			del_vy = 0;
+
+			$('#sndPlayer').get(0).pause();
+			$('#sndPlayer').get(0).currentTime = 0;
+		}
+		spaceship.vx = spaceship.vx + del_vx;
+		spaceship.vy = spaceship.vy + del_vy;
+		//console.log(spaceship.vx, spaceship.vy); - this is the speed issue, need to limit
 
 
+	}
+
+	//this will turn and adjust the spaceship
+	function updateSpaceship(delta_time) {
+
+		if (spaceship.x >= xLimit) {
+			spaceship.x = 0;
+		}
+		if (spaceship.x < 0) {
+			spaceship.x = xLimit;
+		}
+		if (spaceship.y >= yLimit) {
+			spaceship.y = 0;
+		}
+		if (spaceship.y < 0) {
+			spaceship.y = yLimit;
+		}
+
+		spaceship.theta += spaceship.yaw * delta_time;
+		spaceship.x += spaceship.vx * delta_time;
+		spaceship.y += spaceship.vy * delta_time;
+
+		$('#spaceship').css('left', spaceship.x).css('top', spaceship.y).css({'transform': 'rotate(' + spaceship.theta + 'deg)'}); // Paint the spaceship
+
+	}
+
+
+// Traveling through hyperspace ain't like dusting crops, boy! Without precise calculations we could fly right through a star or bounce too close to a supernova and that'd end your trip real quick, wouldn't it?
+function hyperspace() {
+ if (lifeCnt > 0) {
+  if (jumpCnt > 0) {
+   $('#sndHyperspace').get(0).currentTime = 0;
+   $('#sndHyperspace').get(0).play();
+   spaceship.x = getRandomFloat(1, (xLimit - 5));
+   spaceship.y = getRandomFloat(1, (yLimit - 5));
+   jumpCnt--;
+   $('#HSCnt span').html(jumpCnt);
+
+  } else {
+   $('#sndHyperspaceFail').get(0).play();
+  }
+ }
+
+}
 
 //+ Jonas Raoni Soares Silva
 //@ http://jsfromhell.com/math/is-point-in-poly [rev. #0]

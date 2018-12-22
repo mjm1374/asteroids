@@ -1,5 +1,5 @@
 // Constructor function for Person objects
-    function Asteroid( id, title, width, height, xcord, ycord, xvel, yvel, color, type, oob,points) {
+    function Asteroid( id, title, width, height, xcord, ycord, xvel, yvel, color, type, oob,points,exists) {
         this.id = id;
         this.title = title;
         this.width = width;
@@ -15,6 +15,7 @@
         this.gravity = 0.1;
         this.gravitySpeed = 0;
         this.bounce = 0.4;
+        this.exists = true;
 
         this.resetGravity = function(){
            // this.gravity =  0.05;
@@ -80,6 +81,9 @@
         this.getVelocity = function (direction) {
           return this.direction; // I should return the requested directional velocity
 
+        };
+        this.changeExistance =  function (e){
+            this.exists =  e;
         };
 
     }

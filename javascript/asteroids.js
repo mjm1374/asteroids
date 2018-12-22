@@ -13,7 +13,7 @@ var asteroids = [],
  resetGun = true,
 	inPlay = false,
 	mode = 'asteroids',
-	rockCnt = 3,
+	rockCnt = 10,
 	delta_time = 20,
 	turn = 0,
 	thrust = 0,
@@ -35,8 +35,8 @@ var asteroids = [],
 // MAIN ANIMATION LOOP -----------------------------------------------------------------------------------------
 
 function animateScreen(obj, shots) {
-	var asteroids = obj;
- var shots = shots;
+	//var asteroids = obj;
+ //var shots = shots;
 //console.log("inplay", inPlay);
 //console.log($("#welcomeModel").data('bs.modal'));
 	//need to move when we build scoring functions
@@ -79,27 +79,7 @@ function animateScreen(obj, shots) {
 
 		}
 
-  for (var idx in shots) {
-  var thisVX = (Math.cos(shots[idx].theta * Math.PI/180) * 2 + shots[idx].x);
-  var thisVY = (Math.sin(shots[idx].theta * Math.PI/180) * 2 + shots[idx].y);
-  var thisLife = shots[idx].life - 5;
 
-  shots[idx].changeLife(thisLife);
-   if(shots[idx].life < 0){
-    clearBullet(idx);
-   } else{
-    shots[idx].changePosition(thisVX,thisVY);
-    //console.log(idx, shots[idx].vx, shots[idx].vy);
-
-    if(isHit(shots[idx])){
-     clearBullet(idx);
-    }
-
-    $('#shot' + shots[idx].id).css('left', shots[idx].x).css('top', shots[idx].y); // paint the shot
-
-   }
-
-  }
 
  $('#rockAnim' + asteroids[key].id).css('left', asteroids[key].x).css('top', asteroids[key].y); // paint the rocks
 
@@ -107,67 +87,28 @@ function animateScreen(obj, shots) {
 	} //end asteroids
 
 
-	//spaceship controls || Speed & thrust
-	function moveSpaceship(delta_time) {
-  //console.log("theata:" + spaceship.theta + " - Yaw: " + spaceship.yaw );
+ for (var idx in shots) {
+  var thisVX = (Math.cos(shots[idx].theta * Math.PI/180) * 10 + shots[idx].x);
+  var thisVY = (Math.sin(shots[idx].theta * Math.PI/180) * 10 + shots[idx].y);
+  var thisLife = shots[idx].life - 5;
 
-		var deg2rad = Math.PI / 180;
-		if (turn != 0 && turn != undefined) {
-			spaceship.theta = spaceship.theta + turn * turn_per_milli * delta_time;
-			if (lifeCnt > 0) {
-				$('#sndTurn').get(0).play();
-			}
+  shots[idx].changeLife(thisLife);
+   if(shots[idx].life < 0){
+    clearBullet(idx);
+   } else{
+    shots[idx].changePosition(thisVX,thisVY);
+    //console.log(idx, shots[idx].vx, shots[idx].vy
+    $('#shot' + shots[idx].id).css('left', shots[idx].x).css('top', shots[idx].y); // paint the shot
 
-		} else {
-			$('#sndTurn').get(0).pause();
-			$('#sndTurn').get(0).currentTime = 0;
-		}
-		if (thrust != 0 && thrust != undefined) {
-			//console.log("thrusting");
-			del_v = thrust * thrust_per_milli * delta_time;
-			del_vx = del_v * Math.cos(spaceship.theta * deg2rad);
-			del_vy = del_v * Math.sin(spaceship.theta * deg2rad);
-
-			if (lifeCnt > 0) {
-				$('#sndPlayer').get(0).play();
-			}
-		} else {
-			del_vx = 0;
-			del_vy = 0;
-
-			$('#sndPlayer').get(0).pause();
-			$('#sndPlayer').get(0).currentTime = 0;
-		}
-		spaceship.vx = spaceship.vx + del_vx;
-		spaceship.vy = spaceship.vy + del_vy;
-		//console.log(spaceship.vx, spaceship.vy); - this is the speed issue, need to limit
+    if(isHit(shots[idx])){
+     clearBullet(idx);
+    }
 
 
-	}
 
-	//this will turn and adjust the spaceship
-	function updateSpaceship(delta_time) {
+   }
 
-		if (spaceship.x >= xLimit) {
-			spaceship.x = 0;
-		}
-		if (spaceship.x < 0) {
-			spaceship.x = xLimit;
-		}
-		if (spaceship.y >= yLimit) {
-			spaceship.y = 0;
-		}
-		if (spaceship.y < 0) {
-			spaceship.y = yLimit;
-		}
-
-		spaceship.theta += spaceship.yaw * delta_time;
-		spaceship.x += spaceship.vx * delta_time;
-		spaceship.y += spaceship.vy * delta_time;
-
-		$('#spaceship').css('left', spaceship.x).css('top', spaceship.y).css({'transform': 'rotate(' + spaceship.theta + 'deg)'}); // Paint the spaceship
-
-	}
+  }
 
 
 	moveSpaceship(delta_time);
@@ -190,12 +131,14 @@ function inCollision(obj){
 //    //getPointAtLength(distance)
 //);
 
- return !(
-        ((a.y + a.height) < (b.y)) ||
-        (a.y > (b.y + b.height)) ||
-        ((a.x + a.width) < b.x) ||
-        (a.x > (b.x + b.width))
-    );
+   return !(
+         ((a.y + a.height) < (b.y)) ||
+         (a.y > (b.y + b.height)) ||
+         ((a.x + a.width) < b.x) ||
+         (a.x > (b.x + b.width)  )
+     );
+
+
 
 }
 
@@ -206,11 +149,11 @@ function isHit(obj){
  //console.log("astro length: ",a.length);
 
  for (i=0;i < a.length;i++){
-  //console.log("iu: ", i);
+ // console.log("iu: ", a[i].exists);
   if((((a[i].y + a[i].height) < (b.y)) ||
         (a[i].y > (b.y + b.height)) ||
         ((a[i].x + a[i].width) < b.x) ||
-        (a[i].x > (b.x + b.width))) ==false){
+        (a[i].x > (b.x + b.width))) == false){
    //console.log("boom");
    blowupAsteroid(a[i],i);
    return true;
@@ -223,6 +166,8 @@ function blowupAsteroid(obj,idx){
  score = score + obj.points;
  $('#rockAnim' + a.id).remove();
  asteroids.splice(idx,1);
+ //a.changeExistance = false;
+ console.log("A: ", asteroids.length , idx);
  console.log(asteroids.length);
  if(asteroids.length == 0){
   regenerateAsteroids();
@@ -295,27 +240,10 @@ function resetSpaceship() {
 
 }
 
-// Traveling through hyperspace ain't like dusting crops, boy! Without precise calculations we could fly right through a star or bounce too close to a supernova and that'd end your trip real quick, wouldn't it?
-function hyperspace() {
- if (lifeCnt > 0) {
-  if (jumpCnt > 0) {
-   $('#sndHyperspace').get(0).currentTime = 0;
-   $('#sndHyperspace').get(0).play();
-   spaceship.x = getRandomFloat(1, (xLimit - 5));
-   spaceship.y = getRandomFloat(1, (yLimit - 5));
-   jumpCnt--;
-   $('#HSCnt span').html(jumpCnt);
 
-  } else {
-   $('#sndHyperspaceFail').get(0).play();
-  }
- }
-
-}
 
 function makeShot(){
  shotCnt++;
-
 
  shots.push(new Shot(shotCnt,spaceship.x,spaceship.y,spaceship.vx,spaceship.vy,spaceship.theta,spaceship.yaw,1800,0,0));
  //var newShot = shots.lastIndexOf();
@@ -338,10 +266,6 @@ function endpew() {
 }
 
 
-$(window).resize(function() {
-	xLimit = resetWindowLimit("x");
-	yLimit = resetWindowLimit("y");
-});
 
 function resetgame(){
  $("#gameOverBoard").hide();
@@ -368,7 +292,7 @@ function regenerateAsteroids(){
  for (i = 0; i < rockCnt; i++) {
    thisRockSize = Math.floor(getRandomFloat(50, 100));
    thisRockSize = 100;
-   asteroids.push(new Asteroid(i, 'test', thisRockSize, thisRockSize, getRandomFloat(0, (xLimit - 150)), getRandomFloat(0, (yLimit - 150)), getRandomFloat(-3, 3), getRandomFloat(-3, 3), colors[Math.floor(getRandomFloat(0, 5))], 'generic', false,20));
+   asteroids.push(new Asteroid(i, 'test', thisRockSize, thisRockSize, getRandomFloat(0, (xLimit - 150)), getRandomFloat(0, (yLimit - 150)), getRandomFloat(-3, 3), getRandomFloat(-3, 3), colors[Math.floor(getRandomFloat(0, 5))], 'generic', false, 20, true));
   }
 
  for (var key in asteroids) {
