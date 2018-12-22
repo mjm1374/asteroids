@@ -12,7 +12,7 @@ var asteroids = [],
 	score = 0,
 	inPlay = false,
 	mode = 'asteroids',
-	rockCnt = 10,
+	rockCnt = 1,
 	delta_time = 20,
 	turn = 0,
 	thrust = 0,
@@ -69,15 +69,32 @@ console.log("inplay", inPlay);
    // cheeck for collision
    if(inPlay == true){
     if(inCollision(asteroids[key])){
-    boom();
+
+     boom();
+     //checkPathTouch(asteroids[key]);
+
    }
    }
 
 		}
 
   for (var idx in shots) {
-   shots[idx].changePosition((shots[idx].x + (shots[idx].vx )* 10), (shots[idx].y + (shots[idx].vy * 10)));
-   console.log(idx, shots[idx].vx, shots[idx].vy);
+  var thisVX = (Math.cos(shots[idx].theta * Math.PI/180) * 10 + shots[idx].x);
+  var thisVY = (Math.sin(shots[idx].theta * Math.PI/180) * 10 + shots[idx].y);
+// console.log(shots[idx].theta,thisVX,thisVY);
+ var thisLife = shots[idx].life - 20;
+
+ shots[idx].changeLife(thisLife);
+ if(shots[idx].life < 0){
+  $('#shot' + shots[idx].id).remove();
+  shots.splice(0,1);
+ }
+
+
+
+   //shots[idx].changePosition((shots[idx].x + (shots[idx].vx )), (shots[idx].y + (shots[idx].vy)));
+   shots[idx].changePosition(thisVX,thisVY);
+   //console.log(idx, shots[idx].vx, shots[idx].vy);
    $('#shot' + shots[idx].id).css('left', shots[idx].x).css('top', shots[idx].y); // paint the shot
 
   }
@@ -90,6 +107,7 @@ console.log("inplay", inPlay);
 
 	//spaceship controls || Speed & thrust
 	function moveSpaceship(delta_time) {
+  //console.log("theata:" + spaceship.theta + " - Yaw: " + spaceship.yaw );
 
 		var deg2rad = Math.PI / 180;
 		if (turn != 0 && turn != undefined) {
@@ -165,9 +183,10 @@ function inCollision(obj){
  var b = obj;
 
 
- console.log(
-    document.getElementById( 'astroPath' + b.id).getTotalLength()
-);
+// console.log(
+//    document.getElementById( 'astroPath' + b.id).getTotalLength()
+//    //getPointAtLength(distance)
+//);
 
  return !(
         ((a.y + a.height) < (b.y)) ||
@@ -176,6 +195,38 @@ function inCollision(obj){
         (a.x > (b.x + b.width))
     );
 
+}
+//this does not work with different svg's
+function checkPathTouch(obj){
+ var a = spaceship;
+ var b = obj;
+ var shape1 = [];
+ var shape2 = [];
+
+ for (i=0; i < a.getTotalLength(); i = i + 1){
+    shape1.push(a.getPointAtLength(i));
+     //console.log(myElem1.getPointAtLength(i));
+ }
+
+ for (i=0; i < b.getTotalLength(); i = i + 1){
+     shape2.push(b.getPointAtLength(i));
+     //console.log(myElem1.getPointAtLength(i));
+ }
+
+ for (i=0; i < shape1.length; i++){
+    var testx = Math.floor(shape1[i].x);
+    var testy = Math.floor(shape1[i].y);
+    for (j=0; j < shape2.length; j++){
+        //console.log("x:" + testx);
+        if(testx == Math.floor(shape2[j].x) && testy  == Math.floor(shape2[j].y) ){
+            console.log( Math.floor(shape2[j].x) + "- " +  Math.floor(shape2[j].y));
+            boom();
+            break;
+        }
+
+    }
+
+ }
 }
 
 
@@ -231,6 +282,8 @@ function hyperspace() {
 
 function makeShot(){
  shotCnt++;
+
+
  shots.push(new Shot(shotCnt,spaceship.x,spaceship.y,spaceship.vx,spaceship.vy,spaceship.theta,spaceship.yaw,1800,0,0));
  //var newShot = shots.lastIndexOf();
  $('body')
