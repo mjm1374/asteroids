@@ -10,6 +10,7 @@ var asteroids = [],
 	lifeCnt = 3,
 	jumpCnt = 3,
 	score = 0,
+ resetGun = true,
 	inPlay = false,
 	mode = 'asteroids',
 	rockCnt = 1,
@@ -292,7 +293,7 @@ function makeShot(){
 
 // one AG-2G quad laser cannon - must install more
 function pewpew() {
-	if (lifeCnt > 0) {
+	if (lifeCnt > 0 && resetGun == true) {
 		$('#sndLaser').get(0).play();
   makeShot();
 	}

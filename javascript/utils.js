@@ -77,6 +77,7 @@ if (lifeCnt > 0) {
 				break;
 			case 32: //s = shoot
 				pewpew();
+                resetGun = false;
 				break;
 			case 13: // enter = hyperspace
 				hyperspace();
@@ -107,6 +108,7 @@ if (lifeCnt > 0) {
 				break;
 			case 32:
 				endpew();
+                resetGun = true;
 				break;
 
 		}
@@ -168,6 +170,7 @@ if (lifeCnt > 0) {
 				break;
 			case 'btnShoot': //space = shoot
 				endpew();
+                resetGun = true;
 				break;
 		}
 	});
