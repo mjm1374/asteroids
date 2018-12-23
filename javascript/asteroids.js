@@ -26,7 +26,9 @@ var asteroids = [],
 	key_delay = 50,
 	del_v = 0,
 	del_vx = 0,
-	del_vy = 0;
+	del_vy = 0,
+ shootsnd = null,
+ thrustsnd = null;
 
 
 
@@ -197,20 +199,23 @@ function makeAsteroidPieces(x, y, size, cnt){
    switch (size) {
     case 100: //large
      scale = '1';
+     rockPnt = 20;
      break;
     case 50: //medium
      scale = '.5';
+     rockPnt = 50;
      break;
     case 25: //small
      scale = '.25';
      break;
    }
 
-   asteroids.push(new Asteroid(rockID, 'test', thisRockSize, thisRockSize, x, y, getRandomFloat(-3, 3), getRandomFloat(-3, 3), colors[Math.floor(getRandomFloat(0, 5))], 'generic', false, 20, true));
+   asteroids.push(new Asteroid(rockID, 'test', thisRockSize, thisRockSize, x, y, getRandomFloat(-3, 3), getRandomFloat(-3, 3), colors[Math.floor(getRandomFloat(0, 5))], 'generic', false, rockPnt, true));
 
 
  $('body')
-     .append("<svg id='rockAnim" + asteroids[asteroids.length - 1].id + "' data-id='" + asteroids[asteroids.length - 1].id + "' class='asteroid rocksize" + size + "'><path cx='" + (asteroids[asteroids.length - 1].width) + "' cy='" + (asteroids[asteroids.length - 1].height) + "' r='" + (asteroids[asteroids.length - 1].width / 2 - 5) + "' stroke='" + asteroids[asteroids.length - 1].color + "' stroke-width='2' d='M " + rocksLrg[Math.floor(getRandomFloat(0, 3))] + " Z'  id='astroPath" + asteroids[asteroids.length - 1].id + "' transform='scale(" + scale + ", " + scale + ")' /><text x='20' y='55' fill='" + asteroids[asteroids.length - 1].color + "' transform='scale(" + scale + ", " + scale + ")>" + asteroids[asteroids.length - 1].id + "</text></svg>");
+     .append("<svg id='rockAnim" + asteroids[asteroids.length - 1].id + "' data-id='" + asteroids[asteroids.length - 1].id + "' class='asteroid rocksize" + size + "'><path cx='" + (asteroids[asteroids.length - 1].width) + "' cy='" + (asteroids[asteroids.length - 1].height) + "' r='" + (asteroids[asteroids.length - 1].width / 2 - 5) + "' stroke='" + asteroids[asteroids.length - 1].color + "' stroke-width='2' d='M " + rocksLrg[Math.floor(getRandomFloat(0, 3))] + " Z'  id='astroPath" + asteroids[asteroids.length - 1].id + "' transform='scale(" + scale + ", " + scale + ")' /><text x='20' y='55' fill='" + asteroids[asteroids.length - 1].color + "' transform='scale(" + scale + ", " + scale + ")></text></svg>");
+     //" + asteroids[asteroids.length - 1].id + " -  debugger id that goes int he text
 
     $('#rockAnim' + asteroids[asteroids.length - 1].id)
      .css('color', asteroids[asteroids.length - 1].color).css('border-color', asteroids[asteroids.length - 1].color).css('width', asteroids[asteroids.length - 1].width).css('height', asteroids[asteroids.length - 1].height).addClass('rockAnim');
@@ -311,16 +316,21 @@ function makeShot(){
 // one AG-2G quad laser cannon - must install more
 function pewpew() {
 	if (lifeCnt > 0 && resetGun == true) {
-		$('#sndLaser').get(0).play();
+		//$('#sndLaser').get(0).play();
+  shootsnd.play();
+
   makeShot();
   resetGun = false;
 	}
 }
 
 function endpew() {
-	$('#sndLaser').get(0).pause();
-	$('#sndLaser').get(0).currentTime = 0;
+	//$('#sndLaser').get(0).pause();
+//	$('#sndLaser').get(0).currentTime = 0;
 }
+
+// Sound engine----------------------------------------------------------------------------------
+
 
 
 
@@ -357,7 +367,8 @@ function regenerateAsteroids(){
 
    if (asteroids.hasOwnProperty(key)) {
     $('body')
-     .append("<svg id='rockAnim" + asteroids[key].id + "' data-id='" + asteroids[key].id + "' class='asteroid rocksize100'><path cx='" + (asteroids[key].width) + "' cy='" + (asteroids[key].height) + "' r='" + (asteroids[key].width / 2 - 5) + "' stroke='" + asteroids[key].color + "' stroke-width='2' d='M " + rocksLrg[Math.floor(getRandomFloat(0, 3))] + " Z'  id='astroPath" + asteroids[key].id + "' /><text x='20' y='55' fill='" + asteroids[key].color + "'>" + asteroids[key].id + "</text></svg>");
+     .append("<svg id='rockAnim" + asteroids[key].id + "' data-id='" + asteroids[key].id + "' class='asteroid rocksize100'><path cx='" + (asteroids[key].width) + "' cy='" + (asteroids[key].height) + "' r='" + (asteroids[key].width / 2 - 5) + "' stroke='" + asteroids[key].color + "' stroke-width='2' d='M " + rocksLrg[Math.floor(getRandomFloat(0, 3))] + " Z'  id='astroPath" + asteroids[key].id + "' /><text x='20' y='55' fill='" + asteroids[key].color + "'></text></svg>");
+     //" + asteroids[key].id + "
 
     $('#rockAnim' + asteroids[key].id)
      .css('color', asteroids[key].color).css('border-color', asteroids[key].color).css('width', asteroids[key].width).css('height', asteroids[key].height).addClass('rockAnim');
@@ -375,6 +386,10 @@ function regenerateAsteroids(){
 
 
 $(document).ready(function() {
+
+shootsnd = new Sound('snd/fire.mp3');
+thrustsnd = new Sound('snd/thrust.mp3');
+
  resetgame();
 
 

@@ -72,14 +72,18 @@ function clearBullet(idx){
 			del_vy = del_v * Math.sin(spaceship.theta * deg2rad);
 
 			if (lifeCnt > 0) {
-				$('#sndPlayer').get(0).play();
+				//$('#sndPlayer').get(0).play();
+				thrustsnd.play()
+
 			}
 		} else {
 			del_vx = 0;
 			del_vy = 0;
 
-			$('#sndPlayer').get(0).pause();
-			$('#sndPlayer').get(0).currentTime = 0;
+			thrustsnd.stop();
+
+			//$('#sndPlayer').get(0).pause();
+			//$('#sndPlayer').get(0).currentTime = 0;
 		}
 		spaceship.vx = spaceship.vx + del_vx;
 		spaceship.vy = spaceship.vy + del_vy;
@@ -267,7 +271,9 @@ if (lifeCnt > 0) {
 
 }
 
-// End Input CONTROLS ---------------------------------------------------------------------------
+// End Input controls ---------------------------------------------------------------------------
+
+
 
 
 // Cookie ---------------------------------------------------------------------------------------
