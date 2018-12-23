@@ -72,18 +72,12 @@ function clearBullet(idx){
 			del_vy = del_v * Math.sin(spaceship.theta * deg2rad);
 
 			if (lifeCnt > 0) {
-				//$('#sndPlayer').get(0).play();
 				thrustsnd.play()
-
 			}
 		} else {
 			del_vx = 0;
 			del_vy = 0;
-
 			thrustsnd.stop();
-
-			//$('#sndPlayer').get(0).pause();
-			//$('#sndPlayer').get(0).currentTime = 0;
 		}
 		spaceship.vx = spaceship.vx + del_vx;
 		spaceship.vy = spaceship.vy + del_vy;
@@ -161,10 +155,10 @@ if (lifeCnt > 0) {
 		var key = e.keyCode;
 		switch (key) {
 			case 68: //d = yaw left
-				turn = 1;
+				turn = 2;
 				break;
 			case 65: //a = yaw right
-				turn = -1;
+				turn = -2;
 				break;
 			case 87: //w = forward
 				thrust = 1;
@@ -174,7 +168,7 @@ if (lifeCnt > 0) {
 				break;
 			case 32: //s = shoot
 				pewpew();
-                resetGun = false;
+        resetGun = false;
 				break;
 			case 13: // enter = hyperspace
 				hyperspace();
@@ -263,8 +257,8 @@ if (lifeCnt > 0) {
 				turn = 0;
 				break;
 			case 'btnShoot': //space = shoot
-				endpew();
-                resetGun = true;
+				//endpew();
+        resetGun = true;
 				break;
 		}
 	});

@@ -17,7 +17,10 @@ var asteroids = [],
 	mode = 'asteroids',
 	rockCnt = 10,
  scale = 1,
- rockID = 0 //for debugging only
+ rockID = 0,//for debugging only
+ nextEnemy = 20000,
+ enemyDelay = 2000,
+ enemyUFO = [],
 	delta_time = 20,
 	turn = 0,
 	thrust = 0,
@@ -28,7 +31,8 @@ var asteroids = [],
 	del_vx = 0,
 	del_vy = 0,
  shootsnd = null,
- thrustsnd = null;
+ thrustsnd = null
+ extraLifesnd = null;
 
 
 
@@ -231,6 +235,7 @@ function pointCnt(num){
  if(newLife < 0){
   lifeCnt++;
   newLife = newLifeTarget + newLife;
+  extraLifesnd.play();
  }
  //console.log(newLife);
 }
@@ -324,13 +329,15 @@ function pewpew() {
 	}
 }
 
-function endpew() {
-	//$('#sndLaser').get(0).pause();
-//	$('#sndLaser').get(0).currentTime = 0;
-}
 
-// Sound engine----------------------------------------------------------------------------------
-
+ function spawnEnemy(){
+  ufo = new Ufo(-100,-100,0,0,0,0,200);
+  var startX = (Math.random() - 0.5) * xLimit;
+  var endX = (Math.random() - 0.5) * xLimit;
+  var startY = -yLimit / 2 - ufo.y / 2;
+  var endY = -startY;
+  console.log('enemy ship');
+ }
 
 
 
@@ -389,6 +396,7 @@ $(document).ready(function() {
 
 shootsnd = new Sound('snd/fire.mp3');
 thrustsnd = new Sound('snd/thrust.mp3');
+extraLifesnd = new Sound('snd/extraShip.ogg');
 
  resetgame();
 
@@ -412,6 +420,7 @@ inPlay = true;
 	//kick off animation
 	var startBubbletron = setInterval(function() {
 		animateScreen(asteroids, shots);
+  nextEnemy = setTimeout(spawnEnemy(), enemyDelay);
 	}, delta_time);
 
 });
