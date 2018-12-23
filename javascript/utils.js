@@ -200,8 +200,8 @@ if (lifeCnt > 0) {
 				thrust = 0;
 				break;
 			case 32:
-				endpew();
-                resetGun = true;
+				//endpew();
+        resetGun = true;
 				break;
 
 		}
@@ -229,9 +229,6 @@ if (lifeCnt > 0) {
 				thrust = -1;
 				break;
 			case 'btnShoot': //s = shoot
-				pewpew();
-				break;
-			case 'glyphShoot': //s = shoot
 				pewpew();
 				break;
 			case 'btnHS': // enter = hyperspace
