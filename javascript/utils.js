@@ -159,6 +159,258 @@ function isPointInPoly(poly, pt) {
 
 
 
+function resetSpaceship() {
+	if (lifeCnt > 0) {
+  $('#spaceship').show();
+		spaceship = new Spaceship((xLimit / 2), (yLimit / 2), 0, 0, -90, 0, 0, 0);
+  inPlay = true;
+
+   //while (safeSpawn() == false || safeSpawn() == null){
+   //  inPlay = true;
+   //}
+
+
+
+	} else {
+  inPlay = false;
+  //$('*').css('cursor','default'); // clear cursor
+		$('#spaceship').hide();
+		$('#gameOverBoard').css('display', 'block');
+  checkHighScoreCookie();
+	}
+
+}
+
+
+
+
+
+
+
+
+// one AG-2G quad laser cannon - must install more
+function pewpew() {
+	if (lifeCnt > 0 && resetGun == true && inPlay ==  true) {
+  shootsnd.play();
+  makeShot();
+  resetGun = false;
+	}
+}
+
+
+
+
+function resetgame(){
+ $("#gameOverBoard").hide();
+ //$('*').css('cursor','none'); // clear cursor
+ $(".asteroid").remove();
+ lifeCnt = 3;
+ jumpCnt = 3;
+ score = 0;
+ asteroids = [];
+
+ regenerateAsteroids();
+
+	//Add space ship
+	$('body').append("<svg id='spaceship' class=''><path cx='5' cy='5' r='10' stroke='#ffffff' stroke-width='2' d='M " + spaceship.shape + " Z'  id='outerShip' /></svg>");
+
+ $('#lifeCnt span').html(lifeCnt);
+	$('#HSCnt span').html(jumpCnt);
+
+ resetSpaceship();
+
+}
+
+
+function regenerateAsteroids(){
+
+ for (i = 0; i < rockCnt; i++) {
+   rockID++;
+   //thisRockSize = Math.floor(getRandomFloat(50, 100));
+   thisRockSize = 100;
+   asteroids.push(new Asteroid(rockID, 'test', thisRockSize, thisRockSize, getSafeRandomFloat(0, (xLimit - 150)), getSafeRandomFloat(0, (yLimit - 150)), getRandomFloat(-3, 3), getRandomFloat(-3, 3), colors[Math.floor(getRandomFloat(0, 5))], 'generic', false, 20, true));
+  }
+
+ for (var key in asteroids) {
+
+   if (asteroids.hasOwnProperty(key)) {
+    $('body')
+     .append("<svg id='rockAnim" + asteroids[key].id + "' data-id='" + asteroids[key].id + "' class='asteroid rocksize100'><path cx='" + (asteroids[key].width) + "' cy='" + (asteroids[key].height) + "' r='" + (asteroids[key].width / 2 - 5) + "' stroke='" + asteroids[key].color + "' stroke-width='2' d='M " + rocksLrg[Math.floor(getRandomFloat(0, 3))] + " Z'  id='astroPath" + asteroids[key].id + "' /><text x='20' y='55' fill='" + asteroids[key].color + "'></text></svg>");
+     //" + asteroids[key].id + "
+
+    $('#rockAnim' + asteroids[key].id)
+     .css('color', asteroids[key].color).css('border-color', asteroids[key].color).css('width', asteroids[key].width).css('height', asteroids[key].height).addClass('rockAnim');
+
+   }
+  }
+}
+
+
+
+
+function blowupAsteroid(obj,idx){
+ $('#sndAstroBoom').get(0).pause();
+ $('#sndAstroBoom').get(0).currentTime = 0;
+ $('#sndAstroBoom').get(0).play();
+ var a = obj;
+ pointCnt(obj.points);
+
+
+//make and clean up astroids array and svg's
+if(a.height > 25){
+ makeAsteroidPieces(a.x,a.y,(a.height / 2),2);
+}
+
+
+ $('#rockAnim' + a.id).remove();
+ asteroids.splice(idx,1);
+
+ //console.log("A: ", asteroids.length , idx);
+ //console.log(asteroids.length);
+ if(asteroids.length == 0){
+  regenerateAsteroids();
+ }
+}
+
+
+function pointCnt(num){
+ score = score + num;
+ newLife = newLife - num;
+ if(newLife < 0){
+  lifeCnt++;
+  newLife = newLifeTarget + newLife;
+  playExtraLife();
+ }
+ //console.log(newLife);
+}
+
+
+
+
+
+
+function safeSpawn(){
+ var a = asteroids;
+ var b = spaceship;
+
+ for (i=0;i < a.length;i++){
+ // console.log("iu: ", a[i].exists);
+  if((((a[i].y + a[i].height) < (b.y) -50) ||
+        (a[i].y > (b.y + b.height + 50)) ||
+        ((a[i].x + a[i].width) < b.x + 50) ||
+        (a[i].x > (b.x + b.width) + 50)) == false){
+
+   return true;
+  }
+ }
+
+
+}
+
+
+
+
+//you died!
+function boom() {
+ $('#spaceship').hide();
+ inPlay = false;
+
+ $('#sndBoom').get(0).play();
+
+	if (lifeCnt > 0) {
+		lifeCnt--;
+		$('#lifeCnt span').html(lifeCnt);
+		jumpCnt = 3;
+		$('#HSCnt span').html(jumpCnt);
+  setTimeout(function(){ resetSpaceship(); }, 3000);
+
+	}
+
+}
+
+
+function playExtraLife(){
+ for (i=0; i < 9; i++){
+  setTimeout(function(){ extraLifesnd.play(); }, 500);
+
+ }
+}
+
+//this does not work with different svg's
+function checkPathTouch(obj){
+ var a = spaceship;
+ var b = obj;
+ var shape1 = [];
+ var shape2 = [];
+
+ for (i=0; i < a.getTotalLength(); i = i + 1){
+    shape1.push(a.getPointAtLength(i));
+     //console.log(myElem1.getPointAtLength(i));
+ }
+
+ for (i=0; i < b.getTotalLength(); i = i + 1){
+     shape2.push(b.getPointAtLength(i));
+     //console.log(myElem1.getPointAtLength(i));
+ }
+
+ for (i=0; i < shape1.length; i++){
+    var testx = Math.floor(shape1[i].x);
+    var testy = Math.floor(shape1[i].y);
+    for (j=0; j < shape2.length; j++){
+        //console.log("x:" + testx);
+        if(testx == Math.floor(shape2[j].x) && testy  == Math.floor(shape2[j].y) ){
+            console.log( Math.floor(shape2[j].x) + "- " +  Math.floor(shape2[j].y));
+            boom();
+            break;
+        }
+
+    }
+
+ }
+}
+
+
+function makeAsteroidPieces(x, y, size, cnt){
+
+ for (i = 0; i < cnt; i++) {
+   rockID++;
+   thisRockSize = size;
+   //which transform scale to implement
+   switch (size) {
+    case 100: //large
+     scale = '1';
+     maxVel = 3;
+     rockPnt = 20;
+     break;
+    case 50: //medium
+     scale = '.5';
+     maxVel = 4;
+     rockPnt = 50;
+     break;
+    case 25: //small
+     scale = '.25';
+     maxVel = 5;
+     rockPnt = 100;
+     break;
+   }
+
+   asteroids.push(new Asteroid(rockID, 'test', thisRockSize, thisRockSize, x, y, getRandomFloat(-Math.abs(maxVel), maxVel), getRandomFloat(-Math.abs(maxVel), maxVel), colors[Math.floor(getRandomFloat(0, 5))], 'generic', false, rockPnt, true));
+
+
+ $('body')
+     .append("<svg id='rockAnim" + asteroids[asteroids.length - 1].id + "' data-id='" + asteroids[asteroids.length - 1].id + "' class='asteroid rocksize" + size + "'><path cx='" + (asteroids[asteroids.length - 1].width) + "' cy='" + (asteroids[asteroids.length - 1].height) + "' r='" + (asteroids[asteroids.length - 1].width / 2 - 5) + "' stroke='" + asteroids[asteroids.length - 1].color + "' stroke-width='2' d='M " + rocksLrg[Math.floor(getRandomFloat(0, 3))] + " Z'  id='astroPath" + asteroids[asteroids.length - 1].id + "' transform='scale(" + scale + ", " + scale + ")' /><text x='20' y='55' fill='" + asteroids[asteroids.length - 1].color + "' transform='scale(" + scale + ", " + scale + ")></text></svg>");
+     //" + asteroids[asteroids.length - 1].id + " -  debugger id that goes int he text
+
+    $('#rockAnim' + asteroids[asteroids.length - 1].id)
+     .css('color', asteroids[asteroids.length - 1].color).css('border-color', asteroids[asteroids.length - 1].color).css('width', asteroids[asteroids.length - 1].width).css('height', asteroids[asteroids.length - 1].height).addClass('rockAnim');
+
+   }
+
+
+}
+
+
+
 
 // Input controls  ---------------------------------------------------------------------//
 

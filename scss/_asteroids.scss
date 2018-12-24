@@ -42,6 +42,15 @@
             height:15px;
         }
 
+        #ufoShip {
+            display:block;
+            position: absolute;
+            left: -100px;
+            top:-100px;
+            fill: rgba(0, 145, 0, 0.4);
+
+        }
+
         .rockAnim {
             /*width:100px;
             height:100px;*/
@@ -60,7 +69,7 @@
 
         }
 
-        .shot{
+        .shot, .ufoshot{
             display:block;
             position: absolute;
             left: -100px;
