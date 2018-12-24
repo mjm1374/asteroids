@@ -40,16 +40,10 @@ var asteroids = [],
 //Make me some asteroids
 
 
-
-
 // MAIN ANIMATION LOOP -----------------------------------------------------------------------------------------
 
 function animateScreen(obj, shots) {
-	//var asteroids = obj;
- //var shots = shots;
-//console.log("inplay", inPlay);
-//console.log($("#welcomeModel").data('bs.modal'));
-	//need to move when we build scoring functions
+ console.log("play: ",inPlay);
 	$('#scoreCnt span').html(score);
  $('#lifeCnt span').html(lifeCnt);
 
@@ -134,12 +128,6 @@ function inCollision(obj){
  var a = spaceship;
  var b = obj;
 
-
-// console.log(
-//    document.getElementById( 'astroPath' + b.id).getTotalLength()
-//    //getPointAtLength(distance)
-//);
-
    return !(
          ((a.y + a.height) < (b.y)) ||
          (a.y > (b.y + b.height)) ||
@@ -203,18 +191,22 @@ function makeAsteroidPieces(x, y, size, cnt){
    switch (size) {
     case 100: //large
      scale = '1';
+     maxVel = 3;
      rockPnt = 20;
      break;
     case 50: //medium
      scale = '.5';
+     maxVel = 4;
      rockPnt = 50;
      break;
     case 25: //small
      scale = '.25';
+     maxVel = 5;
+     rockPnt = 100;
      break;
    }
 
-   asteroids.push(new Asteroid(rockID, 'test', thisRockSize, thisRockSize, x, y, getRandomFloat(-3, 3), getRandomFloat(-3, 3), colors[Math.floor(getRandomFloat(0, 5))], 'generic', false, rockPnt, true));
+   asteroids.push(new Asteroid(rockID, 'test', thisRockSize, thisRockSize, x, y, getRandomFloat(-Math.abs(maxVel), maxVel), getRandomFloat(-Math.abs(maxVel), maxVel), colors[Math.floor(getRandomFloat(0, 5))], 'generic', false, rockPnt, true));
 
 
  $('body')
@@ -235,9 +227,16 @@ function pointCnt(num){
  if(newLife < 0){
   lifeCnt++;
   newLife = newLifeTarget + newLife;
-  extraLifesnd.play();
+  playExtraLife();
  }
  //console.log(newLife);
+}
+
+function playExtraLife(){
+ for (i=0; i < 9; i++){
+  setTimeout(function(){ extraLifesnd.play(); }, 500);
+
+ }
 }
 
 //this does not work with different svg's
@@ -298,12 +297,38 @@ function resetSpaceship() {
   $('#spaceship').show();
 		spaceship = new Spaceship((xLimit / 2), (yLimit / 2), 0, 0, -90, 0, 0, 0);
   inPlay = true;
+
+   //while (safeSpawn() == false || safeSpawn() == null){
+   //  inPlay = true;
+   //}
+
+
+
 	} else {
   inPlay = false;
+  //$('*').css('cursor','default'); // clear cursor
 		$('#spaceship').hide();
 		$('#gameOverBoard').css('display', 'block');
   checkHighScoreCookie();
 	}
+
+}
+
+function safeSpawn(){
+ var a = asteroids;
+ var b = spaceship;
+
+ for (i=0;i < a.length;i++){
+ // console.log("iu: ", a[i].exists);
+  if((((a[i].y + a[i].height) < (b.y) -50) ||
+        (a[i].y > (b.y + b.height + 50)) ||
+        ((a[i].x + a[i].width) < b.x + 50) ||
+        (a[i].x > (b.x + b.width) + 50)) == false){
+
+   return true;
+  }
+ }
+
 
 }
 
@@ -320,10 +345,8 @@ function makeShot(){
 
 // one AG-2G quad laser cannon - must install more
 function pewpew() {
-	if (lifeCnt > 0 && resetGun == true) {
-		//$('#sndLaser').get(0).play();
+	if (lifeCnt > 0 && resetGun == true && inPlay ==  true) {
   shootsnd.play();
-
   makeShot();
   resetGun = false;
 	}
@@ -343,6 +366,7 @@ function pewpew() {
 
 function resetgame(){
  $("#gameOverBoard").hide();
+ //$('*').css('cursor','none'); // clear cursor
  $(".asteroid").remove();
  lifeCnt = 3;
  jumpCnt = 3;
@@ -363,11 +387,12 @@ function resetgame(){
 
 
 function regenerateAsteroids(){
+
  for (i = 0; i < rockCnt; i++) {
    rockID++;
-   thisRockSize = Math.floor(getRandomFloat(50, 100));
+   //thisRockSize = Math.floor(getRandomFloat(50, 100));
    thisRockSize = 100;
-   asteroids.push(new Asteroid(rockID, 'test', thisRockSize, thisRockSize, getRandomFloat(0, (xLimit - 150)), getRandomFloat(0, (yLimit - 150)), getRandomFloat(-3, 3), getRandomFloat(-3, 3), colors[Math.floor(getRandomFloat(0, 5))], 'generic', false, 20, true));
+   asteroids.push(new Asteroid(rockID, 'test', thisRockSize, thisRockSize, getSafeRandomFloat(0, (xLimit - 150)), getSafeRandomFloat(0, (yLimit - 150)), getRandomFloat(-3, 3), getRandomFloat(-3, 3), colors[Math.floor(getRandomFloat(0, 5))], 'generic', false, 20, true));
   }
 
  for (var key in asteroids) {
@@ -393,7 +418,7 @@ function regenerateAsteroids(){
 
 
 $(document).ready(function() {
-
+$('*').css('cursor','default'); // clear cursor
 shootsnd = new Sound('snd/fire.mp3');
 thrustsnd = new Sound('snd/thrust.mp3');
 extraLifesnd = new Sound('snd/extraShip.ogg');
@@ -411,6 +436,7 @@ if(xLimit > 768){
 
  $('#welcomeModel').on('hidden.bs.modal', function (e) {
 inPlay = true;
+$('*').css('cursor','none'); // clear cursor
 });
 
 }

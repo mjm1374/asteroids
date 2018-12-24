@@ -40,6 +40,18 @@ function getRandomFloat(min, max) {
 	return Math.random() * (max - min) + min;
 }
 
+function getSafeRandomFloat(min, max) {
+	var split = min + max / 2;
+	var tempCoord = Math.random() * (max - min) + min;
+	var finalCoord = 0;
+
+	if (tempCoord >= split){
+		finalCoord = max;
+	}
+
+	return finalCoord;
+}
+
 
 
 function clearBullet(idx){
@@ -113,12 +125,14 @@ function clearBullet(idx){
 
 // Traveling through hyperspace ain't like dusting crops, boy! Without precise calculations we could fly right through a star or bounce too close to a supernova and that'd end your trip real quick, wouldn't it?
 function hyperspace() {
- if (lifeCnt > 0) {
+ if (lifeCnt > 0 && inPlay == true) {
   if (jumpCnt > 0) {
    $('#sndHyperspace').get(0).currentTime = 0;
    $('#sndHyperspace').get(0).play();
    spaceship.x = getRandomFloat(1, (xLimit - 5));
    spaceship.y = getRandomFloat(1, (yLimit - 5));
+	 spaceship.vx = 0;
+	 spaceship.vy = 0;
    jumpCnt--;
    $('#HSCnt span').html(jumpCnt);
 
