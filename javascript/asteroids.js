@@ -38,7 +38,9 @@ var asteroids = [],
  thrustsnd = null,
  extraLifesnd = null,
  ufosnd = null,
- ufoBulletsnd = null;
+ ufoBulletsnd = null,
+ ufoShootingSpeed = 1000,
+ ufoScale = .1;
 
 
 
@@ -50,6 +52,7 @@ var asteroids = [],
 
 function animateScreen(obj, shots) {
  //console.log("play: ",inPlay);
+ console.log('ufoActive: ',ufoActive);
 	$('#scoreCnt span').html(score);
  $('#lifeCnt span').html(lifeCnt);
 
@@ -98,7 +101,7 @@ function animateScreen(obj, shots) {
 	} //end asteroids
 
  if (ufo != null && ufo != undefined) {
-  console.log('move ufo', ufo.x);
+  //console.log('move ufo', ufo.x);
   ufo.changePosition(ufo.x + ufo.vx, ufo.y + ufo.vy);
   if(ufo.x > xLimit){
    ufo.x = 0;
@@ -119,17 +122,17 @@ function animateScreen(obj, shots) {
 
   shots[idx].changeLife(thisLife);
    if(shots[idx].life < 0){
-    clearBullet(idx);
+    clearBullet('sp',idx);
    } else{
     shots[idx].changePosition(thisVX,thisVY);
     //console.log(idx, shots[idx].vx, shots[idx].vy
     $('#shot' + shots[idx].id).css('left', shots[idx].x).css('top', shots[idx].y); // paint the shot
 
     if(isHit(shots[idx])){
-     clearBullet(idx);
+     clearBullet('sp',idx);
     } else {
      if(isUfoHit(shots[idx])){
-     clearBullet(idx);
+     clearBullet('sp',idx);
     }
 
     }
@@ -138,21 +141,22 @@ function animateScreen(obj, shots) {
 
   }
 
-  for (var idx in ufoShots) {
-  var thisVX = (Math.cos(ufoShots[idx].theta * Math.PI/180) * 10 + ufoShots[idx].x);
-  var thisVY = (Math.sin(ufoShots[idx].theta * Math.PI/180) * 10 + ufoShots[idx].y);
-  var thisLife = ufoShots[idx].life - 5;
+  for (var ind in ufoShots) {
+  var thisVX = (Math.cos(ufoShots[ind].theta * Math.PI/180) * 10 + ufoShots[ind].x);
+  var thisVY = (Math.sin(ufoShots[ind].theta * Math.PI/180) * 10 + ufoShots[ind].y);
+  var thisLife = ufoShots[ind].life - 5;
 
-  ufoShots[idx].changeLife(thisLife);
-   if(ufoShots[idx].life < 0){
-    //clearBullet(idx);
+  ufoShots[ind].changeLife(thisLife);
+
+   if(ufoShots[ind].life < 0){
+    clearBullet('ufo',ind);
    } else{
-    ufoShots[idx].changePosition(thisVX,thisVY);
-    //console.log(idx, shots[idx].vx, shots[idx].vy
-    $('#ufoshot' + ufoShots[idx].id).css('left', ufoShots[idx].x).css('top',ufoShots[idx].y); // paint the shot
+    ufoShots[ind].changePosition(thisVX,thisVY);
+    console.log(ind, ufoShots[ind].id);
+    $('#ufoshot' + ufoShots[ind].id).css('left', ufoShots[ind].x).css('top',ufoShots[ind].y); // paint the shot
 
-    if(isHit(ufoShots[idx])){
-     //clearBullet(idx);
+    if(isHit(ufoShots[ind])){
+     clearBullet('ufo',ind);
      console.log('hit');
     }
 
@@ -245,12 +249,13 @@ function blowupUfo(obj,idx){
 
 
 function spawnEnemy(timer){
- setTimeout(function(){ makeUFO(); }, timer);
+ setTimeout(function(){ makeUFO(true); }, timer);
 }
 
-function makeUFO(){
- ufoActive = true;
- var scale = .1;
+function makeUFO(active){
+ ufoActive = active;
+ //ufoShotCnt = 0;
+ var ufoScale = .1;
  console.log('enemy ship');
  var direction = Math.random() < 0.5 ? -1 : 1;
  if(direction > 0){
@@ -262,22 +267,24 @@ function makeUFO(){
   ufo.y = getRandomFloat(0,yLimit);
   ufo.vx = getRandomFloat(1,5) * direction;
   //ufo = new Ufo(ufoX,ufoY,ufoSpeed,0,0,0,200);
-  $('body').append("<svg id='ufoShip' class='ufo'><polygon transform='scale(" + scale + ", " + scale + ")'  id='myPolygon' stroke='#ffffff'   stroke-width='15' points='466.697 275.189, 350.500 226.628, 329.099 170.984, 294.919 147.509, 242.500 147.509, 242.500 112.989, 235.000 105.489, 227.500 112.989, 227.500 147.509, 175.081 147.509, 140.901 170.984, 119.500 226.628, 3.303 275.189, 0.000 281.405, 3.303 287.621, 106.027 332.782, 143.504 364.510, 326.496 364.510, 363.973 332.782, 466.697 287.621, 470.000 281.405, 466.697 275.189'></svg>");
+  $('body').append("<svg id='ufoShip' class='ufo'><polygon transform='scale(" + ufoScale + ", " + ufoScale + ")'  id='myPolygon' stroke='#ffffff'   stroke-width='15' points='466.697 275.189, 350.500 226.628, 329.099 170.984, 294.919 147.509, 242.500 147.509, 242.500 112.989, 235.000 105.489, 227.500 112.989, 227.500 147.509, 175.081 147.509, 140.901 170.984, 119.500 226.628, 3.303 275.189, 0.000 281.405, 3.303 287.621, 106.027 332.782, 143.504 364.510, 326.496 364.510, 363.973 332.782, 466.697 287.621, 470.000 281.405, 466.697 275.189'></svg>");
 
   $('#ufoShip').css('width', ufo.width).css('height', ufo.height);
-  var startFiring = setInterval(enemyShooter(), 1000);
+  var startFiring = setInterval(enemyShooter, ufoShootingSpeed);
 
   function enemyShooter() {
 
    if(ufoActive == true){
     ufoShotCnt++;
-
-    ufoShots.push(new Shot(shotCnt,ufo.x,ufo.y,ufo.vx,ufo.vy,ufo.theta,ufo.yaw,1800,0,0));
+    var angleDeg = -Math.atan2(ufo.y - spaceship.y, ufo.x - spaceship.x) * 180 / Math.PI;
+    console.log('shooting: ',angleDeg);
+    ufoShots.push(new Shot(ufoShotCnt,ufo.x,ufo.y,ufo.vx,ufo.vy,angleDeg,ufo.yaw,1800,0,0));
     ufoBulletsnd.play();
     //var newShot = shots.lastIndexOf();
     $('body')
         .append("<svg id='ufoshot" + ufoShotCnt + "' data-id='" + ufoShotCnt + "' class='ufoshot' height='8' width='8'><circle cx='3' cy='3' r='3' stroke='white' stroke-width='2' fill='green' /></svg>");
    } else {
+    console.log('clearing');
     clearInterval(startFiring);
    }
   }

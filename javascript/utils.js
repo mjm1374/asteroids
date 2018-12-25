@@ -54,12 +54,16 @@ function getSafeRandomFloat(min, max) {
 
 
 
-function clearBullet(idx){
+function clearBullet(team,idx){
 //console.log("index:",idx);
-    $('#shot' + shots[idx].id).remove();
-    shots.splice(idx,1);
+	if(team == "ufo"){
+		$('#ufoshot' + ufoShots[idx].id).remove();
+			ufoShots.splice(idx,1);
+		}else{
+			$('#shot' + shots[idx].id).remove();
+			shots.splice(idx,1);
 
-
+		}
 }
 
 	//spaceship controls || Speed & thrust
@@ -314,6 +318,7 @@ function safeSpawn(){
 function boom() {
  $('#spaceship').hide();
  inPlay = false;
+ ufoActive = false;
 
  $('#sndBoom').get(0).play();
 
