@@ -588,11 +588,17 @@ function getCookie(cname) {
 
 function checkHighScoreCookie() {
   var hs = getCookie("highScore");
-  if (hs != "") {
+		console.log("hs", hs);
+  if (hs == "") {
     setCookie('highScore',score,1000);
+				$('#highScore span').text(score);
   } else {
     if (hs <= score) {
       setCookie('highScore',score,1000);
+						$('#highScore span').text(score);
     }
+				else{
+					$('#highScore span').text(hs);
+				}
   }
 }

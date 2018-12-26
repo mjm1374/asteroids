@@ -125,11 +125,21 @@
           color: rgba(215, 255, 44, 0.9);
           font-weight: 900;
          }
+         #highScore{
+          left: 56px;
+          position: relative;
+          text-shadow: 2px 2px #000000;
+          color: rgba(215, 255, 44, 0.9);
+          font-family: 'hyperspaceregular';
+         }
+
          #startover{
           position:absolute;
           top: 131%;
           left: 59%;
+          width:150px;
           transform: translate(-60%, -50%);
+          font-family: 'hyperspaceregular';
 
          }
         }

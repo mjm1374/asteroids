@@ -6223,12 +6223,21 @@ h1 {
   color: rgba(215, 255, 44, 0.9);
   font-weight: 900;
 }
+#gameOverBoard #highScore {
+  left: 56px;
+  position: relative;
+  text-shadow: 2px 2px #000000;
+  color: rgba(215, 255, 44, 0.9);
+  font-family: "hyperspaceregular";
+}
 #gameOverBoard #startover {
   position: absolute;
   top: 131%;
   left: 59%;
+  width: 150px;
   -webkit-transform: translate(-60%, -50%);
           transform: translate(-60%, -50%);
+  font-family: "hyperspaceregular";
 }
 
 p {
