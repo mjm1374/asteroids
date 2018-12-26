@@ -167,7 +167,12 @@ function resetSpaceship() {
 	if (lifeCnt > 0) {
   $('#spaceship').show();
 		spaceship = new Spaceship((xLimit / 2), (yLimit / 2), 0, 0, -90, 0, 0, 0);
-  inPlay = true;
+		inPlay = true;
+
+		parkUfo();
+		//console.log('resetSpaceship');
+		clearTimeout(ufoTimer);
+		spawnEnemy();
 
    //while (safeSpawn() == false || safeSpawn() == null){
    //  inPlay = true;
@@ -335,10 +340,12 @@ function boom() {
 
 
 function playExtraLife(){
- for (i=0; i < 9; i++){
+  setTimeout(function(){ extraLifesnd.play(); }, 1);
+	setTimeout(function(){ extraLifesnd.play(); }, 250);
   setTimeout(function(){ extraLifesnd.play(); }, 500);
 
- }
+
+
 }
 
 //this does not work with different svg's
