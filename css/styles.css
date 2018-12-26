@@ -6154,6 +6154,13 @@ body {
   fill: rgba(0, 145, 0, 0.4);
 }
 
+#spawn {
+  display: block;
+  position: absolute;
+  left: -100px;
+  top: -100px;
+}
+
 .rockAnim {
   /*width:100px;
   height:100px;*/

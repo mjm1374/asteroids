@@ -161,22 +161,48 @@ function isPointInPoly(poly, pt) {
 
 
 
+function safeSpawn(){
+ var a = asteroids;
+ var b = spawnBox;
+
+ for (i=0;i < a.length;i++){
+ // console.log("iu: ", a[i].exists);
+  if((((a[i].y + a[i].height) < (b.y) ) ||
+        (a[i].y > (b.y + b.height)) ||
+        ((a[i].x + a[i].width) < b.x) ||
+        (a[i].x > (b.x + b.width))) == false){
+
+   return true;
+  }
+ }
+
+
+}
+
 
 
 function resetSpaceship() {
 	if (lifeCnt > 0) {
   $('#spaceship').show();
+	$('#spaceship').css('opacity','.25');
 		spaceship = new Spaceship((xLimit / 2), (yLimit / 2), 0, 0, -90, 0, 0, 0);
-		inPlay = true;
-
+		//inPlay = true;
+		$('#spawn').css('left',spawnBox.x).css('top',spawnBox.y).css('height', spawnBox.height).css('width',spawnBox.width);
+		//console.log(spawnBox.x, spawnBox.y);
 		parkUfo();
 		//console.log('resetSpaceship');
 		clearTimeout(ufoTimer);
 		spawnEnemy();
 
-   //while (safeSpawn() == false || safeSpawn() == null){
-   //  inPlay = true;
-   //}
+  while (safeSpawn() == true ){
+     inPlay = false;
+		 //console.log('all clear : ', safeSpawn() );
+		 animateScreen();
+   }
+
+	 inPlay = true;
+		$('#spaceship').css('opacity','1');
+		//console.log('all clear : ', safeSpawn() );
 
 
 
@@ -216,6 +242,8 @@ function resetgame(){
  lifeCnt = 3;
  jumpCnt = 3;
  score = 0;
+	newLife = newLifeTarget;
+	ufoAim = 50;
  asteroids = [];
 
  regenerateAsteroids();
@@ -298,24 +326,6 @@ function pointCnt(num){
 
 
 
-function safeSpawn(){
- var a = asteroids;
- var b = spaceship;
-
- for (i=0;i < a.length;i++){
- // console.log("iu: ", a[i].exists);
-  if((((a[i].y + a[i].height) < (b.y) -50) ||
-        (a[i].y > (b.y + b.height + 50)) ||
-        ((a[i].x + a[i].width) < b.x + 50) ||
-        (a[i].x > (b.x + b.width) + 50)) == false){
-
-   return true;
-  }
- }
-
-
-}
-
 
 
 
@@ -324,6 +334,10 @@ function boom() {
  $('#spaceship').hide();
  inPlay = false;
  ufoActive = false;
+ spaceship.x = -1000;
+ spaceship.y = -1000;
+ spaceship.vx = 0;
+ spaceship.vy = 0;
 
  $('#sndBoom').get(0).play();
 
