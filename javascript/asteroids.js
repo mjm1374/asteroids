@@ -262,12 +262,9 @@ function blowupUfo(obj,idx){
  $('#sndAstroBoom').get(0).currentTime = 0;
  $('#sndAstroBoom').get(0).play();
  $('#ufoShip').remove();
-
+ ufoBoom.play();
  pointCnt(obj.points);
- ufo.x = -200;
- ufo.y = -200;
- ufo.vx = 0;
- ufo.vy = 0;
+ parkUfo();
 
  //console.log('blowupUfo');
  spawnEnemy();
@@ -400,6 +397,7 @@ $(document).ready(function() {
  extraLifesnd = new Sound('snd/extraShip.ogg');
  ufosnd = new Sound('snd/saucerBig.mp3');
  ufoBulletsnd = new Sound('snd/laser.mp3');
+ ufoBoom = new Sound('snd/bangMedium.mp3');
 
  resetgame();
 
