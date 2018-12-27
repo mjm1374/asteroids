@@ -39,12 +39,12 @@ var asteroids = [],
  thrustsnd = null,
  ufosnd = null,
  ufoBulletsnd = null,
- ufoShootingSpeed = 1000
+ ufoShootingSpeed = 1000,
  ufoAim = 50,
- ufoScale = .1
- ufoMaxSpeed = 3
- ufoMinSpeed = 1
- ufoSizeVar = 10
+ ufoScale = .1,
+ ufoMaxSpeed = 3,
+ ufoMinSpeed = 1,
+ ufoSizeVar = 10,
  ufoTimer = null,
  screenScale = 1;
 

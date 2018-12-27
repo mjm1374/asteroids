@@ -23,11 +23,11 @@ Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c6
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags).
+We use [Git](https://git-scm.com/) for versioning. For the versions available, see the [V1.0 release](https://github.com/mjm1374/asteroids/releases).
 
 ## Authors
 
-* **Mike mcAllister** - *Initial work* - [mjm1374](https://github.com/mjm1374)
+* **Mike McAllister** - *Initial work* - [mjm1374](https://github.com/mjm1374)
 
 See also the list of [contributors](https://github.com/mjm1374/asteroids/graphs/contributors) who participated in this project.
 
@@ -40,4 +40,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 * Jonas Raoni Soares Silva @ [is-point-in-poly ](http://jsfromhell.com/math/is-point-in-poly)
 * John Berryman @ [Pacifist Asteroids](http://bl.ocks.org/JnBrymn/2926511)
 * inkfood @ [collision-detection-with-svg](http://www.inkfood.com/collision-detection-with-svg/)
-* Atari, Lyle Rains, Ed Logg, Dominic Walsh# asteroids
+* Atari, Lyle Rains, Ed Logg, Dominic Walsh

@@ -88,7 +88,7 @@ function clearBullet(team,idx){
 			del_vy = del_v * Math.sin(spaceship.theta * deg2rad);
 
 			if (lifeCnt > 0) {
-				thrustsnd.play()
+				thrustsnd.play();
 			}
 		} else {
 			del_vx = 0;
