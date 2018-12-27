@@ -6336,6 +6336,10 @@ cntrlButton:last-child {
   #gamepad {
     display: block;
   }
+
+  #highScore {
+    left: 12px !important;
+  }
 }
 @media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (orientation: portrait) {
   highScore {
