@@ -260,6 +260,7 @@ function resetgame(){
 
 
 function regenerateAsteroids(){
+		scale = 1;
 	console.log(scale + "/" + screenScale,(scale / screenScale) );
 
  for (i = 0; i < rockCnt; i++) {
@@ -307,7 +308,7 @@ function makeAsteroidPieces(x, y, size, cnt){
      maxVel = 5;
      rockPnt = 100;
      break;
-	 
+
    }
 
    asteroids.push(new Asteroid(rockID, 'test', thisRockSize, thisRockSize, x, y, getRandomFloat(-Math.abs(maxVel), maxVel), getRandomFloat(-Math.abs(maxVel), maxVel), colors[Math.floor(getRandomFloat(0, 5))], 'generic', false, rockPnt, true));
