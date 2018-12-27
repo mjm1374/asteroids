@@ -120,6 +120,8 @@
          transform: translate(-50%, -50%);
 
 
+
+
          #gameover{
           text-shadow: 2px 2px #000000;
           color: rgba(215, 255, 44, 0.9);
@@ -140,6 +142,8 @@
           width:150px;
           transform: translate(-60%, -50%);
           font-family: 'hyperspaceregular';
+          background: #fff;
+          border-radius: 12px;
 
          }
         }
@@ -249,3 +253,16 @@
      display: block;
    }
   }
+
+@media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (orientation : portrait) {
+ highScore{
+       left: 12px !important;
+       }
+
+}
+  @media screen and (max-width: 414px)
+     {
+      #highScore{
+       left: 12px !important;
+       }
+             }

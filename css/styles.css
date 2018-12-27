@@ -6238,6 +6238,8 @@ h1 {
   -webkit-transform: translate(-60%, -50%);
           transform: translate(-60%, -50%);
   font-family: "hyperspaceregular";
+  background: #fff;
+  border-radius: 12px;
 }
 
 p {
@@ -6333,6 +6335,16 @@ cntrlButton:last-child {
 
   #gamepad {
     display: block;
+  }
+}
+@media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (orientation: portrait) {
+  highScore {
+    left: 12px !important;
+  }
+}
+@media screen and (max-width: 414px) {
+  #highScore {
+    left: 12px !important;
   }
 }
 
