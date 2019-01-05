@@ -2,9 +2,7 @@
 // Input controls  ---------------------------------------------------------------------//
 
 if (lifeCnt > 0) {
-    console.log("here");
 	document.onkeydown = function(e) {
-        console.log("here2");
 
   $("#spaceship").css("opacity","1");
 		var key = e.keyCode;

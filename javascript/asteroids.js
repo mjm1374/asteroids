@@ -3,7 +3,7 @@
 
 function regenerateAsteroids() {
 	scale = 1;
-	console.log(scale + "/" + screenScale, (scale / screenScale));
+	//console.log(scale + "/" + screenScale, (scale / screenScale));
 
 	for (i = 0; i < rockCnt; i++) {
 		rockID++;

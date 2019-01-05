@@ -177,7 +177,7 @@ function getCookie(cname) {
 
 function checkHighScoreCookie() {
 	var hs = getCookie("highScore");
-	console.log("hs", hs);
+	//console.log("hs", hs);
 	if (hs == "") {
 		setCookie('highScore', score, 1000);
 		$('#highScore span').text(score);
