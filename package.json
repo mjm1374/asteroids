@@ -1,6 +1,6 @@
 {
   "name": "asteroids",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "HTML/JS/CSS version of the classic Asteroids from atari",
   "main": "Gruntfile.js",
   "scripts": {
@@ -16,26 +16,19 @@
     "autoprefixer": "^9.3.1",
     "bootstrap": "^4.1.3",
     "bootstrap-scss": "^4.1.3",
-    "grunt": "^1.0.3",
-    "grunt-browserify": "^5.3.0",
-    "grunt-contrib-cssmin": "^3.0.0",
-    "grunt-contrib-sass": "^1.0.0",
-    "grunt-contrib-uglify": "^4.0.0",
-    "grunt-contrib-uglify-es": "^3.3.0",
-    "grunt-contrib-watch": "^1.1.0",
-    "grunt-postcss": "^0.9.0",
+    "gulp": "3.9.1",
     "jquery": "^3.3.1",
     "ruby": "^0.6.1",
     "sass": "^1.15.1"
   },
   "devDependencies": {
-    "autoprefixer": "^9.3.1",
-    "grunt-browserify": "^5.3.0",
-    "grunt-contrib-cssmin": "^3.0.0",
-    "grunt-contrib-uglify": "^4.0.0",
-    "grunt-contrib-uglify-es": "^3.3.0",
-    "grunt-contrib-watch": "^1.1.0",
-    "grunt-postcss": "^0.9.0"
+    "gulp-autoprefixer": "^6.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-cssnano": "^2.1.3",
+    "gulp-sass": "^4.0.2",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-uglify-es": "^1.0.4",
+    "sassdoc": "^2.5.1"
   },
   "bugs": {
     "url": "https://github.com/mjm1374/asteroids/issues"
