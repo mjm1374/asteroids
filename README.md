@@ -4,7 +4,10 @@ A simple HTMl5/JS/CSS clone of the classic Atari Game
 
 ## Getting Started
 
-Just clone the repo and run index
+* clone the repo
+* change your directory tocthe scr dir
+* npm install
+* run index.html in your favorite webserver
 
 ### Prerequisites
 
@@ -13,7 +16,7 @@ NPM
 
 ## Built With
 
-* [GruntJS](https://gruntjs.com/) - The JavaScript Task Runner
+* [Gulp](hhttps://gulpjs.com/) - The JavaScript Task Runner
 * [NPM](https://www.npmjs.com/) - Package Manager
 * [Bootstrap 4](https://getbootstrap.com/) - Bootstrap is an open source toolkit for developing with HTML, CSS, and JS
 
