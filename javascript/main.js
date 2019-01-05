@@ -51,7 +51,7 @@ var asteroids = [],
 if (xLimit <= 414) {
   screenScale = 2;
 }
-//alert(screenScale);
+ 
 
 
 //Asteroid( id, title, x, y, xv, yv, color, type, oob)
