@@ -45,7 +45,7 @@ module.exports = function(grunt) {
     },
     uglify: { // Begin JS Uglify Plugin - this order is necessary for uglify to work with bootstrap
       build: {
-        src: ['javascript/*.js'],
+        src: ['javascript/main.js','javascript/controls.js','javascript/*.js'],
         dest: 'js/script.min.js'
       }
       //,

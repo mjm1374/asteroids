@@ -173,6 +173,7 @@ function pewpew() {
 
 
 function spawnEnemy() {
+  //console.log("called");
   $('#ufoShip').remove();
   var timer = Math.floor(getRandomFloat(25, 60) * 1000);
   ufoTimer = setTimeout(function () {
@@ -182,7 +183,6 @@ function spawnEnemy() {
 
 
 // the Alien UF0 -  call Mulder and Scully
-
 function makeUFO(active, scale) {
 
   ufoActive = active;
@@ -216,6 +216,10 @@ function makeUFO(active, scale) {
 
   }
 
+  //console.log('enemy ship');
+
+
+  //ufo = new Ufo(ufoX,ufoY,ufoSpeed,0,0,0,200);
   $('body').append("<svg id='ufoShip' class='ufo'><polygon transform='scale(" + ufoScale + ", " + ufoScale + ")'  id='myPolygon' stroke='#ffffff'   stroke-width='15' points='466.697 275.189, 350.500 226.628, 329.099 170.984, 294.919 147.509, 242.500 147.509, 242.500 112.989, 235.000 105.489, 227.500 112.989, 227.500 147.509, 175.081 147.509, 140.901 170.984, 119.500 226.628, 3.303 275.189, 0.000 281.405, 3.303 287.621, 106.027 332.782, 143.504 364.510, 326.496 364.510, 363.973 332.782, 466.697 287.621, 470.000 281.405, 466.697 275.189'></svg>");
 
   $('#ufoShip').css('width', ufo.width).css('height', ufo.height);
@@ -227,6 +231,7 @@ function makeUFO(active, scale) {
     if (ufoActive == true && inPlay == true) {
       ufoShotCnt++;
       var angleDeg = (Math.atan2(spaceship.y - ufo.y, spaceship.x - ufo.x) * 180 / Math.PI) + getRandomFloat((ufoAim * -1), ufoAim);
+      //console.log('shooting: ',angleDeg);
       ufoShots.push(new Shot(ufoShotCnt, ufo.x, ufo.y, ufo.vx, ufo.vy, angleDeg, ufo.yaw, 1800, 0, 0));
       ufoBulletsnd.play();
       if (ufoScale == 0.1) {
@@ -239,6 +244,7 @@ function makeUFO(active, scale) {
       $('body')
         .append("<svg id='ufoshot" + ufoShotCnt + "' data-id='" + ufoShotCnt + "' class='ufoshot' height='8' width='8'><circle cx='3' cy='3' r='3' stroke='white' stroke-width='2' fill='blue' /></svg>");
     } else {
+      //console.log('clearing');
       clearInterval(startFiring);
       if (ufoScale == 0.1) {
         $('#sndSaucerBig').get(0).pause();
@@ -264,8 +270,9 @@ function blowupUfo(obj, idx) {
   ufoBoom.play();
   pointCnt(obj.points);
   parkUfo();
-  clearTimeout(ufoTimer);
+  clearTimeout(ufoTimer);  
   spawnEnemy();
+
 }
 
 

@@ -69,37 +69,37 @@ function isUfoHit(obj) {
 
 
 //this does not work with different svg's
-function checkPathTouch(obj) {
-    var a = spaceship;
-    var b = obj;
-    var shape1 = [];
-    var shape2 = [];
+// function checkPathTouch(obj) {
+//     var a = spaceship;
+//     var b = obj;
+//     var shape1 = [];
+//     var shape2 = [];
 
-    for (i = 0; i < a.getTotalLength(); i = i + 1) {
-        shape1.push(a.getPointAtLength(i));
-        //console.log(myElem1.getPointAtLength(i));
-    }
+//     for (i = 0; i < a.getTotalLength(); i = i + 1) {
+//         shape1.push(a.getPointAtLength(i));
+//         //console.log(myElem1.getPointAtLength(i));
+//     }
 
-    for (i = 0; i < b.getTotalLength(); i = i + 1) {
-        shape2.push(b.getPointAtLength(i));
-        //console.log(myElem1.getPointAtLength(i));
-    }
+//     for (i = 0; i < b.getTotalLength(); i = i + 1) {
+//         shape2.push(b.getPointAtLength(i));
+//         //console.log(myElem1.getPointAtLength(i));
+//     }
 
-    for (i = 0; i < shape1.length; i++) {
-        var testx = Math.floor(shape1[i].x);
-        var testy = Math.floor(shape1[i].y);
-        for (j = 0; j < shape2.length; j++) {
-            //console.log("x:" + testx);
-            if (testx == Math.floor(shape2[j].x) && testy == Math.floor(shape2[j].y)) {
-                console.log(Math.floor(shape2[j].x) + "- " + Math.floor(shape2[j].y));
-                boom();
-                break;
-            }
+//     for (i = 0; i < shape1.length; i++) {
+//         var testx = Math.floor(shape1[i].x);
+//         var testy = Math.floor(shape1[i].y);
+//         for (j = 0; j < shape2.length; j++) {
+//             //console.log("x:" + testx);
+//             if (testx == Math.floor(shape2[j].x) && testy == Math.floor(shape2[j].y)) {
+//                 console.log(Math.floor(shape2[j].x) + "- " + Math.floor(shape2[j].y));
+//                 boom();
+//                 break;
+//             }
 
-        }
+//         }
 
-    }
-}
+//     }
+// }
 
 
 //+ Jonas Raoni Soares Silva
@@ -112,4 +112,4 @@ function checkPathTouch(obj) {
 // 		(pt.x < (poly[j].x - poly[i].x) * (pt.y - poly[i].y) / (poly[j].y - poly[i].y) + poly[i].x) &&
 // 		(c = !c);
 // 	return c;
-// }
+// } 
