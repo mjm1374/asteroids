@@ -5,7 +5,7 @@ A simple HTMl5/JS/CSS clone of the classic Atari Game
 ## Getting Started
 
 * clone the repo
-* change your directory tocthe scr dir
+* change your directory to the 'scr' dir
 * npm install
 * run index.html in your favorite webserver
 
