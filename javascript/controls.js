@@ -19,11 +19,11 @@ if (lifeCnt > 0) {
 			case 83: //s = backward
 				thrust = -1; 
 				break;
-			case 32: //s = shoot
+			case 13: //s = shoot
 				pewpew();
-        resetGun = false;
+        		resetGun = false;
 				break;
-			case 13: // enter = hyperspace
+			case 32: // enter = hyperspace
 				hyperspace();
 				break;
 			case 8:
@@ -50,9 +50,9 @@ if (lifeCnt > 0) {
 			case 83: //s = backward
 				thrust = 0;
 				break;
-			case 32:
+			case 13:
 				//endpew();
-        resetGun = true;
+        		resetGun = true;
 				break;
 
 		}
