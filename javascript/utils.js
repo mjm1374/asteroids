@@ -153,14 +153,14 @@ function playExtraLife() {
 // localStorage ---------------------------------------------------------------------------------------
 
 function checkHighScoreCookie() {
-	var hs = localStorage.getItem("highScore");
+	var hs = localStorage.getItem("highScore-asteroids");
 
 	if (hs == "" || hs == undefined ) {
-		localStorage.setItem("highScore", score);
+		localStorage.setItem("highScore-asteroids", score);
 		$('#highScore span').text(score);
 	} else {
 		if (hs <= score) {
-			localStorage.setItem("highScore", score);
+			localStorage.setItem("highScore-asteroids", score);
 			$('#highScore span').text(score);
 		} else {
 			$('#highScore span').text(hs);
