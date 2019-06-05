@@ -50,6 +50,7 @@ var asteroids = [],
 
 if (xLimit <= 414) {
   screenScale = 2;
+  rockCnt = 5;
 }
  
 
