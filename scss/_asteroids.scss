@@ -25,6 +25,9 @@ body {
 
 .atari {
     font-family: 'hyperspaceregular';
+    @media screen and (max-width: 414px) {
+        font-size: 0.75em;
+    }  
 }
 
 #scorecard {
