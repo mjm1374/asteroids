@@ -61,7 +61,7 @@ module.exports = function(grunt) {
         tasks: ['sass', 'postcss', 'cssmin']
       },
       js: {
-        files: '**/*.js',
+        files: 'javascript/**/*.js',
         tasks: ['uglify']
       }
     }
