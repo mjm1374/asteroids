@@ -23,6 +23,11 @@ body {
     position:absolute;
     }
 
+.cursorHide{
+    cursor: none;
+    transition: cursor 2s;
+}
+
 .atari {
     font-family: 'hyperspaceregular';
     @media screen and (max-width: 414px) {
