@@ -11,10 +11,19 @@ body {
 
     background-color: rgba(30, 30, 30, 1);
     overflow: hidden;
-    background: #000000 url('../img/space2.jpg') no-repeat center center fixed;
-    background-size: cover;
+ 
 
 }
+
+#game__wrapper{
+    background-image: url('/img/space2.jpg');
+    background-color: #000000;
+    background-size: cover;
+    display: block;
+    width: 100%;
+    height: 100%;
+    position:absolute;
+    }
 
 .atari {
     font-family: 'hyperspaceregular';
