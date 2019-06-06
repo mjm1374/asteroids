@@ -3,13 +3,22 @@
 
 function regenerateAsteroids() {
 	scale = 1;
+
+	rock_max_v = rock_max_v + 0.25;
+ 
+
+	if(rock_max_v >= 6){
+		rock_max_v = 6; //cap out speed
+	}
+console.log(rock_max_v);
+
 	//console.log(scale + "/" + screenScale, (scale / screenScale));
 
 	for (i = 0; i < rockCnt; i++) {
 		rockID++;
 		//thisRockSize = Math.floor(getRandomFloat(50, 100));
 		thisRockSize = 100;
-		asteroids.push(new Asteroid(rockID, 'test', thisRockSize / screenScale, thisRockSize / screenScale, getSafeRandomFloat(0, (xLimit - 150)), getSafeRandomFloat(0, (yLimit - 150)), getRandomFloat(-3, 3), getRandomFloat(-3, 3), colors[Math.floor(getRandomFloat(0, 5))], 'generic', false, 20, true));
+		asteroids.push(new Asteroid(rockID, 'test', thisRockSize / screenScale, thisRockSize / screenScale, getSafeRandomFloat(0, (xLimit - 150)), getSafeRandomFloat(0, (yLimit - 150)), getRandomFloat(-Math.abs(rock_max_v), rock_max_v), getRandomFloat(-Math.abs(rock_max_v), rock_max_v), colors[Math.floor(getRandomFloat(0, 5))], 'generic', false, 20, true));
 	}
 
 	for (var key in asteroids) {
@@ -37,17 +46,17 @@ function makeAsteroidPieces(x, y, size, cnt) {
 		switch (size) {
 			case 100: //large
 				scale = '1';
-				maxVel = 3;
+				maxVel = rock_max_v;
 				rockPnt = 20;
 				break;
 			case 50: //medium
 				scale = '.5';
-				maxVel = 4;
+				maxVel = rock_max_v + 1;
 				rockPnt = 50;
 				break;
 			case 25: //small
 				scale = '.25';
-				maxVel = 5;
+				maxVel = rock_max_v + 2;
 				rockPnt = 100;
 				break;
 
