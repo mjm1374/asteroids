@@ -145,6 +145,8 @@ h1 {
     left: 50%;
     z-index: 100;
     transform: translate(-50%, -50%);
+    flex-direction: column;
+    justify-content: center;
 
 
 
@@ -152,24 +154,25 @@ h1 {
     #gameover {
         text-shadow: 2px 2px #000000;
         font-weight: 900;
+        margin: 0 auto;
     }
 
     #highScore {
-        left: 56px;
-        position: relative;
+        margin:0 auto;
+        margin-top: 5px;
         text-shadow: 2px 2px #000000;
         font-family: 'hyperspaceregular';
     }
 
     #startover {
-        position: absolute;
-        top: 131%;
-        left: 59%;
         width: 150px;
-        transform: translate(-60%, -50%);
+        //transform: translate(-60%, -50%);
         font-family: 'hyperspaceregular';
         background: #fff;
         border-radius: 12px;
+        margin: 0 auto;
+
+    margin-top: 15px;
 
     }
 }

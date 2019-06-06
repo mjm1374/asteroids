@@ -29,7 +29,7 @@ function resetSpaceship() {
 		inPlay = false;
 		//$('*').css('cursor','default'); // clear cursor
 		$('#spaceship').hide();
-		$('#gameOverBoard').css('display', 'block');
+		$('#gameOverBoard').css('display', 'flex');
 		checkHighScoreCookie();
 	}
 
