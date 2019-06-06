@@ -10,7 +10,7 @@ function regenerateAsteroids() {
 	if(rock_max_v >= 6){
 		rock_max_v = 6; //cap out speed
 	}
-console.log(rock_max_v);
+	//console.log(rock_max_v);
 
 	//console.log(scale + "/" + screenScale, (scale / screenScale));
 

@@ -66,15 +66,30 @@ function animateScreen(obj, shots) {
   //console.log("play: ",inPlay);
   //console.log('ufoActive: ',ufoActive);
   //console.log('all clear : ', safeSpawn() );
-  if(inPlay == true) {
-    $('#game__wrapper').addClass('cursorHide');
-   } else{
-      $('#game__wrapper').removeClass('cursorHide');
-    }
 
+  hideCursor();
+  updateAsteroids();
+  checkUFO();
+  updateShots(shots);
+  updateUFOShot();
+  moveSpaceship(delta_time);
+  updateSpaceship(delta_time);
   $('#scoreCnt span').html(score);
   $('#lifeCnt span').html(lifeCnt);
+}
 
+// END animation Loop -------------------------------------------------------------------------------------------
+
+
+function hideCursor(){
+  if(inPlay == true) {
+    $('#game__wrapper').addClass('cursorHide');
+  } else{
+      $('#game__wrapper').removeClass('cursorHide');
+  }
+}
+
+function updateAsteroids(){
   for (var key in asteroids) {
 
     if (asteroids.hasOwnProperty(key)) {
@@ -111,12 +126,14 @@ function animateScreen(obj, shots) {
 
     }
 
-
-
     $('#rockAnim' + asteroids[key].id).css('left', asteroids[key].x).css('top', asteroids[key].y); // paint the rocks
 
 
   } //end asteroids
+}
+
+
+function checkUFO(){
 
   if (ufo != null && ufo != undefined && ufoActive == true) {
     //console.log('move ufo', ufo.x);
@@ -139,6 +156,9 @@ function animateScreen(obj, shots) {
 
   }
 
+}
+
+function updateShots(shots){
 
   for (var idx in shots) {
     var thisVX = (Math.cos(shots[idx].theta * Math.PI / 180) * 10 + shots[idx].x);
@@ -165,6 +185,10 @@ function animateScreen(obj, shots) {
     }
 
   }
+}
+
+function updateUFOShot(){
+
 
   for (var ind in ufoShots) {
     thisUfoVX = (Math.cos(ufoShots[ind].theta * Math.PI / 180) * 10 + ufoShots[ind].x);
@@ -188,9 +212,6 @@ function animateScreen(obj, shots) {
     }
 
   }
-
-  moveSpaceship(delta_time);
-  updateSpaceship(delta_time);
 
 }
 
