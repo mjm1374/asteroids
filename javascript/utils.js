@@ -6,12 +6,9 @@ $(window).resize(function () {
 });
 
 function resetWindowLimit(whatDim) {
-
 	var newDim, newDimx, newDimy;
 	newDimx = window.innerHeight;
 	newDimy = window.innerHeight;
-
-
 	if (whatDim == "x") {
 		newDim = window.innerWidth;
 		for (i = 0; i < asteroids.length; i++) {
@@ -19,20 +16,16 @@ function resetWindowLimit(whatDim) {
 				asteroids[i].changePosition((newDimx - asteroids[i].width), (newDimy - asteroids[i].height));
 			}
 		}
-
 	} else {
 		newDim = window.innerHeight;
 		for (i = 0; i < asteroids.length; i++) {
 			if (asteroids[i].y >= (newDimy - asteroids[i].height)) {
 				asteroids[i].changePosition((newDimx - asteroids[i].width), (newDim - asteroids[i].height));
 			}
-
 		}
 	}
-
 	return newDim;
 }
-
 
 function getRandomFloat(min, max) {
 	return Math.random() * (max - min) + min;
@@ -42,46 +35,34 @@ function getSafeRandomFloat(min, max) {
 	var split = min + max / 2;
 	var tempCoord = Math.random() * (max - min) + min;
 	var finalCoord = 0;
-
 	if (tempCoord >= split) {
 		finalCoord = max;
 	}
-
 	return finalCoord;
 }
 
-
-
 function clearBullet(team, idx) {
-	//console.log("index:",idx);
 	if (team == "ufo") {
 		$('#ufoshot' + ufoShots[idx].id).remove();
 		ufoShots.splice(idx, 1);
 	} else {
 		$('#shot' + shots[idx].id).remove();
 		shots.splice(idx, 1);
-
 	}
 }
-
-
 
 function safeSpawn() {
 	var a = asteroids;
 	var b = spawnBox;
-
 	for (i = 0; i < a.length; i++) {
 		// console.log("iu: ", a[i].exists);
 		if ((((a[i].y + a[i].height) < (b.y)) ||
 				(a[i].y > (b.y + b.height)) ||
 				((a[i].x + a[i].width) < b.x) ||
 				(a[i].x > (b.x + b.width))) == false) {
-
 			return true;
 		}
 	}
-
-
 }
 
 
