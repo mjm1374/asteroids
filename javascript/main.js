@@ -1,5 +1,5 @@
 //initialize the environment
-var asteroids = [],
+let asteroids = [],
   shots = [],
   shotCnt = 0,
   xLimit = resetWindowLimit("x") - 1,
@@ -35,6 +35,7 @@ var asteroids = [],
   del_v = 0,
   del_vx = 0,
   del_vy = 0,
+  rock_max_v = 1.5, 
   shootsnd = null,
   thrustsnd = null,
   ufosnd = null,
@@ -48,30 +49,44 @@ var asteroids = [],
   ufoTimer = null,
   screenScale = 1;
 
+  //conditional mobile vars
 if (xLimit <= 414) {
   screenScale = 2;
+  rockCnt = 5;
 }
  
-
-
-//Asteroid( id, title, x, y, xv, yv, color, type, oob)
-//Make me some asteroids
 
 
 // MAIN ANIMATION LOOP -----------------------------------------------------------------------------------------
 
 function animateScreen(obj, shots) {
   //console.log("play: ",inPlay);
-  //console.log('ufoActive: ',ufoActive);
-  //console.log('all clear : ', safeSpawn() );
+  hideCursor();
+  updateAsteroids();
+  checkUFO();
+  updateShots(shots);
+  updateUFOShot();
+  moveSpaceship(delta_time);
+  updateSpaceship(delta_time);
   $('#scoreCnt span').html(score);
   $('#lifeCnt span').html(lifeCnt);
+}
 
+// END animation Loop -------------------------------------------------------------------------------------------
+
+
+function hideCursor(){
+  if(inPlay == true) {
+    $('#game__wrapper').addClass('cursorHide');
+  } else{
+      $('#game__wrapper').removeClass('cursorHide');
+  }
+}
+
+function updateAsteroids(){
   for (var key in asteroids) {
-
     if (asteroids.hasOwnProperty(key)) {
       var newVel;
-
       asteroids[key].changePosition((asteroids[key].x + asteroids[key].xv), (asteroids[key].y + asteroids[key].yv));
 
       if (mode == "asteroids") {
@@ -96,53 +111,40 @@ function animateScreen(obj, shots) {
       if (inPlay == true) {
         if (inCollision(asteroids[key])) {
           boom();
-          //checkPathTouch(asteroids[key]);
-
         }
       }
-
     }
-
-
-
     $('#rockAnim' + asteroids[key].id).css('left', asteroids[key].x).css('top', asteroids[key].y); // paint the rocks
-
-
   } //end asteroids
+}
 
+
+function checkUFO(){
   if (ufo != null && ufo != undefined && ufoActive == true) {
-    //console.log('move ufo', ufo.x);
     ufo.changePosition(ufo.x + ufo.vx, ufo.y + ufo.vy);
     if ((ufo.x) > (xLimit + 100)) {
-      //ufo.x = 0;
-      //console.log('right');
       parkUfo();
       spawnEnemy();
-      //console.log('ext right');
     }
     if (ufo.x < -60 && ufo.x > -199) {
-      //console.log('left',ufo.x );
       parkUfo();
       spawnEnemy();
-      //console.log('ext left');
     }
     $('#ufoShip').css('left', ufo.x).css('top', ufo.y); // paint the ufo
-
-
   }
+}
 
-
+function updateShots(shots){
   for (var idx in shots) {
     var thisVX = (Math.cos(shots[idx].theta * Math.PI / 180) * 10 + shots[idx].x);
     var thisVY = (Math.sin(shots[idx].theta * Math.PI / 180) * 10 + shots[idx].y);
     var thisLife = shots[idx].life - 5;
-
     shots[idx].changeLife(thisLife);
+
     if (shots[idx].life < 0) {
       clearBullet('sp', idx);
     } else {
       shots[idx].changePosition(thisVX, thisVY);
-      //console.log(idx, shots[idx].vx, shots[idx].vy
       $('#shot' + shots[idx].id).css('left', shots[idx].x).css('top', shots[idx].y); // paint the shot
 
       if (isHit(shots[idx])) {
@@ -151,47 +153,34 @@ function animateScreen(obj, shots) {
         if (isUfoHit(shots[idx])) {
           clearBullet('sp', idx);
         }
-
       }
-
     }
-
   }
+}
 
+function updateUFOShot(){
   for (var ind in ufoShots) {
     thisUfoVX = (Math.cos(ufoShots[ind].theta * Math.PI / 180) * 10 + ufoShots[ind].x);
     thisUfoVY = (Math.sin(ufoShots[ind].theta * Math.PI / 180) * 10 + ufoShots[ind].y);
     thisUfoLife = ufoShots[ind].life - 5;
-
     ufoShots[ind].changeLife(thisUfoLife);
 
     if (ufoShots[ind].life < 0) {
       clearBullet('ufo', ind);
     } else {
       ufoShots[ind].changePosition(thisUfoVX, thisUfoVY);
-      //console.log(ind, ufoShots[ind].id);
+
       $('#ufoshot' + ufoShots[ind].id).css('left', ufoShots[ind].x).css('top', ufoShots[ind].y); // paint the shot
 
       if (isSpaceshipHit(ufoShots[ind])) {
         clearBullet('ufo', ind);
-        //console.log('hit');
       }
-
     }
-
   }
-
-  moveSpaceship(delta_time);
-  updateSpaceship(delta_time);
-
 }
 
-
 // Kick it off!
-
-
 $(document).ready(function () {
-
   //establish reusable sounds
   shootsnd = new Sound('snd/fire.mp3');
   thrustsnd = new Sound('snd/thrust.mp3');
@@ -202,28 +191,17 @@ $(document).ready(function () {
 
   resetgame();
 
-
-
-
-
   // show instructions for desktop
   if (xLimit > 768) {
     inPlay = false;
     $('#welcomeModel').modal('show');
-
     $('#welcomeModel').on('hidden.bs.modal', function (e) {
       inPlay = true;
-      //$('*').css('cursor','none'); // clear cursor
-      //spawnEnemy();
     });
-
   }
 
-
-
   //kick off animation
-  var startBubbletron = setInterval(function () {
+  let startAstroStorm = setInterval(function () {
     animateScreen(asteroids, shots);
   }, delta_time);
-
 });

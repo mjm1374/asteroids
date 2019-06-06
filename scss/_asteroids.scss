@@ -1,32 +1,58 @@
+
+$green: rgba(215, 255, 44, 0.9); 
+$black: #000000;
+$white: rgba(255,255,255,1);
+$gray: gray;
+$red: #d60808;
+$spaceship:rgb(0, 145, 0);
+$gamePadBtn: rgba(215, 215, 215, 0.75);
+
+.white {
+    color: $white;
+}
+
+.gray {
+    color: $gray;
+}
+
+.green {
+    color: $green;
+}
+
 @font-face {
     font-family: 'hyperspaceregular';
     src: url('../fonts/hyperspace-webfont.woff2') format('woff2'),
-        url('../fonts/hyperspace-webfont.woff') format('woff');
+         url('../fonts/hyperspace-webfont.woff') format('woff');
     font-weight: normal;
     font-style: normal;
-
 }
 
 body {
-
     background-color: rgba(30, 30, 30, 1);
     overflow: hidden;
- 
-
 }
 
-#game__wrapper{
-    background-image: url('/img/space2.jpg');
-    background-color: #000000;
+#game__wrapper {
+    background-image: url('../img/space2.jpg');
+    background-color: $black;
     background-size: cover;
     display: block;
     width: 100%;
     height: 100%;
-    position:absolute;
-    }
+    position: absolute;
+}
+
+.cursorHide {
+    cursor: none;
+    transition: cursor 2s;
+}
+
 
 .atari {
     font-family: 'hyperspaceregular';
+    @media screen and (max-width: 414px) {
+        font-size: 0.75em;
+    }
 }
 
 #scorecard {
@@ -36,11 +62,11 @@ body {
     display: block;
     width: 200px;
     height: 70px;
-    color: #ffffff;
     font-weight: 700;
     padding: 10px;
     text-align: right;
-    text-shadow: 2px 2px #000000;
+    text-shadow: 2px 2px $black;
+    font-size: 1.5em;
 }
 
 #spaceship {
@@ -48,7 +74,7 @@ body {
     position: absolute;
     left: -100px;
     top: -100px;
-    fill: rgba(255, 255, 255, 0.6);
+    fill: rgba($white, 0.6);
     width: 20px;
     height: 15px;
 }
@@ -58,8 +84,7 @@ body {
     position: absolute;
     left: -100px;
     top: -100px;
-    fill: rgba(0, 145, 0, 0.4);
-
+    fill: rgba($spaceship, 0.4);
 }
 
 #spawn {
@@ -67,23 +92,15 @@ body {
     position: absolute;
     left: -100px;
     top: -100px;
-    //border: 1px solid red;
 }
 
 .rockAnim {
-    /*width:100px;
-        height:100px;*/
     display: block;
     font-size: 2em;
     position: absolute;
     left: -100px;
     top: -100px;
-    /*
-            *border: 3px solid red;
-            *border-radius: 50%;
-        background-color: rgba(255, 255, 255, 0.3);
-        */
-    fill: rgba(255, 255, 255, 0.6);
+    fill: rgba($white, 0.6);
     font-family: 'hyperspaceregular';
 
 }
@@ -107,9 +124,7 @@ body {
 }
 
 .container {
-
     position: relative;
-
     z-index: 20;
 }
 
@@ -119,10 +134,9 @@ h1 {
     margin-top: 30px;
     position: relative;
     z-index: 10000;
-    color: rgba(255, 255, 255, 0.3);
+    color: $white;
+    opacity: 0.3;
     font-family: 'hyperspaceregular';
-
-
 }
 
 #gameOverBoard {
@@ -132,34 +146,41 @@ h1 {
     left: 50%;
     z-index: 100;
     transform: translate(-50%, -50%);
-
-
-
+    flex-direction: column;
+    justify-content: center;
+    border: 10px solid rgba($white, 0.3); 
+    background-color: rgba($black, 0.5);
+    border-radius: 100%;
+    height: 300px;
+    width: 300px;
 
     #gameover {
-        text-shadow: 2px 2px #000000;
-        color: rgba(215, 255, 44, 0.9);
+        text-shadow: 2px 2px $black;
         font-weight: 900;
+        margin: 0 auto;
     }
 
     #highScore {
-        left: 56px;
-        position: relative;
-        text-shadow: 2px 2px #000000;
-        color: rgba(215, 255, 44, 0.9);
+        margin: 0 auto;
+        margin-top: 5px;
+        text-shadow: 2px 2px $black;
         font-family: 'hyperspaceregular';
+        font-size: 1.25em;
     }
 
     #startover {
-        position: absolute;
-        top: 131%;
-        left: 59%;
         width: 150px;
-        transform: translate(-60%, -50%);
         font-family: 'hyperspaceregular';
-        background: #fff;
+        background: $white;
         border-radius: 12px;
+        margin: 0 auto;
+        margin-top: 15px;
+        opacity: 0.5;
+    }
 
+    #startover:hover {
+        opacity: 1;
+        font-weight: 700;
     }
 }
 
@@ -195,13 +216,13 @@ cntrlButton:last-child {
         width: 50px;
         height: 50px;
         position: absolute;
-        color: #ff0000;
-        border: 1px solid white;
+        color: $red;
+        border: 1px solid $white;;
         display: block;
         z-index: 1000;
         background: url('../img/arrow-alt-down.png') center no-repeat;
         background-size: cover;
-        background-color: rgba(215, 215, 215, 0.75);
+        background-color: $gamePadBtn;
         border-radius: 50%;
 
         .glyphicon {
@@ -210,9 +231,7 @@ cntrlButton:last-child {
             left: 15px;
             z-index: -1000;
             display: none;
-
         }
-
     }
 
     #btnUp {
@@ -225,7 +244,6 @@ cntrlButton:last-child {
     #btnDown {
         top: 85px;
         left: 75px;
-
     }
 
     #btnLeft {
@@ -247,8 +265,7 @@ cntrlButton:last-child {
         right: 20px;
         background: url('../img/h2.png') center no-repeat;
         background-size: cover;
-        background-color: rgba(215, 215, 215, 0.75);
-
+        background-color: $gamePadBtn;
     }
 
     #btnShoot {
@@ -256,10 +273,8 @@ cntrlButton:last-child {
         right: 20px;
         background: url('../img/shoot.png') center no-repeat;
         background-size: cover;
-        background-color: rgba(215, 215, 215, 0.75);
-
+        background-color: $gamePadBtn;
     }
-
 }
 
 @media screen and (max-width:768px) {
