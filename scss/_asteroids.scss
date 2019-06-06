@@ -30,6 +30,7 @@ body {
 
 .atari {
     font-family: 'hyperspaceregular';
+
     @media screen and (max-width: 414px) {
         font-size: 0.75em;
     }  
@@ -42,11 +43,22 @@ body {
     display: block;
     width: 200px;
     height: 70px;
-    color: #ffffff;
     font-weight: 700;
     padding: 10px;
     text-align: right;
     text-shadow: 2px 2px #000000;
+    font-size: 1.5em;
+    
+}
+
+.white{
+    color:#fff;
+}
+.gray{
+    color: gray;
+}
+.green{
+    color: rgba(215, 255, 44, 0.9);
 }
 
 #spaceship {
@@ -84,11 +96,6 @@ body {
     position: absolute;
     left: -100px;
     top: -100px;
-    /*
-            *border: 3px solid red;
-            *border-radius: 50%;
-        background-color: rgba(255, 255, 255, 0.3);
-        */
     fill: rgba(255, 255, 255, 0.6);
     font-family: 'hyperspaceregular';
 
@@ -144,7 +151,6 @@ h1 {
 
     #gameover {
         text-shadow: 2px 2px #000000;
-        color: rgba(215, 255, 44, 0.9);
         font-weight: 900;
     }
 
@@ -152,7 +158,6 @@ h1 {
         left: 56px;
         position: relative;
         text-shadow: 2px 2px #000000;
-        color: rgba(215, 255, 44, 0.9);
         font-family: 'hyperspaceregular';
     }
 

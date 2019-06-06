@@ -62,7 +62,7 @@ if (xLimit <= 414) {
 // MAIN ANIMATION LOOP -----------------------------------------------------------------------------------------
 
 function animateScreen(obj, shots) {
-  console.log("play: ",inPlay);
+  //console.log("play: ",inPlay);
   //console.log('ufoActive: ',ufoActive);
   //console.log('all clear : ', safeSpawn() );
   if(inPlay == true) {
