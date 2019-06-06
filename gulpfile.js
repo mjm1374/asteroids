@@ -17,6 +17,12 @@ var input = {
 var inputOrder = {
     'javascript': ['javascript/models.js','javascript/main.js','javascript/controls.js','javascript/*.js']
 };
+
+output = {
+    'stylesheets': 'stylesheets',
+    'javascript': 'javascript',
+    'javascriptPage': 'js/dist/page-component'
+};
  
 
 var sassOptions = {
