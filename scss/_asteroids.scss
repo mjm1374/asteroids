@@ -135,9 +135,13 @@ h1 {
     position: relative;
     z-index: 10000;
     color: $white;
-    opacity: 0.3;
     font-family: 'hyperspaceregular';
+    .game__title{
+        opacity: 0.3;
+    }
 }
+
+
 
 #gameOverBoard {
     position: absolute;

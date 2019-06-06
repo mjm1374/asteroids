@@ -7,6 +7,17 @@ var sourcemaps =  require('gulp-sourcemaps');
 var autoprefixer = require('gulp-autoprefixer');
 var sassdoc = require('sassdoc');
 var order = require('gulp-order');
+var input = {
+    'sass': 'scss/**/*.scss',
+    'javascript': ['javascript/models.js','javascript/main.js','javascript/controls.js','javascript/*.js'],
+    'javascriptPage': ['js/page-component/*.js'],
+    'vendor': 'vendor/**/*.js'
+};
+
+var inputOrder = {
+    'javascript': ['javascript/models.js','javascript/main.js','javascript/controls.js','javascript/*.js']
+};
+
 
 var sassOptions = {
     errLogToConsole: true,
@@ -15,7 +26,7 @@ var sassOptions = {
 };
 
 gulp.task('sass', function () {
-    return gulp.src('scss/*.scss')
+    return gulp.src(input.sass)
         .pipe(sourcemaps.init())
         .pipe(sass(sassOptions).on('error', sass.logError))
         .pipe(autoprefixer())
@@ -30,7 +41,8 @@ gulp.task('sass', function () {
 });
 
 gulp.task('js', function () {
-    return gulp.src(['javascript/models.js','javascript/main.js','javascript/controls.js','javascript/*.js'])
+    return gulp.src(input.javascript)
+        .pipe(order(inputOrder.javascript))
         .pipe(concat('script.min.js'))
         .on('error', onError)
         .pipe(uglify())

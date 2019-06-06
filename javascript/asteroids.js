@@ -69,7 +69,7 @@ function blowupAsteroid(obj, idx) {
 
 	//make and clean up astroids array and svg's
 	if (a.height > 25) {
-		makeAsteroidPieces(a.x, a.y, (a.height / 2), 2);
+		makeAsteroidPieces(a.x, a.y, (a.height / 2), 2); 
 	}
 
 	$('#rockAnim' + a.id).remove();
