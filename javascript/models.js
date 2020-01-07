@@ -70,6 +70,8 @@ class Asteroid {
         this.changeExistance = function (e) {
             this.exists = e;
         };
+
+        this.destroy = function () {};
     }
 }
 
@@ -89,7 +91,11 @@ class Spaceship {
         this.shape = "14.383032,5.9181762 0.35137621,0.04626516 2.7568063,5.9181762 0.35137621,11.338401";
         //this.x_points = [-params.size,-params.size,2*params.size],
         //this.y_points = [-params.size,params.size,0]
+
+        this.destroy = function () {};
     }
+
+    
 }
 
 

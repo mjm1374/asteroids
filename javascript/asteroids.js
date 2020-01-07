@@ -73,7 +73,7 @@ function blowupAsteroid(obj, idx) {
 	}
 
 	$('#rockAnim' + a.id).remove();
-	obj.delete();
+	obj.destroy();
 	asteroids.splice(idx, 1);
 
 	if (asteroids.length == 0) {
