@@ -114,7 +114,8 @@ function makeShot() {
 
 //you died!
 function boom() {
-	$('#spaceship').hide();
+  $('#spaceship').hide();
+  spaceship.destroy();
 	inPlay = false;
 	ufoActive = false;
 	spaceship.x = -1000;
