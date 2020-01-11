@@ -5,9 +5,9 @@ function regenerateAsteroids() {
 		rock_max_v = 6; //cap out speed
 	}
 
-	for (i = 0; i < rockCnt; i++) {
+	for (var i = 0; i < rockCnt; i++) {
 		rockID++;
-		thisRockSize = 100;
+		let thisRockSize = 100;
 		asteroids.push(new Asteroid(rockID, 'test', thisRockSize / screenScale, thisRockSize / screenScale, getSafeRandomFloat(0, (xLimit - 150)), getSafeRandomFloat(0, (yLimit - 150)), getRandomFloat(-Math.abs(rock_max_v), rock_max_v), getRandomFloat(-Math.abs(rock_max_v), rock_max_v), colors[Math.floor(getRandomFloat(0, 5))], 'generic', false, 20, true));
 	}
 
@@ -25,9 +25,11 @@ function regenerateAsteroids() {
 
 
 function makeAsteroidPieces(x, y, size, cnt) {
-	for (i = 0; i < cnt; i++) {
+	for (let i = 0; i < cnt; i++) {
 		rockID++;
-		thisRockSize = size;
+		let thisRockSize = size;
+		let maxVel = rock_max_v;
+		let rockPnt =  20;
 		//which transform scale to implement
 		switch (size) {
 			case 100: //large

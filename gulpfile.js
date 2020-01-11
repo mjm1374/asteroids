@@ -10,6 +10,7 @@ const autoprefixer = require('gulp-autoprefixer');
 const sassdoc = require('sassdoc');
 const order = require('gulp-order');
 const plumber = require("gulp-plumber");
+const babel = require('gulp-babel');
 
 const input = {
     'sass': 'scss/**/*.scss',
@@ -31,7 +32,10 @@ function scripts() {
     return gulp.src(input.javascript)
         .pipe(order(['models.js','javascript/1_main.js','javascript/2_controls.js','javascript/*.js'], { cwd: './javascript' }))
         .on('error', onError)
-        //.pipe(plumber())
+        .pipe(babel({
+          presets: ['@babel/env']
+        }))
+        .pipe(plumber())
         .pipe(concat('script.min.js'))
         .on('error', onError)
         .pipe(uglify())

@@ -160,9 +160,9 @@ function updateShots(shots){
 
 function updateUFOShot(){
   for (var ind in ufoShots) {
-    thisUfoVX = (Math.cos(ufoShots[ind].theta * Math.PI / 180) * 10 + ufoShots[ind].x);
-    thisUfoVY = (Math.sin(ufoShots[ind].theta * Math.PI / 180) * 10 + ufoShots[ind].y);
-    thisUfoLife = ufoShots[ind].life - 5;
+    let thisUfoVX = (Math.cos(ufoShots[ind].theta * Math.PI / 180) * 10 + ufoShots[ind].x);
+    let thisUfoVY = (Math.sin(ufoShots[ind].theta * Math.PI / 180) * 10 + ufoShots[ind].y);
+    let thisUfoLife = ufoShots[ind].life - 5;
     ufoShots[ind].changeLife(thisUfoLife);
 
     if (ufoShots[ind].life < 0) {
@@ -184,10 +184,10 @@ $(document).ready(function () {
   //establish reusable sounds
   shootsnd = new Sound('snd/fire.mp3');
   thrustsnd = new Sound('snd/thrust.mp3');
-  extraLifesnd = new Sound('snd/extraShip.ogg');
+  var extraLifesnd = new Sound('snd/extraShip.ogg');
   ufosnd = new Sound('snd/saucerBig.mp3');
   ufoBulletsnd = new Sound('snd/laser.mp3');
-  ufoBoom = new Sound('snd/bangMedium.mp3');
+  var ufoBoom = new Sound('snd/bangMedium.mp3');
 
   resetgame();
 

@@ -13,7 +13,7 @@ function isHit(obj) {
     var a = asteroids;
     var b = obj;
 
-    for (i = 0; i < a.length; i++) {
+    for (let i = 0; i < a.length; i++) {
         // console.log("iu: ", a[i].exists);
         if ((((a[i].y + a[i].height) < (b.y)) ||
                 (a[i].y > (b.y + b.height)) ||
@@ -49,7 +49,7 @@ function isUfoHit(obj) {
             (a.y > (b.y + b.height)) ||
             ((a.x + a.width) < b.x) ||
             (a.x > (b.x + b.width))) == false) {
-        blowupUfo(a, i);
+        blowupUfo(a);
         ufoActive = false;
         return true;
     }

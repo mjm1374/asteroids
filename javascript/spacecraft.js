@@ -217,13 +217,13 @@ function makeUFO(active, scale) {
   }
 }
 
-function blowupUfo(obj, idx) {
+function blowupUfo(obj) {
   var a = obj;
   $('#sndAstroBoom').get(0).pause();
   $('#sndAstroBoom').get(0).currentTime = 0;
   $('#sndAstroBoom').get(0).play();
   $('#ufoShip').remove();
-  ufoBoom.play();
+  //ufoBoom.play();
   pointCnt(obj.points);
   parkUfo();
   clearTimeout(ufoTimer);  

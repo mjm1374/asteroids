@@ -11,14 +11,14 @@ function resetWindowLimit(whatDim) {
 	newDimy = window.innerHeight;
 	if (whatDim == "x") {
 		newDim = window.innerWidth;
-		for (i = 0; i < asteroids.length; i++) {
+		for (let i = 0; i < asteroids.length; i++) {
 			if (asteroids[i].x >= (newDimx - asteroids[i].width)) {
 				asteroids[i].changePosition((newDimx - asteroids[i].width), (newDimy - asteroids[i].height));
 			}
 		}
 	} else {
 		newDim = window.innerHeight;
-		for (i = 0; i < asteroids.length; i++) {
+		for (let i = 0; i < asteroids.length; i++) {
 			if (asteroids[i].y >= (newDimy - asteroids[i].height)) {
 				asteroids[i].changePosition((newDimx - asteroids[i].width), (newDim - asteroids[i].height));
 			}
@@ -54,7 +54,7 @@ function clearBullet(team, idx) {
 function safeSpawn() {
 	var a = asteroids;
 	var b = spawnBox;
-	for (i = 0; i < a.length; i++) {
+	for (let i = 0; i < a.length; i++) {
 		// console.log("iu: ", a[i].exists);
 		if ((((a[i].y + a[i].height) < (b.y)) ||
 				(a[i].y > (b.y + b.height)) ||
