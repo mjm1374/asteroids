@@ -29,8 +29,8 @@ const inputOrder = {
 // Transpile, concatenate and minify scripts
 function scripts() {
   
-    return gulp.src(input.javascript)
-        .pipe(order(['models.js','javascript/1_main.js','javascript/2_controls.js','javascript/*.js'], { cwd: './javascript' }))
+    return gulp.src(['javascript/models.js','javascript/main.js', 'javascript/controls.js','javascript/asteroids.js','javascript/collision.js','javascript/spacecraft.js','javascript/utils.js'])
+        //.pipe(order(['models.js','javascript/1_main.js','javascript/2_controls.js','javascript/*.js'], { cwd: './javascript' }))
         .on('error', onError)
         .pipe(babel({
           presets: ['@babel/env']

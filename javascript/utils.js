@@ -110,6 +110,7 @@ function pointCnt(num) {
 
 
 function playExtraLife() {
+	var extraLifesnd = new Sound('snd/extraShip.ogg');
 	setTimeout(function () {
 		extraLifesnd.play();
 	}, 1);
