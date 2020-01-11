@@ -1,29 +1,42 @@
-var gulp = require('gulp');
-var cssnano = require('gulp-cssnano');
-var sass = require('gulp-sass');
-var concat = require('gulp-concat');
-var uglify = require('gulp-uglify-es').default;
-var sourcemaps =  require('gulp-sourcemaps');
-var autoprefixer = require('gulp-autoprefixer');
-var sassdoc = require('sassdoc');
-var order = require('gulp-order');
-var input = {
+"use strict"
+
+const gulp = require('gulp');
+const cssnano = require('gulp-cssnano');
+const sass = require('gulp-sass');
+const concat = require('gulp-concat');
+const uglify = require('gulp-uglify-es').default;
+const sourcemaps =  require('gulp-sourcemaps');
+const autoprefixer = require('gulp-autoprefixer');
+const sassdoc = require('sassdoc');
+const order = require('gulp-order');
+const plumber = require("gulp-plumber");
+
+const input = {
     'sass': 'scss/**/*.scss',
-    'javascript': ['javascript/models.js','javascript/main.js','javascript/controls.js','javascript/*.js'],
+    javascript: ['javascript/*.js'] ,
     'javascriptPage': ['js/page-component/*.js'],
-    'vendor': 'vendor/**/*.js'
+    'vendor': 'vendor/**/*.js' 
 };
+//'javascript/controls.js','javascript/asteroids.js','javascript/collision.js','javascript/spacecraft.js','javascript/utils.js'
 
-var inputOrder = {
-    'javascript': ['javascript/models.js','javascript/main.js','javascript/controls.js','javascript/*.js']
-};
+const inputOrder = {
+    javascript: ['javascript/models.js','javascript/1_main.js','javascript/2_controls.js','javascript/*.js']
+};   
 
-output = {
-    'stylesheets': 'stylesheets',
-    'javascript': 'javascript',
-    'javascriptPage': 'js/dist/page-component'
-};
- 
+
+
+// Transpile, concatenate and minify scripts
+function scripts() {
+  
+    return gulp.src(input.javascript)
+        .pipe(order(['models.js','javascript/1_main.js','javascript/2_controls.js','javascript/*.js'], { cwd: './javascript' }))
+        .on('error', onError)
+        //.pipe(plumber())
+        .pipe(concat('script.min.js'))
+        .on('error', onError)
+        .pipe(uglify())
+        .pipe(gulp.dest('js'));
+  }
 
 var sassOptions = {
     errLogToConsole: true,
@@ -31,7 +44,7 @@ var sassOptions = {
     sourceComments: 'map'
 };
 
-gulp.task('sass', function () {
+function css() {
     return gulp.src(input.sass)
         .pipe(sourcemaps.init())
         .pipe(sass(sassOptions).on('error', sass.logError))
@@ -44,26 +57,31 @@ gulp.task('sass', function () {
         // Release the pressure back and trigger flowing mode (drain)
         // See: http://sassdoc.com/gulp/#drain-event
         .resume();
-});
+  }
 
-gulp.task('js', function () {
-    return gulp.src(input.javascript)
-        .pipe(order(inputOrder.javascript))
-        .pipe(concat('script.min.js'))
-        .on('error', onError)
-        .pipe(uglify())
-        .pipe(gulp.dest('js'));
-});
-
-gulp.task('watch', function () {
-    gulp.watch('scss/*.scss', ['sass']);
-    gulp.watch('javascript/*.js', ['js']);
-});
-
+function watchFiles(done) {
+    gulp.watch('scss/*.scss', css);
+    gulp.watch('javascript/*.js', scripts);
+    done();
+  }
 function onError(err) {
     console.log(err);
     this.emit('end');
   }
 
 
-gulp.task('default', ['sass', 'js', 'watch']);
+  function defaultTask(done) {
+    // place code for your default task here
+    build();
+    watch();
+    done();
+  }
+
+const watch = gulp.parallel(watchFiles);
+const js = gulp.series(scripts);
+const build = gulp.series( gulp.parallel(css,js) );
+
+exports.watch = watch;
+exports.build = build;
+exports.js = js;
+exports.default = defaultTask;

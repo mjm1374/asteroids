@@ -1,3 +1,6 @@
+
+
+
 function regenerateAsteroids() {
 	scale = 1;
 	rock_max_v = rock_max_v + 0.25;

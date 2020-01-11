@@ -53,4 +53,4 @@ function isUfoHit(obj) {
         ufoActive = false;
         return true;
     }
-} 
+}

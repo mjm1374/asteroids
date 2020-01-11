@@ -23,8 +23,9 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="js/script.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous">
+    </script>
 
     <link href="https://fonts.googleapis.com/css?family=Tajawal" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -34,85 +35,87 @@
 
 <body>
     <div id="game__wrapper">
-    <h1 class="game__title">JS Asteroids</h1>
-    <p class="atari gray">&copy; 2018 Mike McAllister v1.1</p>
+        <h1 class="game__title">JS Asteroids</h1>
+        <p class="atari gray">&copy; 2018 Mike McAllister v1.1</p>
 
-    <div id="scorecard">
-        <div id="scoreCnt" class="atari green">Score: <span></span></div>
-        <div id="lifeCnt" class="atari green">Life: <span></span></div>
-        <div id="HSCnt" class="atari green">Hyperspace: <span></span></div>
-    </div>
-
-    <div id="gameOverBoard">
-        <h1 id="gameover" class="green">Game Over</h1>
-        
-        <div id="highScore" class="green">High Score: <span></span></div>
-
-        <button id="startover" onclick="resetgame();">Play Again</button>
-    </div>
-
-
-    <div id="gamepad" class="container bottom">
-        <div class="right">
-            <div id="btnRight" class="gameBtn">
-                <span id="glyphRight" class="glyphicon glyphicon-arrow-right"></span>
-            </div>
-            <div id="btnUp" class="gameBtn">
-                <span id="glyphUp" class="glyphicon glyphicon-arrow-up"></span>
-            </div>
-            <div id="btnDown" class="gameBtn">
-                <!--<span id="glyphDown" class="glyphicon glyphicon-arrow-down"></span>-->
-            </div>
-            <div id="btnLeft" class="gameBtn">
-                <span id="glyphLeft" class="glyphicon glyphicon-arrow-left"></span>
-            </div>
+        <div id="scorecard">
+            <div id="scoreCnt" class="atari green">Score: <span></span></div>
+            <div id="lifeCnt" class="atari green">Life: <span></span></div>
+            <div id="HSCnt" class="atari green">Hyperspace: <span></span></div>
         </div>
-        <div class="">
 
-            <div id="btnHS" class="gameBtn">
-                <span id="glyphHS" class="glyphicon glyphicon-fullscreen"></span>
-            </div>
+        <div id="gameOverBoard">
+            <h1 id="gameover" class="green">Game Over</h1>
 
-            <div id="btnShoot" class="gameBtn">
-                <span id="glyphShoot" class="glyphicon glyphicon-flash"></span>
-            </div>
+            <div id="highScore" class="green">High Score: <span></span></div>
 
-
+            <button id="startover" onclick="resetgame();">Play Again</button>
         </div>
 
 
-
-
-    </div>
-
-    <div class="modal fade" id="welcomeModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">JS Asteroids v1.0</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+        <div id="gamepad" class="container bottom">
+            <div class="right">
+                <div id="btnRight" class="gameBtn">
+                    <span id="glyphRight" class="glyphicon glyphicon-arrow-right"></span>
                 </div>
-                <div class="modal-body">
-                    <p><b>Desktop controls</b></p>
-                    <p>Use A &amp; D to turn, W &amp; S to thrust. Spacebar to jump to hyperspace</p>
-                    <p>Use Enter to shoot!</p>
-                    <p>Please Enjoy, quarters are on me. </p>
-                    <p>If you ain't a lawyer, <a href="http://logikbox.com/contact.php" title="Contact the author">contact me here</a>!</p>
-                    <p>Get the code <a href="https://github.com/mjm1374/asteroids" title="Download the code on GitHub">here</a>.</p>
+                <div id="btnUp" class="gameBtn">
+                    <span id="glyphUp" class="glyphicon glyphicon-arrow-up"></span>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <div id="btnDown" class="gameBtn">
+                    <!--<span id="glyphDown" class="glyphicon glyphicon-arrow-down"></span>-->
+                </div>
+                <div id="btnLeft" class="gameBtn">
+                    <span id="glyphLeft" class="glyphicon glyphicon-arrow-left"></span>
+                </div>
+            </div>
+            <div class="">
+
+                <div id="btnHS" class="gameBtn">
+                    <span id="glyphHS" class="glyphicon glyphicon-fullscreen"></span>
+                </div>
+
+                <div id="btnShoot" class="gameBtn">
+                    <span id="glyphShoot" class="glyphicon glyphicon-flash"></span>
+                </div>
+
+
+            </div>
+
+
+
+
+        </div>
+
+        <div class="modal fade" id="welcomeModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">JS Asteroids v1.0</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p><b>Desktop controls</b></p>
+                        <p>Use A &amp; D to turn, W &amp; S to thrust. Spacebar to jump to hyperspace</p>
+                        <p>Use Enter to shoot!</p>
+                        <p>Please Enjoy, quarters are on me. </p>
+                        <p>If you ain't a lawyer, <a href="http://logikbox.com/contact.php"
+                                title="Contact the author">contact me here</a>!</p>
+                        <p>Get the code <a href="https://github.com/mjm1374/asteroids"
+                                title="Download the code on GitHub">here</a>.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <div id="spawn"></div>
+
     </div>
-
-    <div id="spawn"></div>
-
-</div>
 
     <audio id="sndTurn" preload="preload" loop>
         <source src="snd/hiss.mp3" type="audio/mpeg">

@@ -21,7 +21,7 @@ class Asteroid {
             // this.gravity =  0.05;
             // this.gravitySpeed = 0;
         };
-        this.newPos = function () {
+        this.newPos = function () { 
             this.gravitySpeed += this.gravity;
             this.x += this.xvel;
             var gavVel = this.yv;
@@ -90,12 +90,9 @@ class Spaceship {
         this.y_points = y_points;
         this.shape = "14.383032,5.9181762 0.35137621,0.04626516 2.7568063,5.9181762 0.35137621,11.338401";
         //this.x_points = [-params.size,-params.size,2*params.size],
-        //this.y_points = [-params.size,params.size,0]
-
+        //this.y_points = [-params.size,params.size,0] 
         this.destroy = function () {};
     }
-
-    
 }
 
 
@@ -120,6 +117,8 @@ class Shot {
         this.changeLife = function (l) {
             this.life = l;
         };
+
+        this.destroy = function () {};
     }
 }
 
