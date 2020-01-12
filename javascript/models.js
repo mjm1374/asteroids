@@ -108,6 +108,7 @@ class Shot {
             this.x = x;
             this.y = y;
         };
+        
         this.changeLife = function (l) {
             this.life = l;
         };
