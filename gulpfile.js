@@ -14,11 +14,10 @@ const babel = require('gulp-babel');
 
 const input = {
     'sass': 'scss/**/*.scss',
-    javascript: ['javascript/*.js'] ,
+    javascript: ['javascript/models.js','javascript/main.js', 'javascript/controls.js','javascript/asteroids.js','javascript/collision.js','javascript/spacecraft.js','javascript/utils.js'] ,
     'javascriptPage': ['js/page-component/*.js'],
     'vendor': 'vendor/**/*.js' 
 };
-//'javascript/controls.js','javascript/asteroids.js','javascript/collision.js','javascript/spacecraft.js','javascript/utils.js'
 
 const inputOrder = {
     javascript: ['javascript/models.js','javascript/1_main.js','javascript/2_controls.js','javascript/*.js']
@@ -29,7 +28,7 @@ const inputOrder = {
 // Transpile, concatenate and minify scripts
 function scripts() {
   
-    return gulp.src(['javascript/models.js','javascript/main.js', 'javascript/controls.js','javascript/asteroids.js','javascript/collision.js','javascript/spacecraft.js','javascript/utils.js'])
+    return gulp.src(input.javascript)
         //.pipe(order(['models.js','javascript/1_main.js','javascript/2_controls.js','javascript/*.js'], { cwd: './javascript' }))
         .on('error', onError)
         .pipe(babel({

@@ -1,5 +1,6 @@
 //initialize the environment
-let asteroids = [],
+let version = 1.2, 
+  asteroids = [],
   shots = [],
   shotCnt = 0,
   xLimit = resetWindowLimit("x") - 1,
@@ -59,12 +60,15 @@ if (xLimit <= 414) {
 
 // MAIN ANIMATION LOOP -----------------------------------------------------------------------------------------
 
-function animateScreen(obj, shots) {
+/**
+ * The main animation loop
+ */
+function animateScreen() {
   //console.log("play: ",inPlay);
   hideCursor();
   updateAsteroids();
   checkUFO();
-  updateShots(shots);
+  updateShots();
   updateUFOShot();
   moveSpaceship(delta_time);
   updateSpaceship(delta_time);
@@ -74,7 +78,9 @@ function animateScreen(obj, shots) {
 
 // END animation Loop -------------------------------------------------------------------------------------------
 
-
+/**
+ * Hide the cursor when game play is happening
+ */
 function hideCursor(){
   if(inPlay == true) {
     $('#game__wrapper').addClass('cursorHide');
@@ -83,6 +89,9 @@ function hideCursor(){
   }
 }
 
+/**
+ * update the asteroids position
+ */
 function updateAsteroids(){
   for (var key in asteroids) {
     if (asteroids.hasOwnProperty(key)) {
@@ -118,7 +127,9 @@ function updateAsteroids(){
   } //end asteroids
 }
 
-
+/**
+ * Check on the status of the UFO
+ */
 function checkUFO(){
   if (ufo != null && ufo != undefined && ufoActive == true) {
     ufo.changePosition(ufo.x + ufo.vx, ufo.y + ufo.vy);
@@ -134,7 +145,10 @@ function checkUFO(){
   }
 }
 
-function updateShots(shots){
+/**
+ * Update the bullets
+ */
+function updateShots(){
   for (var idx in shots) {
     var thisVX = (Math.cos(shots[idx].theta * Math.PI / 180) * 10 + shots[idx].x);
     var thisVY = (Math.sin(shots[idx].theta * Math.PI / 180) * 10 + shots[idx].y);
@@ -158,6 +172,9 @@ function updateShots(shots){
   }
 }
 
+/**
+ * update the UFO bullters
+ */
 function updateUFOShot(){
   for (var ind in ufoShots) {
     let thisUfoVX = (Math.cos(ufoShots[ind].theta * Math.PI / 180) * 10 + ufoShots[ind].x);
@@ -181,6 +198,7 @@ function updateUFOShot(){
 
 // Kick it off!
 $(document).ready(function () {
+  $('#versionNum').text(version);
   //establish reusable sounds
   shootsnd = new Sound('snd/fire.mp3');
   thrustsnd = new Sound('snd/thrust.mp3');
@@ -202,6 +220,6 @@ $(document).ready(function () {
 
   //kick off animation
   let startAstroStorm = setInterval(function () {
-    animateScreen(asteroids, shots);
+    animateScreen();
   }, delta_time);
 });

@@ -1,41 +1,42 @@
-
 // Input controls  ---------------------------------------------------------------------//
 
 if (lifeCnt > 0) {
-	document.onkeydown = function(e) {
-
-  $("#spaceship").css("opacity","1");
-		var key = e.keyCode;
-		switch (key) {
-			case 68: //d = yaw left
-				turn = 2;
-				break;
-			case 65: //a = yaw right
-				turn = -2;
-				break;
-			case 87: //w = forward
-				thrust = 1;
-				break;
-			case 83: //s = backward
-				thrust = -1; 
-				break;
-			case 13: //s = shoot
-				pewpew();
-        		resetGun = false;
-				break;
-			case 32: // enter = hyperspace
-				hyperspace();
-				break;
-			case 8:
-				boom();
-				break;
-			case 46:
-				boom();
-				break;
+	document.onkeydown = function (e) {
+		if(inPlay == true){
+			$("#spaceship").css("opacity", "1");
+			var key = e.keyCode;
+			switch (key) {
+				case 68: //d = yaw left
+					turn = 2;
+					break;
+				case 65: //a = yaw right
+					turn = -2;
+					break;
+				case 87: //w = forward
+					thrust = 1;
+					break;
+				case 83: //s = backward
+					thrust = -1;
+					break;
+				case 13: //s = shoot
+					pewpew();
+					resetGun = false;
+					break;
+				case 32: // enter = hyperspace
+					hyperspace();
+					break;
+				case 8:
+					boom();
+					break;
+				case 46:
+					boom();
+					break;
+			}
 		}
+		
 	};
 
-	document.onkeyup = function(e) {
+	document.onkeyup = function (e) {
 		var key = e.keyCode;
 		switch (key) {
 			case 65: //a = yaw left
@@ -52,7 +53,7 @@ if (lifeCnt > 0) {
 				break;
 			case 13:
 				//endpew();
-        		resetGun = true;
+				resetGun = true;
 				break;
 
 		}
@@ -60,9 +61,9 @@ if (lifeCnt > 0) {
 
 	// mobile controls   --------------->
 
-	$(document).on('touchstart', ' .gameBtn', function(e) {
+	$(document).on('touchstart', ' .gameBtn', function (e) {
 
-  $("#spaceship").css("opacity","1");
+		$("#spaceship").css("opacity", "1");
 		//e.preventDefault();
 		var key = e.target.id;
 		console.log(key);
@@ -89,7 +90,7 @@ if (lifeCnt > 0) {
 		}
 	});
 
-	$(document).on('touchend', '.gameBtn', function(e) {
+	$(document).on('touchend', '.gameBtn', function (e) {
 
 		var key = e.target.id;
 		switch (key) {
@@ -111,7 +112,7 @@ if (lifeCnt > 0) {
 				break;
 			case 'btnShoot': //space = shoot
 				//endpew();
-        resetGun = true;
+				resetGun = true;
 				break;
 		}
 	});
@@ -119,4 +120,3 @@ if (lifeCnt > 0) {
 }
 
 // End Input controls ---------------------------------------------------------------------------
-

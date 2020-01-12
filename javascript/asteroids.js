@@ -1,3 +1,6 @@
+/**
+ * Create asteroids
+ */
 function regenerateAsteroids() {
 	scale = 1;
 	rock_max_v = rock_max_v + 0.25;
@@ -8,7 +11,7 @@ function regenerateAsteroids() {
 	for (var i = 0; i < rockCnt; i++) {
 		rockID++;
 		let thisRockSize = 100;
-		asteroids.push(new Asteroid(rockID, 'test', thisRockSize / screenScale, thisRockSize / screenScale, getSafeRandomFloat(0, (xLimit - 150)), getSafeRandomFloat(0, (yLimit - 150)), getRandomFloat(-Math.abs(rock_max_v), rock_max_v), getRandomFloat(-Math.abs(rock_max_v), rock_max_v), colors[Math.floor(getRandomFloat(0, 5))], 'generic', false, 20, true));
+		asteroids.push(new Asteroid(rockID, 'asteroid' + i, thisRockSize / screenScale, thisRockSize / screenScale, getSafeRandomFloat(0, (xLimit - 150)), getSafeRandomFloat(0, (yLimit - 150)), getRandomFloat(-Math.abs(rock_max_v), rock_max_v), getRandomFloat(-Math.abs(rock_max_v), rock_max_v), colors[Math.floor(getRandomFloat(0, 5))], 'generic', false, 20));
 	}
 
 	for (var key in asteroids) {
@@ -23,11 +26,16 @@ function regenerateAsteroids() {
 }
 
 
-
+/**
+ * Clear shot asteroid and make splitter pieces
+ * @param {*} x int
+ * @param {*} y int
+ * @param {*} size int
+ * @param {*} cnt int
+ */
 function makeAsteroidPieces(x, y, size, cnt) {
 	for (let i = 0; i < cnt; i++) {
 		rockID++;
-		let thisRockSize = size;
 		let maxVel = rock_max_v;
 		let rockPnt =  20;
 		//which transform scale to implement
@@ -49,7 +57,7 @@ function makeAsteroidPieces(x, y, size, cnt) {
 				break;
 		}
 
-		asteroids.push(new Asteroid(rockID, 'test', thisRockSize, thisRockSize, x, y, getRandomFloat(-Math.abs(maxVel), maxVel), getRandomFloat(-Math.abs(maxVel), maxVel), colors[Math.floor(getRandomFloat(0, 5))], 'generic', false, rockPnt, true));
+		asteroids.push(new Asteroid(rockID, 'test', size, size, x, y, getRandomFloat(-Math.abs(maxVel), maxVel), getRandomFloat(-Math.abs(maxVel), maxVel), colors[Math.floor(getRandomFloat(0, 5))], 'generic', false, rockPnt));
 
 		$('body')
 			.append("<svg id='rockAnim" + asteroids[asteroids.length - 1].id + "' data-id='" + asteroids[asteroids.length - 1].id + "' class='asteroid rocksize" + size + "'><path cx='" + (asteroids[asteroids.length - 1].width) + "' cy='" + (asteroids[asteroids.length - 1].height) + "' r='" + (asteroids[asteroids.length - 1].width / 2 - 5) + "' stroke='" + asteroids[asteroids.length - 1].color + "' stroke-width='2' d='M " + rocksLrg[Math.floor(getRandomFloat(0, 3))] + " Z'  id='astroPath" + asteroids[asteroids.length - 1].id + "' transform='scale(" + scale + ", " + scale + ")' /><text x='20' y='55' fill='" + asteroids[asteroids.length - 1].color + "' transform='scale(" + scale + ", " + scale + ")></text></svg>");
@@ -59,20 +67,24 @@ function makeAsteroidPieces(x, y, size, cnt) {
 	}
 }
 
+/**
+ * handle asteroid being struck by a bullter
+ * @param {*} obj array -the asteroids array 
+ * @param {*} idx int - what asteroid
+ */
 function blowupAsteroid(obj, idx) {
 	$('#sndAstroBoom').get(0).pause();
 	$('#sndAstroBoom').get(0).currentTime = 0;
 	$('#sndAstroBoom').get(0).play();
-	var a = obj;
+
 	pointCnt(obj.points);
 
 	//make and clean up astroids array and svg's
-	if (a.height > 25) {
-		makeAsteroidPieces(a.x, a.y, (a.height / 2), 2); 
+	if (obj.height > 25) {
+		makeAsteroidPieces(obj.x, obj.y, (obj.height / 2), 2); 
 	}
 
-	$('#rockAnim' + a.id).remove();
-	a.destroy();
+	$('#rockAnim' + obj.id).remove();
 	asteroids.splice(idx, 1);
 
 	if (asteroids.length == 0) {

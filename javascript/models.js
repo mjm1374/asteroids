@@ -1,6 +1,6 @@
 
 class Asteroid {
-    constructor(id, title, width, height, xcord, ycord, xvel, yvel, color, type, oob, points, exists) {
+    constructor(id, title, width, height, xcord, ycord, xvel, yvel, color, type, oob, points) {
         this.id = id;
         this.title = title;
         this.width = width;
@@ -16,7 +16,6 @@ class Asteroid {
         this.gravity = 0.1;
         this.gravitySpeed = 0;
         this.bounce = 0.4;
-        this.exists = true;
         this.resetGravity = function () {
             // this.gravity =  0.05;
             // this.gravitySpeed = 0;
@@ -70,8 +69,6 @@ class Asteroid {
         this.changeExistance = function (e) {
             this.exists = e;
         };
-
-        this.destroy = function () {};
     }
 }
 
@@ -89,9 +86,6 @@ class Spaceship {
         this.x_points = x_points;
         this.y_points = y_points;
         this.shape = "14.383032,5.9181762 0.35137621,0.04626516 2.7568063,5.9181762 0.35137621,11.338401";
-        //this.x_points = [-params.size,-params.size,2*params.size],
-        //this.y_points = [-params.size,params.size,0] 
-        this.destroy = function () {};
     }
 }
 
@@ -117,8 +111,6 @@ class Shot {
         this.changeLife = function (l) {
             this.life = l;
         };
-
-        this.destroy = function () {};
     }
 }
 

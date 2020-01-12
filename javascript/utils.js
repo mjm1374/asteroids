@@ -5,6 +5,10 @@ $(window).resize(function () {
 	yLimit = resetWindowLimit("y");
 });
 
+/**
+ * Reset the window paramameters when resized
+ * @param {*} whatDim  - string, X or Y
+ */
 function resetWindowLimit(whatDim) {
 	var newDim, newDimx, newDimy;
 	newDimx = window.innerHeight;
@@ -27,10 +31,19 @@ function resetWindowLimit(whatDim) {
 	return newDim;
 }
 
+/**
+ * Get a randome float between 2 values
+ * @param {*} min - int
+ * @param {*} max - int
+ */
 function getRandomFloat(min, max) {
 	return Math.random() * (max - min) + min;
 }
-
+/**
+ * set a safe randome float inside coordinates
+ * @param {*} min - int
+ * @param {*} max - int
+ */
 function getSafeRandomFloat(min, max) {
 	var split = min + max / 2;
 	var tempCoord = Math.random() * (max - min) + min;
@@ -40,7 +53,11 @@ function getSafeRandomFloat(min, max) {
 	}
 	return finalCoord;
 }
-
+/**
+ * 
+ * @param {*} team 
+ * @param {*} idx 
+ */
 function clearBullet(team, idx) {
 	if (team == "ufo") {
 		$('#ufoshot' + ufoShots[idx].id).remove();
@@ -50,7 +67,9 @@ function clearBullet(team, idx) {
 		shots.splice(idx, 1);
 	}
 }
-
+/**
+ * check for no asteroids in a radius of the spawn sight
+ */
 function safeSpawn() {
 	var a = asteroids;
 	var b = spawnBox;
@@ -68,7 +87,9 @@ function safeSpawn() {
 
 
 
-
+/**
+ * Reset the game to default games start values
+ */
 function resetgame() {
 	$("#gameOverBoard").hide();
 	//$('*').css('cursor','none'); // clear cursor
@@ -92,9 +113,10 @@ function resetgame() {
 
 }
 
-
-
-
+/**
+ * update the score
+ * @param {*} num  - int
+ */
 function pointCnt(num) {
 	score = score + num;
 	newLife = newLife - num;
@@ -108,7 +130,9 @@ function pointCnt(num) {
 
 
 
-
+/**
+ * play sound for extra life
+ */
 function playExtraLife() {
 	var extraLifesnd = new Sound('snd/extraShip.ogg');
 	setTimeout(function () {
@@ -120,9 +144,6 @@ function playExtraLife() {
 	setTimeout(function () {
 		extraLifesnd.play();
 	}, 500);
-
-
-
 }
 
 

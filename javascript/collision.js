@@ -1,3 +1,7 @@
+/**
+ * Check to see if Obj is in contact with Spaceship
+ * @param {*} obj -  the current object under inspection 
+ */
 function inCollision(obj) {
     var a = spaceship;
     var b = obj;
@@ -9,6 +13,10 @@ function inCollision(obj) {
     );
 }
 
+/**
+ * when an object is confirmed thats its in contact with another object (spaceship, ufo or bullet)
+ * @param {*} obj - the current object under inspection
+ */
 function isHit(obj) {
     var a = asteroids;
     var b = obj;
@@ -26,7 +34,10 @@ function isHit(obj) {
     }
 }
 
-
+/**
+ * Spaceship is hit
+ * @param {*} obj - the current object in contact with spaceship
+ */
 function isSpaceshipHit(obj) {
     var a = spaceship;
     var b = obj;
@@ -40,7 +51,10 @@ function isSpaceshipHit(obj) {
         return true;
     }
 }
-
+/**
+ * The UFO is hit
+ * @param {*} obj - the object in contact with teh UFO
+ */
 function isUfoHit(obj) {
     var a = ufo;
     var b = obj;

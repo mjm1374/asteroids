@@ -1,5 +1,8 @@
 // ----- Spaceship ---------------------------------------------------------------
 
+/**
+ * reset the spaceship to its starting state
+ */
 function resetSpaceship() {
 	if (lifeCnt > 0) {
 		$('#spaceship').show();
@@ -28,6 +31,10 @@ function resetSpaceship() {
 
 //spaceship controls || Speed & thrust
 
+/**
+ * Update the position, speed, yaw and theta of the space ship
+ * @param {*} delta_time  default clock cycle
+ */
 function moveSpaceship(delta_time) {
   var deg2rad = Math.PI / 180;
   if (turn != 0 && turn != undefined) {
@@ -56,7 +63,10 @@ function moveSpaceship(delta_time) {
   spaceship.vy = spaceship.vy + del_vy;
 }
 
-//this will turn and adjust the spaceship
+/**
+ * paints the screen with the spaceship, set screen position
+ * @param {*} delta_time default time cycle
+ */
 function updateSpaceship(delta_time) {
 
   if (spaceship.x >= xLimit) {
@@ -85,6 +95,9 @@ function updateSpaceship(delta_time) {
 
 // Traveling through hyperspace ain't like dusting crops, boy! Without precise calculations we could fly right through a star or bounce too close to a supernova and that'd end your trip real quick, wouldn't it?
 
+/**
+ * JUMP! -  randomly reassign the x & y positions
+ */
 function hyperspace() {
   if (lifeCnt > 0 && inPlay == true) {
     if (jumpCnt > 0) {
@@ -103,7 +116,10 @@ function hyperspace() {
 
 }
 
-// Create the shot
+
+/**
+ * Create the shot
+ */
 function makeShot() {
   shotCnt++;
   shots.push(new Shot(shotCnt, spaceship.x, spaceship.y, spaceship.vx, spaceship.vy, spaceship.theta, spaceship.yaw, 1800, 0, 0));
@@ -112,10 +128,11 @@ function makeShot() {
     .append("<svg id='shot" + shotCnt + "' data-id='" + shotCnt + "' class='shot' height='6' width='6'><circle cx='3' cy='3' r='3' stroke='white' stroke-width='2' fill='red' /></svg>");
 }
 
-//you died!
+/**
+ * you died! - hide spaceship and start reset cycle
+ */
 function boom() {
   $('#spaceship').hide();
-  spaceship.destroy();
 	inPlay = false;
 	ufoActive = false;
 	spaceship.x = -1000;
@@ -137,6 +154,9 @@ function boom() {
 }
 
 // one AG-2G quad laser cannon - must install more
+/**
+ * start the creation of the shot
+ */
 function pewpew() {
   if (lifeCnt > 0 && resetGun == true && inPlay == true) {
     shootsnd.play();
@@ -147,6 +167,10 @@ function pewpew() {
 
 
 // ----- UFO's ---------------------------------------------------------------
+
+/**
+ * Kick off a new UFO
+ */
 function spawnEnemy() {
   $('#ufoShip').remove();
   var timer = Math.floor(getRandomFloat(25, 60) * 1000);
@@ -157,6 +181,11 @@ function spawnEnemy() {
 
 
 // the Alien UF0 -  call Mulder and Scully
+/**
+ * UFO settings and paint to screen
+ * @param {*} active boolean
+ * @param {*} scale int 
+ */
 function makeUFO(active, scale) {
   ufoActive = active;
   var direction = Math.random() < 0.5 ? -1 : 1;
@@ -217,8 +246,12 @@ function makeUFO(active, scale) {
   }
 }
 
+/**
+ * remove the UFO after being hit by bullter
+ * @param {*} obj the UFO
+ */
 function blowupUfo(obj) {
-  var a = obj;
+  //var a = obj;
   $('#sndAstroBoom').get(0).pause();
   $('#sndAstroBoom').get(0).currentTime = 0;
   $('#sndAstroBoom').get(0).play();
@@ -230,6 +263,9 @@ function blowupUfo(obj) {
   spawnEnemy();
 }
 
+/**
+ * Park the UFO off screen until it is needed again
+ */
 function parkUfo() {
   $('#ufoShip').remove();
   ufoActive = false;
