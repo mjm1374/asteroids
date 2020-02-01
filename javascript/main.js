@@ -1,5 +1,5 @@
 //initialize the environment
-let version = 1.2, 
+let version = 1.2,
   asteroids = [],
   shots = [],
   shotCnt = 0,
@@ -36,7 +36,7 @@ let version = 1.2,
   del_v = 0,
   del_vx = 0,
   del_vy = 0,
-  rock_max_v = 1.5, 
+  rock_max_v = 1.5,
   shootsnd = null,
   thrustsnd = null,
   ufosnd = null,
@@ -50,12 +50,12 @@ let version = 1.2,
   ufoTimer = null,
   screenScale = 1;
 
-  //conditional mobile vars
+//conditional mobile vars
 if (xLimit <= 414) {
   screenScale = 2;
   rockCnt = 5;
 }
- 
+
 
 
 // MAIN ANIMATION LOOP -----------------------------------------------------------------------------------------
@@ -81,18 +81,18 @@ function animateScreen() {
 /**
  * Hide the cursor when game play is happening
  */
-function hideCursor(){
-  if(inPlay == true) {
+function hideCursor() {
+  if (inPlay == true) {
     $('#game__wrapper').addClass('cursorHide');
-  } else{
-      $('#game__wrapper').removeClass('cursorHide');
+  } else {
+    $('#game__wrapper').removeClass('cursorHide');
   }
 }
 
 /**
  * update the asteroids position
  */
-function updateAsteroids(){
+function updateAsteroids() {
   for (var key in asteroids) {
     if (asteroids.hasOwnProperty(key)) {
       var newVel;
@@ -130,7 +130,7 @@ function updateAsteroids(){
 /**
  * Check on the status of the UFO
  */
-function checkUFO(){
+function checkUFO() {
   if (ufo != null && ufo != undefined && ufoActive == true) {
     ufo.changePosition(ufo.x + ufo.vx, ufo.y + ufo.vy);
     if ((ufo.x) > (xLimit + 100)) {
@@ -148,7 +148,7 @@ function checkUFO(){
 /**
  * Update the bullets
  */
-function updateShots(){
+function updateShots() {
   for (var idx in shots) {
     var thisVX = (Math.cos(shots[idx].theta * Math.PI / 180) * 10 + shots[idx].x);
     var thisVY = (Math.sin(shots[idx].theta * Math.PI / 180) * 10 + shots[idx].y);
@@ -175,7 +175,7 @@ function updateShots(){
 /**
  * update the UFO bullters
  */
-function updateUFOShot(){
+function updateUFOShot() {
   for (var ind in ufoShots) {
     let thisUfoVX = (Math.cos(ufoShots[ind].theta * Math.PI / 180) * 10 + ufoShots[ind].x);
     let thisUfoVY = (Math.sin(ufoShots[ind].theta * Math.PI / 180) * 10 + ufoShots[ind].y);

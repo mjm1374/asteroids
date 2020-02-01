@@ -1,7 +1,6 @@
-
-$green: rgba(215, 255, 44, 0.9); 
+$green: rgba(215, 255, 44, 0.9);
 $black: #000000;
-$white: rgba(255,255,255,1);
+$white: rgba(255, 255, 255, 1);
 $gray: gray;
 $red: #d60808;
 $spaceship:rgb(0, 145, 0);
@@ -22,7 +21,7 @@ $gamePadBtn: rgba(215, 215, 215, 0.75);
 @font-face {
     font-family: 'hyperspaceregular';
     src: url('../fonts/hyperspace-webfont.woff2') format('woff2'),
-         url('../fonts/hyperspace-webfont.woff') format('woff');
+        url('../fonts/hyperspace-webfont.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
@@ -37,7 +36,7 @@ body {
     background-color: $black;
     background-size: cover;
     display: block;
-    width: 100%; 
+    width: 100%;
     height: 100%;
     position: absolute;
 }
@@ -50,6 +49,7 @@ body {
 
 .atari {
     font-family: 'hyperspaceregular';
+
     @media screen and (max-width: 414px) {
         font-size: 0.75em;
     }
@@ -136,7 +136,8 @@ h1 {
     z-index: 10000;
     color: $white;
     font-family: 'hyperspaceregular';
-    .game__title{
+
+    .game__title {
         opacity: 0.3;
     }
 }
@@ -152,7 +153,7 @@ h1 {
     transform: translate(-50%, -50%);
     flex-direction: column;
     justify-content: center;
-    border: 10px solid rgba($white, 0.3); 
+    border: 10px solid rgba($white, 0.3);
     background-color: rgba($black, 0.5);
     border-radius: 100%;
     height: 300px;
@@ -221,7 +222,8 @@ cntrlButton:last-child {
         height: 50px;
         position: absolute;
         color: $red;
-        border: 1px solid $white;;
+        border: 1px solid $white;
+        ;
         display: block;
         z-index: 1000;
         background: url('../img/arrow-alt-down.png') center no-repeat;
@@ -299,7 +301,7 @@ cntrlButton:last-child {
 
 @media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (orientation : portrait) {
     highScore {
-        left: 12px !important; 
+        left: 12px !important;
     }
 
 }

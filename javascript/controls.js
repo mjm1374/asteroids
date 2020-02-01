@@ -2,7 +2,7 @@
 
 if (lifeCnt > 0) {
 	document.onkeydown = function (e) {
-		if(inPlay == true){
+		if (inPlay == true) {
 			$("#spaceship").css("opacity", "1");
 			var key = e.keyCode;
 			switch (key) {
@@ -33,7 +33,7 @@ if (lifeCnt > 0) {
 					break;
 			}
 		}
-		
+
 	};
 
 	document.onkeyup = function (e) {

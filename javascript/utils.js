@@ -1,5 +1,3 @@
-
-
 $(window).resize(function () {
 	xLimit = resetWindowLimit("x");
 	yLimit = resetWindowLimit("y");
@@ -105,12 +103,10 @@ function resetgame() {
 
 	//Add space ship
 	$('body').append("<svg id='spaceship' class=''><path cx='5' cy='5' r='10' stroke='#ffffff' stroke-width='2' d='M " + spaceship.shape + " Z'  id='outerShip' /></svg>");
-
 	$('#lifeCnt span').html(lifeCnt);
 	$('#HSCnt span').html(jumpCnt);
 
 	resetSpaceship();
-
 }
 
 /**
@@ -158,7 +154,7 @@ function playExtraLife() {
 function checkHighScoreCookie() {
 	var hs = localStorage.getItem("highScore-asteroids");
 
-	if (hs == "" || hs == undefined ) {
+	if (hs == "" || hs == undefined) {
 		localStorage.setItem("highScore-asteroids", score);
 		$('#highScore span').text(score);
 	} else {

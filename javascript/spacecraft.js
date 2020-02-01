@@ -4,29 +4,29 @@
  * reset the spaceship to its starting state
  */
 function resetSpaceship() {
-	if (lifeCnt > 0) {
-		$('#spaceship').show();
-		$('#spaceship').css('opacity', '.25');
-		spaceship = new Spaceship((xLimit / 2), (yLimit / 2), 0, 0, -90, 0, 0, 0);
-		$('#spawn').css('left', spawnBox.x).css('top', spawnBox.y).css('height', spawnBox.height).css('width', spawnBox.width);
-		parkUfo();
-		clearTimeout(ufoTimer);
-		spawnEnemy();
+  if (lifeCnt > 0) {
+    $('#spaceship').show();
+    $('#spaceship').css('opacity', '.25');
+    spaceship = new Spaceship((xLimit / 2), (yLimit / 2), 0, 0, -90, 0, 0, 0);
+    $('#spawn').css('left', spawnBox.x).css('top', spawnBox.y).css('height', spawnBox.height).css('width', spawnBox.width);
+    parkUfo();
+    clearTimeout(ufoTimer);
+    spawnEnemy();
 
-		while (safeSpawn() == true) {
-			inPlay = false;
-			animateScreen();
-		}
+    while (safeSpawn() == true) {
+      inPlay = false;
+      animateScreen();
+    }
 
-		inPlay = true;
-		$('#spaceship').css('opacity', '1');
-	} else {
-		inPlay = false;
-		//$('*').css('cursor','default'); // clear cursor
-		$('#spaceship').hide();
-		$('#gameOverBoard').css('display', 'flex');
-		checkHighScoreCookie();
-	}
+    inPlay = true;
+    $('#spaceship').css('opacity', '1');
+  } else {
+    inPlay = false;
+    //$('*').css('cursor','default'); // clear cursor
+    $('#spaceship').hide();
+    $('#gameOverBoard').css('display', 'flex');
+    checkHighScoreCookie();
+  }
 }
 
 //spaceship controls || Speed & thrust
@@ -133,24 +133,24 @@ function makeShot() {
  */
 function boom() {
   $('#spaceship').hide();
-	inPlay = false;
-	ufoActive = false;
-	spaceship.x = -1000;
-	spaceship.y = -1000;
-	spaceship.vx = 0;
-	spaceship.vy = 0;
+  inPlay = false;
+  ufoActive = false;
+  spaceship.x = -1000;
+  spaceship.y = -1000;
+  spaceship.vx = 0;
+  spaceship.vy = 0;
 
-	$('#sndBoom').get(0).play();
+  $('#sndBoom').get(0).play();
 
-	if (lifeCnt > 0) {
-		lifeCnt--;
-		$('#lifeCnt span').html(lifeCnt);
-		jumpCnt = 3;
-		$('#HSCnt span').html(jumpCnt);
-		setTimeout(function () {
-			resetSpaceship();
-		}, 3000);
-	}
+  if (lifeCnt > 0) {
+    lifeCnt--;
+    $('#lifeCnt span').html(lifeCnt);
+    jumpCnt = 3;
+    $('#HSCnt span').html(jumpCnt);
+    setTimeout(function () {
+      resetSpaceship();
+    }, 3000);
+  }
 }
 
 // one AG-2G quad laser cannon - must install more
@@ -211,7 +211,6 @@ function makeUFO(active, scale) {
     ufo.vx = getRandomFloat(3, 10) * direction;
     ufoAim = 0;
     ufo.points = 1000;
-
   }
 
   $('body').append("<svg id='ufoShip' class='ufo'><polygon transform='scale(" + ufoScale + ", " + ufoScale + ")'  id='myPolygon' stroke='#ffffff'   stroke-width='15' points='466.697 275.189, 350.500 226.628, 329.099 170.984, 294.919 147.509, 242.500 147.509, 242.500 112.989, 235.000 105.489, 227.500 112.989, 227.500 147.509, 175.081 147.509, 140.901 170.984, 119.500 226.628, 3.303 275.189, 0.000 281.405, 3.303 287.621, 106.027 332.782, 143.504 364.510, 326.496 364.510, 363.973 332.782, 466.697 287.621, 470.000 281.405, 466.697 275.189'></svg>");
@@ -259,7 +258,7 @@ function blowupUfo(obj) {
   //ufoBoom.play();
   pointCnt(obj.points);
   parkUfo();
-  clearTimeout(ufoTimer);  
+  clearTimeout(ufoTimer);
   spawnEnemy();
 }
 

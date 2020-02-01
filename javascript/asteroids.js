@@ -4,7 +4,7 @@
 function regenerateAsteroids() {
 	scale = 1;
 	rock_max_v = rock_max_v + 0.25;
-	if(rock_max_v >= 6){
+	if (rock_max_v >= 6) {
 		rock_max_v = 6; //cap out speed
 	}
 
@@ -37,7 +37,7 @@ function makeAsteroidPieces(x, y, size, cnt) {
 	for (let i = 0; i < cnt; i++) {
 		rockID++;
 		let maxVel = rock_max_v;
-		let rockPnt =  20;
+		let rockPnt = 20;
 		//which transform scale to implement
 		switch (size) {
 			case 100: //large
@@ -81,7 +81,7 @@ function blowupAsteroid(obj, idx) {
 
 	//make and clean up astroids array and svg's
 	if (obj.height > 25) {
-		makeAsteroidPieces(obj.x, obj.y, (obj.height / 2), 2); 
+		makeAsteroidPieces(obj.x, obj.y, (obj.height / 2), 2);
 	}
 
 	$('#rockAnim' + obj.id).remove();
