@@ -108,7 +108,7 @@ function hyperspace() {
       spaceship.vx = 0;
       spaceship.vy = 0;
       jumpCnt--;
-      $('#HSCnt span').html(jumpCnt);
+      HSNum.innerText = jumpCnt
     } else {
       $('#sndHyperspaceFail').get(0).play();
     }

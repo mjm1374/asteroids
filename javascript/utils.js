@@ -103,8 +103,6 @@ function resetgame() {
 
 	//Add space ship
 	$('body').append("<svg id='spaceship' class=''><path cx='5' cy='5' r='10' stroke='#ffffff' stroke-width='2' d='M " + spaceship.shape + " Z'  id='outerShip' /></svg>");
-	$('#lifeCnt span').html(lifeCnt);
-	$('#HSCnt span').html(jumpCnt);
 
 	resetSpaceship();
 }
