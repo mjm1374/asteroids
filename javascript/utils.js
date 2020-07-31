@@ -90,6 +90,7 @@ function safeSpawn() {
  */
 function resetgame() {
 	$("#gameOverBoard").hide();
+	//gameOverBoard.style.displey = 'none';
 	//$('*').css('cursor','none'); // clear cursor
 	$(".asteroid").remove();
 	lifeCnt = 3;

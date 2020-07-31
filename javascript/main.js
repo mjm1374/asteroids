@@ -55,7 +55,8 @@ let asteroids = [],
   extraLifesnd = null,
   ufoBoom = null,
   spaceshipSvg = null,
-  gameWrapper = null;
+  gameWrapper = null,
+  gameOverBoard = null;
 
 //conditional mobile vars
 if (xLimit <= 414) {
@@ -241,6 +242,7 @@ document.addEventListener('DOMContentLoaded', function () {
   lifeNum = document.getElementById('lifeNum');
   HSNum = document.getElementById('HSNum');
   gameWrapper = document.getElementById('game__wrapper');
+  gameOverBoard = document.getElementById('gameOverBoard');
 
   for (let i = 0; i < versionNum.length; i++) {
     versionNum[i].innerText = version;

@@ -4,9 +4,10 @@
  * reset the spaceship to its starting state
  */
 function resetSpaceship() {
+  spaceshipSvg = document.getElementById('spaceship');
   if (lifeCnt > 0) {
-    $('#spaceship').show();
-    $('#spaceship').css('opacity', '.25');
+    spaceshipSvg.style.display = 'block';
+    spaceshipSvg.style.opacity = '.25';
     spaceship = new Spaceship((xLimit / 2), (yLimit / 2), 0, 0, -90, 0, 0, 0);
     let thisSpawn = document.getElementById('spawn');
     thisSpawn.style.left = spawnBox.x;
@@ -24,13 +25,14 @@ function resetSpaceship() {
 
     inPlay = true;
 
-    spaceshipSvg = document.getElementById('spaceship');
-    $('#spaceship').css('opacity', '1');
+
+    spaceshipSvg.style.opacity = '1';
   } else {
     inPlay = false;
     //$('*').css('cursor','default'); // clear cursor
-    $('#spaceship').hide();
-    $('#gameOverBoard').css('display', 'flex');
+
+    spaceshipSvg.style.display = 'none';
+    gameOverBoard.style.display = 'flex';
     checkHighScoreCookie();
   }
 }
@@ -141,7 +143,7 @@ function makeShot() {
  * you died! - hide spaceship and start reset cycle
  */
 function boom() {
-  $('#spaceship').hide();
+  spaceshipSvg.style.display = 'none';
   inPlay = false;
   ufoActive = false;
   spaceship.x = -1000;
@@ -153,8 +155,9 @@ function boom() {
 
   if (lifeCnt > 0) {
     lifeCnt--;
-    jumpCnt = 3;
+
     setTimeout(function () {
+      jumpCnt = 3;
       resetSpaceship();
     }, 3000);
   }
