@@ -1,6 +1,7 @@
 //initialize the environment
-let version = 1.2,
-  asteroids = [],
+const version = 1.3;
+
+let asteroids = [],
   shots = [],
   shotCnt = 0,
   xLimit = resetWindowLimit('x') - 1,
@@ -52,7 +53,8 @@ let version = 1.2,
   lifeNum = null,
   HSNum = null,
   extraLifesnd = null,
-  ufoBoom = null;
+  ufoBoom = null,
+  gameWrapper = null;
 
 //conditional mobile vars
 if (xLimit <= 414) {
@@ -94,9 +96,9 @@ function updateScoreCard() {
  */
 function hideCursor() {
   if (inPlay == true) {
-    $('#game__wrapper').addClass('cursorHide');
+    gameWrapper.classList.add('cursorHide')
   } else {
-    $('#game__wrapper').removeClass('cursorHide');
+    gameWrapper.classList.remove('cursorHide')
   }
 }
 
@@ -143,9 +145,10 @@ function updateAsteroids() {
         }
       }
     }
-    $('#rockAnim' + asteroids[key].id)
-      .css('left', asteroids[key].x)
-      .css('top', asteroids[key].y); // paint the rocks
+
+    let thisRock = document.getElementById('rockAnim' + asteroids[key].id);
+    thisRock.style.left = asteroids[key].x;
+    thisRock.style.top = asteroids[key].y;
   } //end asteroids
 }
 
@@ -163,7 +166,10 @@ function checkUFO() {
       parkUfo();
       spawnEnemy();
     }
-    $('#ufoShip').css('left', ufo.x).css('top', ufo.y); // paint the ufo
+    let thisUfo = document.getElementById('ufoShip');
+    thisUfo.style.left = ufo.x;
+    thisUfo.style.top = ufo.y;
+    // paint the ufo
   }
 }
 
@@ -183,9 +189,10 @@ function updateShots() {
       clearBullet('sp', idx);
     } else {
       shots[idx].changePosition(thisVX, thisVY);
-      $('#shot' + shots[idx].id)
-        .css('left', shots[idx].x)
-        .css('top', shots[idx].y); // paint the shot
+      let thisShot = document.getElementById('shot' + shots[idx].id);
+      thisShot.style.left = shots[idx].x;
+      thisShot.style.top = shots[idx].y;
+      // paint the shot
 
       if (isHit(shots[idx])) {
         clearBullet('sp', idx);
@@ -217,9 +224,10 @@ function updateUFOShot() {
     } else {
       ufoShots[ind].changePosition(thisUfoVX, thisUfoVY);
 
-      $('#ufoshot' + ufoShots[ind].id)
-        .css('left', ufoShots[ind].x)
-        .css('top', ufoShots[ind].y); // paint the shot
+      let thisUfoShot = document.getElementById('ufoshot' + ufoShots[ind].id);
+      thisUfoShot.style.left = ufoShots[ind].x;
+      thisUfoShot.style.top = ufoShots[ind].y;
+      // paint the shot
 
       if (isSpaceshipHit(ufoShots[ind])) {
         clearBullet('ufo', ind);
@@ -234,6 +242,7 @@ document.addEventListener('DOMContentLoaded', function () {
   versionNum = document.getElementsByClassName('versionNum');
   lifeNum = document.getElementById('lifeNum');
   HSNum = document.getElementById('HSNum');
+  gameWrapper = document.getElementById('game__wrapper');
 
   for (let i = 0; i < versionNum.length; i++) {
     versionNum[i].innerText = version;

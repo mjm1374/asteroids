@@ -65,7 +65,7 @@ function moveSpaceship(delta_time) {
 
 /**
  * paints the screen with the spaceship, set screen position
- * @param {*} delta_time default time cycle
+ * @param {int} delta_time default time cycle
  */
 function updateSpaceship(delta_time) {
 
@@ -93,8 +93,12 @@ function updateSpaceship(delta_time) {
 }
 
 
-// Traveling through hyperspace ain't like dusting crops, boy! Without precise calculations we could fly right through a star or bounce too close to a supernova and that'd end your trip real quick, wouldn't it?
-
+/**
+ * Traveling through hyperspace ain't like dusting crops, boy!
+ *  Without precise calculations we could fly right through a star or 
+ * bounce too close to a supernova and that'd end your trip real quick, 
+ * wouldn't it?
+ */
 /**
  * JUMP! -  randomly reassign the x & y positions
  */
@@ -144,9 +148,7 @@ function boom() {
 
   if (lifeCnt > 0) {
     lifeCnt--;
-    $('#lifeCnt span').html(lifeCnt);
     jumpCnt = 3;
-    $('#HSCnt span').html(jumpCnt);
     setTimeout(function () {
       resetSpaceship();
     }, 3000);
@@ -183,8 +185,8 @@ function spawnEnemy() {
 // the Alien UF0 -  call Mulder and Scully
 /**
  * UFO settings and paint to screen
- * @param {*} active boolean
- * @param {*} scale int 
+ * @param {boolean} active boolean
+ * @param {int} scale int 
  */
 function makeUFO(active, scale) {
   ufoActive = active;
@@ -232,7 +234,6 @@ function makeUFO(active, scale) {
       $('body')
         .append("<svg id='ufoshot" + ufoShotCnt + "' data-id='" + ufoShotCnt + "' class='ufoshot' height='8' width='8'><circle cx='3' cy='3' r='3' stroke='white' stroke-width='2' fill='blue' /></svg>");
     } else {
-      //console.log('clearing');
       clearInterval(startFiring);
       if (ufoScale == 0.1) {
         $('#sndSaucerBig').get(0).pause();
@@ -255,7 +256,6 @@ function blowupUfo(obj) {
   $('#sndAstroBoom').get(0).currentTime = 0;
   $('#sndAstroBoom').get(0).play();
   $('#ufoShip').remove();
-  //ufoBoom.play();
   pointCnt(obj.points);
   parkUfo();
   clearTimeout(ufoTimer);

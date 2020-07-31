@@ -69,8 +69,8 @@ function makeAsteroidPieces(x, y, size, cnt) {
 
 /**
  * handle asteroid being struck by a bullter
- * @param {*} obj array -the asteroids array 
- * @param {*} idx int - what asteroid
+ * @param {*} obj array -the asteroid in the array to be worked on
+ * @param {*} idx int - what asteroid -  index in the array
  */
 function blowupAsteroid(obj, idx) {
 	$('#sndAstroBoom').get(0).pause();
