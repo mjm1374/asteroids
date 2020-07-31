@@ -147,8 +147,7 @@ function updateAsteroids() {
     }
 
     let thisRock = document.getElementById('rockAnim' + asteroids[key].id);
-    thisRock.style.left = asteroids[key].x;
-    thisRock.style.top = asteroids[key].y;
+    moveItem(thisRock, asteroids[key].x, asteroids[key].y);
   } //end asteroids
 }
 
@@ -167,8 +166,7 @@ function checkUFO() {
       spawnEnemy();
     }
     let thisUfo = document.getElementById('ufoShip');
-    thisUfo.style.left = ufo.x;
-    thisUfo.style.top = ufo.y;
+    moveItem(thisUfo, ufo.x, ufo.y);
     // paint the ufo
   }
 }
@@ -190,8 +188,7 @@ function updateShots() {
     } else {
       shots[idx].changePosition(thisVX, thisVY);
       let thisShot = document.getElementById('shot' + shots[idx].id);
-      thisShot.style.left = shots[idx].x;
-      thisShot.style.top = shots[idx].y;
+      moveItem(thisShot, shots[idx].x, shots[idx].y);
       // paint the shot
 
       if (isHit(shots[idx])) {
@@ -225,8 +222,8 @@ function updateUFOShot() {
       ufoShots[ind].changePosition(thisUfoVX, thisUfoVY);
 
       let thisUfoShot = document.getElementById('ufoshot' + ufoShots[ind].id);
-      thisUfoShot.style.left = ufoShots[ind].x;
-      thisUfoShot.style.top = ufoShots[ind].y;
+
+      moveItem(thisUfoShot, ufoShots[ind].x, ufoShots[ind].y);
       // paint the shot
 
       if (isSpaceshipHit(ufoShots[ind])) {

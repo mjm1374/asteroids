@@ -142,6 +142,18 @@ function playExtraLife() {
 
 
 
+/**
+ * 
+ * @param {*} obj Object - the item to move
+ * @param {*} x int -  the x value
+ * @param {*} y int - the y value
+ * @param {*} t int - theta , the rotational value
+ */
+function moveItem(obj, x, y, t = 0) {
+	obj.style.left = x;
+	obj.style.top = y;
+	obj.style.transform = `rotate(${t}deg)`;
+};
 
 
 

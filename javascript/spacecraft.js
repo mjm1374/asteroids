@@ -8,7 +8,11 @@ function resetSpaceship() {
     $('#spaceship').show();
     $('#spaceship').css('opacity', '.25');
     spaceship = new Spaceship((xLimit / 2), (yLimit / 2), 0, 0, -90, 0, 0, 0);
-    $('#spawn').css('left', spawnBox.x).css('top', spawnBox.y).css('height', spawnBox.height).css('width', spawnBox.width);
+    let thisSpawn = document.getElementById('spawn');
+    thisSpawn.style.left = spawnBox.x;
+    thisSpawn.style.top = spawnBox.y;
+    thisSpawn.style.height = spawnBox.height;
+    thisSpawn.style.width = spawnBox.width;
     parkUfo();
     clearTimeout(ufoTimer);
     spawnEnemy();
@@ -86,9 +90,9 @@ function updateSpaceship(delta_time) {
   spaceship.x += spaceship.vx * delta_time;
   spaceship.y += spaceship.vy * delta_time;
 
-  $('#spaceship').css('left', spaceship.x).css('top', spaceship.y).css({
-    'transform': 'rotate(' + spaceship.theta + 'deg)'
-  }); // Paint the spaceship
+  let thisShip = document.getElementById('spaceship');
+  moveItem(thisShip, spaceship.x, spaceship.y, spaceship.theta);
+  // Paint the spaceship
 
 }
 
