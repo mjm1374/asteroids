@@ -54,6 +54,7 @@ let asteroids = [],
   HSNum = null,
   extraLifesnd = null,
   ufoBoom = null,
+  spaceshipSvg = null,
   gameWrapper = null;
 
 //conditional mobile vars

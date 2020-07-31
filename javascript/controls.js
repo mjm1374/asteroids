@@ -3,7 +3,7 @@
 if (lifeCnt > 0) {
 	document.onkeydown = function (e) {
 		if (inPlay == true) {
-			$("#spaceship").css("opacity", "1");
+			spaceshipSvg.style.opacity = 1;
 			var key = e.keyCode;
 			switch (key) {
 				case 68: //d = yaw left
@@ -62,9 +62,7 @@ if (lifeCnt > 0) {
 	// mobile controls   --------------->
 
 	$(document).on('touchstart', ' .gameBtn', function (e) {
-
-		$("#spaceship").css("opacity", "1");
-		//e.preventDefault();
+		spaceshipSvg.style.opacity = 1;
 		var key = e.target.id;
 		console.log(key);
 		switch (key) {

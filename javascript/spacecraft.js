@@ -23,6 +23,8 @@ function resetSpaceship() {
     }
 
     inPlay = true;
+
+    spaceshipSvg = document.getElementById('spaceship');
     $('#spaceship').css('opacity', '1');
   } else {
     inPlay = false;
@@ -90,8 +92,7 @@ function updateSpaceship(delta_time) {
   spaceship.x += spaceship.vx * delta_time;
   spaceship.y += spaceship.vy * delta_time;
 
-  let thisShip = document.getElementById('spaceship');
-  moveItem(thisShip, spaceship.x, spaceship.y, spaceship.theta);
+  moveItem(spaceshipSvg, spaceship.x, spaceship.y, spaceship.theta);
   // Paint the spaceship
 
 }
