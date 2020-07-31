@@ -157,6 +157,17 @@ function moveItem(obj, x, y, t = 0) {
 };
 
 
+/**
+ * Hide the cursor when game play is happening
+ */
+function hideCursor() {
+	if (inPlay == true) {
+		gameWrapper.classList.add('cursorHide')
+	} else {
+		gameWrapper.classList.remove('cursorHide')
+	}
+}
+
 
 
 

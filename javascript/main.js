@@ -93,16 +93,7 @@ function updateScoreCard() {
   HSNum.innerText = jumpCnt;
 }
 
-/**
- * Hide the cursor when game play is happening
- */
-function hideCursor() {
-  if (inPlay == true) {
-    gameWrapper.classList.add('cursorHide')
-  } else {
-    gameWrapper.classList.remove('cursorHide')
-  }
-}
+
 
 /**
  * update the asteroids position

@@ -54,7 +54,7 @@ class Asteroid {
 		this.hitBottom();
 	}
 
-	hitBottom = function () {
+	hitBottom() {
 		//var rockbottom = window.screen.availHeight - this.height;
 		var rockbottom = window.innerHeight - this.height;
 		if (this.y > rockbottom) {
@@ -101,8 +101,7 @@ class Asteroid {
 }
 
 class Spaceship {
-	static shape =
-		'14.383032,5.9181762 0.35137621,0.04626516 2.7568063,5.9181762 0.35137621,11.338401';
+	static shape = '14.383032,5.9181762 0.35137621,0.04626516 2.7568063,5.9181762 0.35137621,11.338401';
 
 	constructor(x, y, vx, vy, theta, yaw, x_points, y_points) {
 		this.x = x;
@@ -140,7 +139,7 @@ class Shot {
 		this.y = y;
 	}
 
-	changeLife = function (l) {
+	changeLife(l) {
 		this.life = l;
 	};
 }
