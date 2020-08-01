@@ -123,7 +123,6 @@ function clearDomClass(thisClass) {
 function clearDomItem(thisId) {
 	let el = document.getElementById(thisId);
 	if (el != null) {
-
 		el.remove();
 	}
 
@@ -141,7 +140,6 @@ function pointCnt(num) {
 		newLife = newLifeTarget + newLife;
 		playExtraLife();
 	}
-	//console.log(newLife);
 }
 
 
@@ -202,17 +200,18 @@ function hideCursor() {
 // localStorage ---------------------------------------------------------------------------------------
 
 function checkHighScoreCookie() {
-	var hs = localStorage.getItem("highScore-asteroids");
+	let hs = localStorage.getItem("highScore-asteroids");
+	let highscore = document.getElementById('highScore').children;
 
 	if (hs == "" || hs == undefined) {
 		localStorage.setItem("highScore-asteroids", score);
-		$('#highScore span').text(score);
+		highscore[0].innerHTML = score;
 	} else {
 		if (hs <= score) {
 			localStorage.setItem("highScore-asteroids", score);
-			$('#highScore span').text(score);
+			highscore[0].innerHTML = score;
 		} else {
-			$('#highScore span').text(hs);
+			highscore[0].innerHTML = hs;
 		}
 	}
 

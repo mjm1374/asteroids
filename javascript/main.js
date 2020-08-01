@@ -51,7 +51,6 @@ let asteroids = [],
   rock_max_v_cap = 6,
   shootsnd = null,
   thrustsnd = null,
-
   screenScale = 1,
   scoreNum = null,
   versionNum = null,
