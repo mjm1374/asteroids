@@ -36,9 +36,9 @@ function scripts() {
     }))
     .pipe(plumber())
     .pipe(concat('script.min.js'))
-    .pipe(sourcemaps.write('maps'))
     .on('error', onError)
     .pipe(uglify())
+    .pipe(sourcemaps.write('maps'))
     .pipe(gulp.dest('js'));
 }
 
