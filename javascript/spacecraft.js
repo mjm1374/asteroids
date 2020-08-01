@@ -6,8 +6,7 @@
 function resetSpaceship() {
   spaceshipSvg = document.getElementById('spaceship');
   if (lifeCnt > 0) {
-    spaceshipSvg.style.display = 'block';
-    spaceshipSvg.style.opacity = '.25';
+    spaceshipSvg.style.cssText = 'display:block, opacity:.25';
     spaceship = new Spaceship((xLimit / 2), (yLimit / 2), 0, 0, -90, 0, 0, 0);
     let thisSpawn = document.getElementById('spawn');
     thisSpawn.style.left = spawnBox.x;
@@ -29,8 +28,6 @@ function resetSpaceship() {
     spaceshipSvg.style.opacity = '1';
   } else {
     inPlay = false;
-    //$('*').css('cursor','default'); // clear cursor
-
     spaceshipSvg.style.display = 'none';
     gameOverBoard.style.display = 'flex';
     checkHighScoreCookie();

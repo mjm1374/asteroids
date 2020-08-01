@@ -82,15 +82,11 @@ function safeSpawn() {
 	}
 }
 
-
-
-
 /**
  * Reset the game to default games start values
  */
 function resetgame() {
-	$("#gameOverBoard").hide();
-	//gameOverBoard.style.displey = 'none';
+	gameOverBoard.style.display = 'none';
 	//$('*').css('cursor','none'); // clear cursor
 	$(".asteroid").remove();
 	lifeCnt = 3;
@@ -150,10 +146,17 @@ function playExtraLife() {
  * @param {*} y int - the y value
  * @param {*} t int - theta , the rotational value
  */
-function moveItem(obj, x, y, t = 0) {
-	obj.style.left = x;
-	obj.style.top = y;
-	obj.style.transform = `rotate(${t}deg)`;
+function moveItem(obj, x, y, t) {
+
+	try {
+		obj.style.left = x;
+		obj.style.top = y;
+		obj.style.transform = `rotate(${t}deg)`;
+	} catch (e) {
+		console.error(e.name); // logs 'Error'
+		console.error(e.message); // logs 'The message', or a JavaScript error message
+	}
+
 };
 
 

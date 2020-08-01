@@ -36,6 +36,7 @@ let asteroids = [],
   del_vx = 0,
   del_vy = 0,
   rock_max_v = 1.5,
+  rock_max_v_cap = 6,
   shootsnd = null,
   thrustsnd = null,
   ufosnd = null,
@@ -56,7 +57,8 @@ let asteroids = [],
   ufoBoom = null,
   spaceshipSvg = null,
   gameWrapper = null,
-  gameOverBoard = null;
+  gameOverBoard = null,
+  xbody = null;
 
 //conditional mobile vars
 if (xLimit <= 414) {
@@ -234,6 +236,7 @@ document.addEventListener('DOMContentLoaded', function () {
   HSNum = document.getElementById('HSNum');
   gameWrapper = document.getElementById('game__wrapper');
   gameOverBoard = document.getElementById('gameOverBoard');
+  //body = document.getElementById('body');
 
   for (let i = 0; i < versionNum.length; i++) {
     versionNum[i].innerText = version;
