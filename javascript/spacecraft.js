@@ -148,9 +148,9 @@ function makeshotSVG(id, indenity, color) {
   let shotPath = document.createElementNS("http://www.w3.org/2000/svg", "circle");
   shotPath.setAttribute("cx", 3);
   shotPath.setAttribute("cy", 3);
-  shotPath.setAttribute("r", 3);
+  shotPath.setAttribute("r", 10);
   shotPath.setAttribute("stroke", '#fff');
-  shotPath.setAttribute("stroke-width", 2);
+  shotPath.setAttribute("stroke-width", 1);
   shotPath.setAttribute("fill", color);
 
   newShot.appendChild(shotPath);
@@ -170,7 +170,7 @@ function boom(shot) {
   spaceship.vy = 0;
 
   $('#sndBoom').get(0).play();
-  clearDomItem('ufoshot' + shot);
+  clearDomItem(`ufoshot${shot}`);
 
   if (lifeCnt > 0) {
     lifeCnt--;
@@ -243,7 +243,24 @@ function makeUFO(active, scale) {
     ufo.points = 1000;
   }
 
-  $('body').append("<svg id='ufoShip' class='ufo'><polygon transform='scale(" + ufoScale + ", " + ufoScale + ")'  id='myPolygon' stroke='#ffffff'   stroke-width='15' points='466.697 275.189, 350.500 226.628, 329.099 170.984, 294.919 147.509, 242.500 147.509, 242.500 112.989, 235.000 105.489, 227.500 112.989, 227.500 147.509, 175.081 147.509, 140.901 170.984, 119.500 226.628, 3.303 275.189, 0.000 281.405, 3.303 287.621, 106.027 332.782, 143.504 364.510, 326.496 364.510, 363.973 332.782, 466.697 287.621, 470.000 281.405, 466.697 275.189'></svg>");
+  var newUFO = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  newUFO.setAttribute('id', 'ufoShip');
+  newUFO.setAttribute('class', 'ufo');
+  newUFO.setAttribute("aria-hidden", "true");
+
+  let ufoPath = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+  ufoPath.setAttribute("fill-rule", "evenodd");
+  ufoPath.setAttribute("points", '466.697 275.189, 350.500 226.628, 329.099 170.984, 294.919 147.509, 242.500 147.509, 242.500 112.989, 235.000 105.489, 227.500 112.989, 227.500 147.509, 175.081 147.509, 140.901 170.984, 119.500 226.628, 3.303 275.189, 0.000 281.405, 3.303 287.621, 106.027 332.782, 143.504 364.510, 326.496 364.510, 363.973 332.782, 466.697 287.621, 470.000 281.405, 466.697 275.189');
+  ufoPath.setAttribute("stroke", '#fff');
+  ufoPath.setAttribute("stroke-width", 15);
+  ufoPath.setAttribute("id", 'myPolygon');
+  ufoPath.setAttribute("transform", `scale(${ufoScale}, ${ufoScale})`);
+
+  newUFO.appendChild(ufoPath);
+
+  document.body.appendChild(newUFO);
+
+
 
   $('#ufoShip').css('width', ufo.width).css('height', ufo.height);
   var startFiring = setInterval(enemyShooter, ufoShootingSpeed);
@@ -259,8 +276,10 @@ function makeUFO(active, scale) {
       } else {
         $('#sndSaucerSmall').get(0).play();
       }
-      $('body')
-        .append("<svg id='ufoshot" + ufoShotCnt + "' data-id='" + ufoShotCnt + "' class='ufoshot' height='8' width='8'><circle cx='3' cy='3' r='3' stroke='white' stroke-width='2' fill='blue' /></svg>");
+      // $('body')
+      //   .append("<svg id='ufoshot" + ufoShotCnt + "' data-id='" + ufoShotCnt + "' class='ufoshot' height='8' width='8'><circle cx='3' cy='3' r='3' stroke='white' stroke-width='2' fill='blue' /></svg>");
+
+      makeshotSVG(ufoShotCnt, 'ufoshot', '#0f0');
     } else {
       clearInterval(startFiring);
       if (ufoScale == 0.1) {

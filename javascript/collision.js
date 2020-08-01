@@ -22,13 +22,10 @@ function isHit(obj) {
     var b = obj;
 
     for (let i = 0; i < a.length; i++) {
-        // console.log("iu: ", a[i].exists);
         if ((((a[i].y + a[i].height) < (b.y)) ||
                 (a[i].y > (b.y + b.height)) ||
                 ((a[i].x + a[i].width) < b.x) ||
                 (a[i].x > (b.x + b.width))) == false) {
-            //console.log("boom");
-            console.log(b);
             blowupAsteroid(a[i], i, b.id);
             return true;
         }
