@@ -9,6 +9,7 @@ let asteroids = [],
   spaceship = new Spaceship(xLimit / 2, yLimit / 2, 0, 0, 0, 0, 0, 0),
   spawnBox = new SpawnBox(xLimit / 2 - 50, yLimit / 2 - 50),
   lifeCnt = 3,
+  lifeStart = 3,
   jumpCnt = 3,
   score = 0,
   newLifeTarget = 10000,
@@ -57,8 +58,7 @@ let asteroids = [],
   ufoBoom = null,
   spaceshipSvg = null,
   gameWrapper = null,
-  gameOverBoard = null,
-  xbody = null;
+  gameOverBoard = null;
 
 //conditional mobile vars
 if (xLimit <= 414) {
@@ -236,7 +236,6 @@ document.addEventListener('DOMContentLoaded', function () {
   HSNum = document.getElementById('HSNum');
   gameWrapper = document.getElementById('game__wrapper');
   gameOverBoard = document.getElementById('gameOverBoard');
-  //body = document.getElementById('body');
 
   for (let i = 0; i < versionNum.length; i++) {
     versionNum[i].innerText = version;

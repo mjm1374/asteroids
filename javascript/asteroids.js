@@ -34,10 +34,10 @@ function makeRock(id, w, h, color, scale, path) {
 	var newRock = document.createElementNS("http://www.w3.org/2000/svg", "svg");
 	newRock.setAttribute('id', `rockAnim${id}`);
 	newRock.setAttribute('data-id', id);
-	newRock.setAttribute('classs', 'asteroid rocksize100');
+	newRock.setAttribute('class', 'asteroid rocksize100 rockAnim');
 	newRock.setAttribute("aria-hidden", "true");
 	newRock.style.cssText = `color:${color}, border-color:${color}`;
-	newRock.classList.add('rockAnim');
+
 
 	let rockPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
 	rockPath.setAttribute("fill-rule", "evenodd");
@@ -97,7 +97,7 @@ function makeAsteroidPieces(x, y, size, cnt) {
  * @param {*} obj array -the asteroid in the array to be worked on
  * @param {*} idx int - what asteroid -  index in the array
  */
-function blowupAsteroid(obj, idx) {
+function blowupAsteroid(obj, idx, shot) {
 	$('#sndAstroBoom').get(0).pause();
 	$('#sndAstroBoom').get(0).currentTime = 0;
 	$('#sndAstroBoom').get(0).play();
@@ -109,7 +109,9 @@ function blowupAsteroid(obj, idx) {
 		makeAsteroidPieces(obj.x, obj.y, (obj.height / 2), 2);
 	}
 
-	$('#rockAnim' + obj.id).remove();
+	clearDomItem('rockAnim' + obj.id);
+	clearDomItem('shot' + shot);
+
 	asteroids.splice(idx, 1);
 
 	if (asteroids.length == 0) {

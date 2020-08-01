@@ -28,7 +28,8 @@ function isHit(obj) {
                 ((a[i].x + a[i].width) < b.x) ||
                 (a[i].x > (b.x + b.width))) == false) {
             //console.log("boom");
-            blowupAsteroid(a[i], i);
+            console.log(b);
+            blowupAsteroid(a[i], i, b.id);
             return true;
         }
     }

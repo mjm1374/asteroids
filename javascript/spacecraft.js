@@ -132,8 +132,39 @@ function makeShot() {
   shotCnt++;
   shots.push(new Shot(shotCnt, spaceship.x, spaceship.y, spaceship.vx, spaceship.vy, spaceship.theta, spaceship.yaw, 1800, 0, 0));
   //var newShot = shots.lastIndexOf();
-  $('body')
-    .append("<svg id='shot" + shotCnt + "' data-id='" + shotCnt + "' class='shot' height='6' width='6'><circle cx='3' cy='3' r='3' stroke='white' stroke-width='2' fill='red' /></svg>");
+
+
+  makeshotSVG(shotCnt, 'shot', '#f00');
+
+  // $('body')
+  //   .append("<svg id='shot" + shotCnt + "' data-id='" + shotCnt + "' class='shot' height='6' width='6'><circle cx='3' cy='3' r='3' stroke='white' stroke-width='2' fill='red' /></svg>");
+
+}
+
+
+function makeshotSVG(id, indenity, color) {
+  var newShot = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  newShot.setAttribute('id', `${indenity}${id}`);
+  newShot.setAttribute('data-id', id);
+  newShot.setAttribute('class', 'shot');
+  newShot.setAttribute('height', 6);
+  newShot.setAttribute('width', 6);
+
+  let shotPath = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+  shotPath.setAttribute("cx", 3);
+  shotPath.setAttribute("cy", 3);
+  shotPath.setAttribute("r", 3);
+  shotPath.setAttribute("stroke", '#fff');
+  shotPath.setAttribute("stroke-width", 2);
+  shotPath.setAttribute("fill", color);
+
+
+  newShot.appendChild(shotPath);
+
+  document.body.appendChild(newShot);
+
+
+
 }
 
 /**
@@ -179,7 +210,8 @@ function pewpew() {
  * Kick off a new UFO
  */
 function spawnEnemy() {
-  $('#ufoShip').remove();
+  //$('#ufoShip').remove();
+  clearDomItem('ufoShip');
   var timer = Math.floor(getRandomFloat(25, 60) * 1000);
   ufoTimer = setTimeout(function () {
     makeUFO(true, 0.1);
@@ -260,7 +292,8 @@ function blowupUfo(obj) {
   $('#sndAstroBoom').get(0).pause();
   $('#sndAstroBoom').get(0).currentTime = 0;
   $('#sndAstroBoom').get(0).play();
-  $('#ufoShip').remove();
+  //$('#ufoShip').remove();
+  clearDomItem('ufoShip');
   pointCnt(obj.points);
   parkUfo();
   clearTimeout(ufoTimer);
@@ -271,7 +304,8 @@ function blowupUfo(obj) {
  * Park the UFO off screen until it is needed again
  */
 function parkUfo() {
-  $('#ufoShip').remove();
+  //$('#ufoShip').remove();
+  clearDomItem('ufoShip');
   ufoActive = false;
   ufo.x = -200;
   ufo.y = -200;

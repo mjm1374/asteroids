@@ -58,10 +58,10 @@ function getSafeRandomFloat(min, max) {
  */
 function clearBullet(team, idx) {
 	if (team == "ufo") {
-		$('#ufoshot' + ufoShots[idx].id).remove();
+		clearDomItem('ufoShip' + ufoShots[idx].id);
 		ufoShots.splice(idx, 1);
 	} else {
-		$('#shot' + shots[idx].id).remove();
+		clearDomItem('shots' + shots[idx].id);
 		shots.splice(idx, 1);
 	}
 }
@@ -72,7 +72,6 @@ function safeSpawn() {
 	var a = asteroids;
 	var b = spawnBox;
 	for (let i = 0; i < a.length; i++) {
-		// console.log("iu: ", a[i].exists);
 		if ((((a[i].y + a[i].height) < (b.y)) ||
 				(a[i].y > (b.y + b.height)) ||
 				((a[i].x + a[i].width) < b.x) ||
@@ -88,8 +87,8 @@ function safeSpawn() {
 function resetgame() {
 	gameOverBoard.style.display = 'none';
 	//$('*').css('cursor','none'); // clear cursor
-	$(".asteroid").remove();
-	lifeCnt = 3;
+	clearDomClass('asteroid');
+	lifeCnt = lifeStart;
 	jumpCnt = 3;
 	score = 0;
 	newLife = newLifeTarget;
@@ -102,6 +101,24 @@ function resetgame() {
 	$('body').append("<svg id='spaceship' class=''><path cx='5' cy='5' r='10' stroke='#ffffff' stroke-width='2' d='M " + spaceship.shape + " Z'  id='outerShip' /></svg>");
 
 	resetSpaceship();
+}
+
+
+function clearDomClass(thisClass) {
+	let el = document.getElementsByClassName(thisClass);
+	for (let i = 0; i < el.length; i + 1) {
+		let thisRock = document.getElementById(el[i].id);
+		thisRock.remove();
+	}
+}
+
+function clearDomItem(thisId) {
+	let el = document.getElementById(thisId);
+	if (el != null) {
+
+		el.remove();
+	}
+
 }
 
 /**
