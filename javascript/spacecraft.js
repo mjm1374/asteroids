@@ -45,11 +45,15 @@ function moveSpaceship(delta_time) {
   if (turn != 0 && turn != undefined) {
     spaceship.theta = spaceship.theta + turn * turn_per_milli * delta_time;
     if (lifeCnt > 0) {
-      $('#sndTurn').get(0).play();
+      turnSnd.currentTime = 0;
+      //$('#sndTurn').get(0).play();
+      turnSnd.play()
     }
   } else {
-    $('#sndTurn').get(0).pause();
-    $('#sndTurn').get(0).currentTime = 0;
+    turnSnd.stop();
+    turnSnd.currentTime = 0;
+    //$('#sndTurn').get(0).pause();
+    //$('#sndTurn').get(0).currentTime = 0;
   }
   if (thrust != 0 && thrust != undefined) {
     del_v = thrust * thrust_per_milli * delta_time;
@@ -57,12 +61,12 @@ function moveSpaceship(delta_time) {
     del_vy = del_v * Math.sin(spaceship.theta * deg2rad);
 
     if (lifeCnt > 0) {
-      thrustsnd.play();
+      thrustSnd.play();
     }
   } else {
     del_vx = 0;
     del_vy = 0;
-    thrustsnd.stop();
+    thrustSnd.stop();
   }
   spaceship.vx = spaceship.vx + del_vx;
   spaceship.vy = spaceship.vy + del_vy;
@@ -131,8 +135,6 @@ function hyperspace() {
 function makeShot() {
   shotCnt++;
   shots.push(new Shot(shotCnt, spaceship.x, spaceship.y, spaceship.vx, spaceship.vy, spaceship.theta, spaceship.yaw, 1800, 0, 0));
-  //var newShot = shots.lastIndexOf();
-
   makeshotSVG(shotCnt, 'shot', '#f00');
 }
 
@@ -188,7 +190,7 @@ function boom(shot) {
  */
 function pewpew() {
   if (lifeCnt > 0 && resetGun == true && inPlay == true) {
-    shootsnd.play();
+    shootSnd.play();
     makeShot();
     resetGun = false;
   }
@@ -270,7 +272,7 @@ function makeUFO(active, scale) {
       ufoShotCnt++;
       var angleDeg = (Math.atan2(spaceship.y - ufo.y, spaceship.x - ufo.x) * 180 / Math.PI) + getRandomFloat((ufoAim * -1), ufoAim);
       ufoShots.push(new Shot(ufoShotCnt, ufo.x, ufo.y, ufo.vx, ufo.vy, angleDeg, ufo.yaw, 1800, 0, 0));
-      ufoBulletsnd.play();
+      ufoBulletSnd.play();
       if (ufoScale == 0.1) {
         $('#sndSaucerBig').get(0).play();
       } else {

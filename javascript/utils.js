@@ -195,6 +195,23 @@ function hideCursor() {
 }
 
 
+function setupSounds() {
+	shootSnd = new Sound('snd/fire.mp3');
+	thrustSnd = new Sound('snd/thrust.mp3');
+	extraLifeSnd = new Sound('snd/extraShip.ogg');
+	ufoSnd = new Sound('snd/saucerBig.mp3');
+	ufoBulletSnd = new Sound('snd/laser.mp3');
+	ufoBoomSnd = new Sound('snd/bangMedium.mp3');
+	turnSnd = new Sound('snd/hiss.mp3');
+	hyperspaceSnd = new Sound('snd/hyperspace.mp3');
+	hyperspaceFailSnd = new Sound('snd/Power-failure.mp3');
+	boomSnd = new Sound('snd/boom2.mp3');
+	astroBoomSnd = new Sound('snd/bangLarge.mp3');
+	saucerBigSnd = new Sound('snd/saucerBig.mp3');
+	saucerSmallSnd = new Sound('snd/saucerSmall.mp3');
+
+}
+
 
 
 // localStorage ---------------------------------------------------------------------------------------

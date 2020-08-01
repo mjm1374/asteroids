@@ -28,8 +28,6 @@ let asteroids = [],
   ufoShots = [],
   ufoShotCnt = 0,
   ufoActive = false,
-  ufosnd = null,
-  ufoBulletsnd = null,
   ufoShootingSpeed = 1000,
   ufoAimStart = 50,
   ufoAim = 50,
@@ -49,15 +47,24 @@ let asteroids = [],
   del_vy = 0,
   rock_max_v = 1.5,
   rock_max_v_cap = 6,
-  shootsnd = null,
-  thrustsnd = null,
   screenScale = 1,
   scoreNum = null,
   versionNum = null,
   lifeNum = null,
   HSNum = null,
-  extraLifesnd = null,
-  ufoBoom = null,
+  ufoSnd = null,
+  extraLifeSnd = null,
+  ufoBoomSnd = null,
+  ufoBulletSnd = null,
+  shootSnd = null,
+  thrustSnd = null,
+  turnSnd = null,
+  hyperspaceSnd = null,
+  hyperspaceFailSnd = null,
+  boomSnd = null,
+  astroBoomSnd = null,
+  saucerBigSnd = null,
+  saucerSmallSnd = null,
   spaceshipSvg = null,
   gameWrapper = null,
   gameOverBoard = null;
@@ -232,6 +239,10 @@ function updateUFOShot() {
 
 // Kick it off!
 document.addEventListener('DOMContentLoaded', function () {
+
+  //establish reusable sounds
+  setupSounds();
+
   scoreNum = document.getElementById('scoreNum');
   versionNum = document.getElementsByClassName('versionNum');
   lifeNum = document.getElementById('lifeNum');
@@ -243,13 +254,7 @@ document.addEventListener('DOMContentLoaded', function () {
     versionNum[i].innerText = version;
   }
 
-  //establish reusable sounds
-  shootsnd = new Sound('snd/fire.mp3');
-  thrustsnd = new Sound('snd/thrust.mp3');
-  extraLifesnd = new Sound('snd/extraShip.ogg');
-  ufosnd = new Sound('snd/saucerBig.mp3');
-  ufoBulletsnd = new Sound('snd/laser.mp3');
-  ufoBoom = new Sound('snd/bangMedium.mp3');
+
 
   resetgame();
 
