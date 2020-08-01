@@ -61,7 +61,8 @@ if (lifeCnt > 0) {
 
 	// mobile controls   --------------->
 
-	$(document).on('touchstart', ' .gameBtn', function (e) {
+	document.addEventListener('touchstart', e => {
+
 		spaceshipSvg.style.opacity = 1;
 		var key = e.target.id;
 		console.log(key);
@@ -88,7 +89,7 @@ if (lifeCnt > 0) {
 		}
 	});
 
-	$(document).on('touchend', '.gameBtn', function (e) {
+	document.addEventListener('touchend', e => {
 
 		var key = e.target.id;
 		switch (key) {
