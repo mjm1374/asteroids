@@ -47,7 +47,7 @@ function isSpaceshipHit(obj) {
             (a.y > (b.y + b.height)) ||
             ((a.x + a.width) < b.x) ||
             (a.x > (b.x + b.width))) == false) {
-        boom();
+        boom(b.id);
         ufoActive = false;
         return true;
     }
@@ -64,7 +64,7 @@ function isUfoHit(obj) {
             (a.y > (b.y + b.height)) ||
             ((a.x + a.width) < b.x) ||
             (a.x > (b.x + b.width))) == false) {
-        blowupUfo(a);
+        blowupUfo(a, b.id);
         ufoActive = false;
         return true;
     }

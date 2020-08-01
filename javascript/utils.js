@@ -86,19 +86,27 @@ function safeSpawn() {
  */
 function resetgame() {
 	gameOverBoard.style.display = 'none';
-	//$('*').css('cursor','none'); // clear cursor
 	clearDomClass('asteroid');
 	lifeCnt = lifeStart;
-	jumpCnt = 3;
+	jumpCnt = jumpStart;
 	score = 0;
 	newLife = newLifeTarget;
-	ufoAim = 50;
+	ufoAim = ufoAimStart;
 	asteroids = [];
 
 	regenerateAsteroids();
 
 	//Add space ship
-	$('body').append("<svg id='spaceship' class=''><path cx='5' cy='5' r='10' stroke='#ffffff' stroke-width='2' d='M " + spaceship.shape + " Z'  id='outerShip' /></svg>");
+	var newShip = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+	newShip.setAttribute('id', `spaceship`);
+	let shipPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+	shipPath.setAttribute("stroke", '#fff');
+	shipPath.setAttribute("stroke-width", 2);
+	shipPath.setAttribute("d", `M ${spaceship.shape} Z`);
+	shipPath.setAttribute("id", 'outerShip');
+	newShip.appendChild(shipPath);
+
+	document.body.appendChild(newShip);
 
 	resetSpaceship();
 }

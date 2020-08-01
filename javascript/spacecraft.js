@@ -133,12 +133,7 @@ function makeShot() {
   shots.push(new Shot(shotCnt, spaceship.x, spaceship.y, spaceship.vx, spaceship.vy, spaceship.theta, spaceship.yaw, 1800, 0, 0));
   //var newShot = shots.lastIndexOf();
 
-
   makeshotSVG(shotCnt, 'shot', '#f00');
-
-  // $('body')
-  //   .append("<svg id='shot" + shotCnt + "' data-id='" + shotCnt + "' class='shot' height='6' width='6'><circle cx='3' cy='3' r='3' stroke='white' stroke-width='2' fill='red' /></svg>");
-
 }
 
 
@@ -158,19 +153,14 @@ function makeshotSVG(id, indenity, color) {
   shotPath.setAttribute("stroke-width", 2);
   shotPath.setAttribute("fill", color);
 
-
   newShot.appendChild(shotPath);
-
   document.body.appendChild(newShot);
-
-
-
 }
 
 /**
  * you died! - hide spaceship and start reset cycle
  */
-function boom() {
+function boom(shot) {
   spaceshipSvg.style.display = 'none';
   inPlay = false;
   ufoActive = false;
@@ -180,6 +170,7 @@ function boom() {
   spaceship.vy = 0;
 
   $('#sndBoom').get(0).play();
+  clearDomItem('ufoshot' + shot);
 
   if (lifeCnt > 0) {
     lifeCnt--;
@@ -287,13 +278,14 @@ function makeUFO(active, scale) {
  * remove the UFO after being hit by bullter
  * @param {*} obj the UFO
  */
-function blowupUfo(obj) {
+function blowupUfo(obj, shot) {
   //var a = obj;
   $('#sndAstroBoom').get(0).pause();
   $('#sndAstroBoom').get(0).currentTime = 0;
   $('#sndAstroBoom').get(0).play();
   //$('#ufoShip').remove();
   clearDomItem('ufoShip');
+  clearDomItem('shot' + shot);
   pointCnt(obj.points);
   parkUfo();
   clearTimeout(ufoTimer);
