@@ -271,7 +271,7 @@ function makeUFO(active, scale) {
 
   document.body.appendChild(newUFO);
 
-  newUFO.style.cssText(`width:${ufo.width}, height: ${ufo.height}`)
+  newUFO.style.cssText = `width: ${ufo.width}, height: ${ufo.height}`;
 
   var startFiring = setInterval(enemyShooter, ufoShootingSpeed);
 
