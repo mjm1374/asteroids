@@ -145,11 +145,14 @@ class Shot {
 }
 
 class Sound {
-	constructor(src) {
+	constructor(src, loop = false) {
 		this.sound = document.createElement('audio');
 		this.sound.src = src;
 		this.sound.setAttribute('preload', 'auto');
 		this.sound.setAttribute('controls', 'none');
+		if (loop === true) {
+			this.sound.setAttribute('loop', loop);
+		}
 		this.sound.style.display = 'none';
 		document.body.appendChild(this.sound);
 	}
@@ -160,6 +163,18 @@ class Sound {
 
 	stop() {
 		this.sound.pause();
+	}
+
+	reset() {
+		this.sound.currentTime = 0;
+	}
+
+	loop() {
+		this.sound.setAttribute('loop', true);
+	}
+
+	unloop() {
+		this.sound.removeAttribute('loop');
 	}
 }
 

@@ -95,23 +95,15 @@ function resetgame() {
 	asteroids = [];
 
 	regenerateAsteroids();
-
-	//Add space ship
-	var newShip = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-	newShip.setAttribute('id', `spaceship`);
-	let shipPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
-	shipPath.setAttribute("stroke", '#fff');
-	shipPath.setAttribute("stroke-width", 2);
-	shipPath.setAttribute("d", `M ${spaceship.shape} Z`);
-	shipPath.setAttribute("id", 'outerShip');
-	newShip.appendChild(shipPath);
-
-	document.body.appendChild(newShip);
+	addSpaceship()
 
 	resetSpaceship();
 }
 
-
+/**
+ * 
+ * @param {*} thisClass -  string -  what class to remove from the DOM 
+ */
 function clearDomClass(thisClass) {
 	let el = document.getElementsByClassName(thisClass);
 	for (let i = 0; i < el.length; i + 1) {
@@ -120,6 +112,10 @@ function clearDomClass(thisClass) {
 	}
 }
 
+/**
+ * 
+ * @param {*} thisId - string -  ID of the element tp remove from the DOM
+ */
 function clearDomItem(thisId) {
 	let el = document.getElementById(thisId);
 	if (el != null) {
@@ -178,6 +174,7 @@ function moveItem(obj, x, y, t) {
 	} catch (e) {
 		console.error(e.name); // logs 'Error'
 		console.error(e.message); // logs 'The message', or a JavaScript error message
+		console.error(obj);
 	}
 
 };
@@ -207,8 +204,9 @@ function setupSounds() {
 	hyperspaceFailSnd = new Sound('snd/Power-failure.mp3');
 	boomSnd = new Sound('snd/boom2.mp3');
 	astroBoomSnd = new Sound('snd/bangLarge.mp3');
-	saucerBigSnd = new Sound('snd/saucerBig.mp3');
-	saucerSmallSnd = new Sound('snd/saucerSmall.mp3');
+	saucerBigSnd = new Sound('snd/saucerBig.mp3', true);
+	saucerSmallSnd = new Sound('snd/saucerSmall.mp3', true);
+
 
 }
 

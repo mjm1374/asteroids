@@ -98,9 +98,9 @@ function makeAsteroidPieces(x, y, size, cnt) {
  * @param {*} idx int - what asteroid -  index in the array
  */
 function blowupAsteroid(obj, idx, shot) {
-	$('#sndAstroBoom').get(0).pause();
-	$('#sndAstroBoom').get(0).currentTime = 0;
-	$('#sndAstroBoom').get(0).play();
+	astroBoomSnd.stop();
+	astroBoomSnd.reset();
+	astroBoomSnd.play();
 
 	pointCnt(obj.points);
 

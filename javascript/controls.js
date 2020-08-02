@@ -41,9 +41,11 @@ if (lifeCnt > 0) {
 		switch (key) {
 			case 65: //a = yaw left
 				turn = 0;
+				turnSnd.reset();
 				break;
 			case 68: //d = yaw right
 				turn = 0;
+				turnSnd.reset();
 				break;
 			case 87: //w = forward
 				thrust = 0;
@@ -95,9 +97,11 @@ if (lifeCnt > 0) {
 		switch (key) {
 			case 'btnLeft': //d = yaw left
 				turn = 0;
+				turnSnd.reset();
 				break;
 			case 'btnRight': //a = yaw right
 				turn = 0;
+				turnSnd.reset();
 				break;
 			case 'btnUp': //w = forward
 				thrust = 0;
