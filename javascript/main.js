@@ -1,5 +1,10 @@
 //initialize the environment
-const version = 1.3;
+const version = 1.3,
+  lifeStart = 3,
+  jumpStart = 3,
+  newLifeTarget = 10000,
+  rockID = 0, //for debugging only
+  mode = 'asteroids';
 
 let asteroids = [],
   shots = [],
@@ -8,19 +13,14 @@ let asteroids = [],
   yLimit = resetWindowLimit('y') - 1,
   spaceship = new Spaceship(xLimit / 2, yLimit / 2, 0, 0, 0, 0, 0, 0),
   spawnBox = new SpawnBox(xLimit / 2 - 50, yLimit / 2 - 50),
-  lifeStart = 3,
   lifeCnt = lifeStart,
-  jumpStart = 3,
   jumpCnt = jumpStart,
   score = 0,
-  newLifeTarget = 10000,
   newLife = newLifeTarget,
   resetGun = true,
   inPlay = false,
-  mode = 'asteroids',
   rockCnt = 10,
   scale = 1,
-  rockID = 0, //for debugging only
   ufo = new Ufo(-100, -100, 0, 0, 0, 0, 200),
   nextEnemy = Math.floor(getRandomFloat(10, 30) * 1000),
   enemyDelay = 2000,
@@ -81,7 +81,6 @@ if (xLimit <= 414) {
  * The main animation loop
  */
 function animateScreen() {
-  //console.log("play: ",inPlay);
   hideCursor();
   updateAsteroids();
   checkUFO();
@@ -90,7 +89,6 @@ function animateScreen() {
   moveSpaceship(delta_time);
   updateSpaceship(delta_time);
   updateScoreCard();
-
 }
 
 // END animation Loop -------------------------------------------------------------------------------------------
@@ -103,8 +101,6 @@ function updateScoreCard() {
   lifeNum.innerText = lifeCnt;
   HSNum.innerText = jumpCnt;
 }
-
-
 
 /**
  * update the asteroids position

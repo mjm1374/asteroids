@@ -58,10 +58,10 @@ function getSafeRandomFloat(min, max) {
  */
 function clearBullet(team, idx) {
 	if (team == "ufo") {
-		clearDomItem('ufoShip' + ufoShots[idx].id);
+		clearDomItem(`ufoShip${ufoShots[idx].id}`);
 		ufoShots.splice(idx, 1);
 	} else {
-		clearDomItem('shots' + shots[idx].id);
+		clearDomItem(`shots${shots[idx].id}`);
 		shots.splice(idx, 1);
 	}
 }
@@ -121,7 +121,6 @@ function clearDomItem(thisId) {
 	if (el != null) {
 		el.remove();
 	}
-
 }
 
 /**
@@ -206,8 +205,6 @@ function setupSounds() {
 	astroBoomSnd = new Sound('snd/bangLarge.mp3');
 	saucerBigSnd = new Sound('snd/saucerBig.mp3', true);
 	saucerSmallSnd = new Sound('snd/saucerSmall.mp3', true);
-
-
 }
 
 
@@ -229,5 +226,4 @@ function checkHighScoreCookie() {
 			highscore[0].innerHTML = hs;
 		}
 	}
-
 }
