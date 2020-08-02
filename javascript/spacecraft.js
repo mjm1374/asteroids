@@ -135,7 +135,12 @@ function makeShot() {
   makeshotSVG(shotCnt, 'shot', '#f00');
 }
 
-
+/**
+ * 
+ * @param {*} id - int - the id of the shot to map to 
+ * @param {*} indenity - string -  the team of the shot, options: shot or ufoShot
+ * @param {*} color - string -  a hex or css color
+ */
 function makeshotSVG(id, indenity, color) {
   var newShot = document.createElementNS("http://www.w3.org/2000/svg", "svg");
   newShot.setAttribute('id', `${indenity}${id}`);
@@ -192,7 +197,9 @@ function pewpew() {
   }
 }
 
-
+/**
+ * put the SVG shapeship on the DOM
+ */
 function addSpaceship() {
   //Add space ship
   var newShip = document.createElementNS("http://www.w3.org/2000/svg", "svg");
@@ -261,7 +268,7 @@ function makeUFO(active, scale) {
 
   let ufoPath = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
   ufoPath.setAttribute("fill-rule", "evenodd");
-  ufoPath.setAttribute("points", '466.697 275.189, 350.500 226.628, 329.099 170.984, 294.919 147.509, 242.500 147.509, 242.500 112.989, 235.000 105.489, 227.500 112.989, 227.500 147.509, 175.081 147.509, 140.901 170.984, 119.500 226.628, 3.303 275.189, 0.000 281.405, 3.303 287.621, 106.027 332.782, 143.504 364.510, 326.496 364.510, 363.973 332.782, 466.697 287.621, 470.000 281.405, 466.697 275.189');
+  ufoPath.setAttribute("points", Ufo.shape);
   ufoPath.setAttribute("stroke", '#fff');
   ufoPath.setAttribute("stroke-width", 15);
   ufoPath.setAttribute("id", 'myPolygon');
