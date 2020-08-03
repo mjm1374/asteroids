@@ -1,4 +1,4 @@
-$(window).resize(function () {
+window.addEventListener('resize', function () {
 	xLimit = resetWindowLimit("x");
 	yLimit = resetWindowLimit("y");
 });
@@ -167,13 +167,16 @@ function playExtraLife() {
 function moveItem(obj, x, y, t) {
 
 	try {
-		obj.style.left = x;
-		obj.style.top = y;
-		obj.style.transform = `rotate(${t}deg)`;
+		if (obj != null) {
+			obj.style.left = x;
+			obj.style.top = y;
+			obj.style.transform = `rotate(${t}deg)`;
+		}
+
 	} catch (e) {
 		console.error(e.name); // logs 'Error'
 		console.error(e.message); // logs 'The message', or a JavaScript error message
-		console.error(obj);
+		console.trace();
 	}
 
 };
