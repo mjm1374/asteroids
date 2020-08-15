@@ -85,7 +85,8 @@ function safeSpawn() {
  * Reset the game to default games start values
  */
 function resetgame() {
-	gameOverBoard.style.display = 'none';
+	gameOverBoard.classList.remove('open');
+	startover.blur();
 	clearDomClass('asteroid');
 	lifeCnt = lifeStart;
 	jumpCnt = jumpStart;

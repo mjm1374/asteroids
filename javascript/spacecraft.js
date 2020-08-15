@@ -29,7 +29,7 @@ function resetSpaceship() {
   } else {
     inPlay = false;
     spaceshipSvg.style.display = 'none';
-    gameOverBoard.style.display = 'flex';
+    gameOverBoard.classList.add('open');
     checkHighScoreCookie();
   }
 }
