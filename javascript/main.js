@@ -1,11 +1,16 @@
 //initialize the environment
-const version = 1.3,
+const version = 1.31,
   delta_time = 20,
   lifeStart = 3,
   jumpStart = 3,
   newLifeTarget = 10000,
   rockID = 0, //for debugging only
-  mode = 'asteroids';
+  mode = 'asteroids',
+  modal = document.getElementById('welcomeModel'),
+  modalDialog = document.querySelector('.modal-dialog'),
+  dialogCloseBtn = document.querySelector('.dialogCloseBtn');
+
+
 
 let asteroids = [],
   shots = [],
@@ -67,7 +72,8 @@ let asteroids = [],
   saucerSmallSnd = null,
   spaceshipSvg = null,
   gameWrapper = null,
-  gameOverBoard = null;
+  gameOverBoard = null,
+  startover = null;
 
 //conditional mobile vars
 if (xLimit <= 414) {
@@ -245,6 +251,7 @@ document.addEventListener('DOMContentLoaded', function () {
   HSNum = document.getElementById('HSNum');
   gameWrapper = document.getElementById('game__wrapper');
   gameOverBoard = document.getElementById('gameOverBoard');
+  startover = document.getElementById('startover');
 
   for (let i = 0; i < versionNum.length; i++) {
     versionNum[i].innerText = version;
@@ -257,10 +264,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // show instructions for desktop
   if (xLimit > 768) {
     inPlay = false;
-    $('#welcomeModel').modal('show');
-    $('#welcomeModel').on('hidden.bs.modal', function (e) {
-      inPlay = true;
-    });
+    modalHandler('open');
   }
 
   //kick off animation
@@ -268,3 +272,22 @@ document.addEventListener('DOMContentLoaded', function () {
     animateScreen();
   }, delta_time);
 });
+
+dialogCloseBtn.addEventListener('click', () => {
+  modalHandler();
+})
+
+function modalHandler(dir) {
+  if (dir === 'open') {
+    modal.classList.add('open');
+    modalDialog.classList.add('open');
+
+  } else {
+    modal.classList.remove('open');
+    modalDialog.classList.remove('open');
+    inPlay = true;
+  }
+
+
+
+}
