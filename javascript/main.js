@@ -253,6 +253,10 @@ document.addEventListener('DOMContentLoaded', function () {
   gameOverBoard = document.getElementById('gameOverBoard');
   startover = document.getElementById('startover');
 
+  dialogCloseBtn.addEventListener('click', () => {
+    modalHandler();
+  })
+
   for (let i = 0; i < versionNum.length; i++) {
     versionNum[i].innerText = version;
   }
@@ -272,22 +276,3 @@ document.addEventListener('DOMContentLoaded', function () {
     animateScreen();
   }, delta_time);
 });
-
-dialogCloseBtn.addEventListener('click', () => {
-  modalHandler();
-})
-
-function modalHandler(dir) {
-  if (dir === 'open') {
-    modal.classList.add('open');
-    modalDialog.classList.add('open');
-
-  } else {
-    modal.classList.remove('open');
-    modalDialog.classList.remove('open');
-    inPlay = true;
-  }
-
-
-
-}

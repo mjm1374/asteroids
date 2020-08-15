@@ -194,7 +194,9 @@ function hideCursor() {
 	}
 }
 
-
+/**
+ * Set up the reuseable sounds
+ */
 function setupSounds() {
 	shootSnd = new Sound('snd/fire.mp3');
 	thrustSnd = new Sound('snd/thrust.mp3');
@@ -212,9 +214,31 @@ function setupSounds() {
 }
 
 
+/**
+ * 
+ * @param {*} dir - string -  open will enable the modal on game launch
+ * 
+ * TODO: should pass in the modal you want to enable and seperate the display from the modal background. 
+ */
+function modalHandler(dir) {
+	if (dir === 'open') {
+		modal.classList.add('open');
+		modalDialog.classList.add('open');
+
+	} else {
+		modal.classList.remove('open');
+		modalDialog.classList.remove('open');
+		inPlay = true;
+	}
+
+}
+
 
 // localStorage ---------------------------------------------------------------------------------------
 
+/**
+ * looks to see if the highscore is set and if not sets the current score as high score on local storage.
+ */
 function checkHighScoreCookie() {
 	let hs = localStorage.getItem("highScore-asteroids");
 	let highscore = document.getElementById('highScore').children;
