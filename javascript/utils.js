@@ -143,7 +143,7 @@ function pointCnt(num) {
  * play sound for extra life
  */
 function playExtraLife() {
-	var extraLifesnd = new Sound('./snd/extraShip.ogg');
+	var extraLifesnd = new Sound('snd/extraShip.ogg');
 	setTimeout(function () {
 		extraLifesnd.play();
 	}, 1);
@@ -186,7 +186,7 @@ function moveItem(obj, x, y, t) {
  * Hide the cursor when game play is happening
  */
 function hideCursor() {
-	if (inPlay == true) {
+	if (inPlay == true && lifeCnt > 0) {
 		gameWrapper.classList.add('cursorHide')
 	} else {
 		gameWrapper.classList.remove('cursorHide')
