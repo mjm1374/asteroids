@@ -243,7 +243,6 @@ function makeUFO(active, scale) {
       } else {
         saucerSmallSnd.play();
       }
-
       makeshotSVG(ufoShotCnt, 'ufoshot', '#0f0');
     } else {
       clearInterval(startFiring);
@@ -256,6 +255,7 @@ function makeUFO(active, scale) {
       }
     }
   }
+
 }
 
 /**

@@ -1,3 +1,15 @@
+// one AG-2G quad laser cannon - must install more
+/**
+ * start the creation of the shot
+ */
+function pewpew() {
+    if (lifeCnt > 0 && resetGun == true && inPlay == true) {
+        shootSnd.play();
+        makeShot();
+        resetGun = false;
+    }
+}
+
 /**
  * Create the shot
  */
@@ -35,8 +47,8 @@ function makeshotSVG(id, indenity, color) {
 
 /**
  *
- * @param {*} team
- * @param {*} idx
+ * @param {*} team - string
+ * @param {*} idx - int
  */
 function clearBullet(team, idx) {
     if (team == "ufo") {
@@ -45,19 +57,5 @@ function clearBullet(team, idx) {
     } else {
         clearDomItem(`spaceshipShot${shots[idx].id}`);
         shots.splice(idx, 1);
-    }
-}
-
-
-
-// one AG-2G quad laser cannon - must install more
-/**
- * start the creation of the shot
- */
-function pewpew() {
-    if (lifeCnt > 0 && resetGun == true && inPlay == true) {
-        shootSnd.play();
-        makeShot();
-        resetGun = false;
     }
 }
