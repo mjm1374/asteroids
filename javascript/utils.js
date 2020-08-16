@@ -61,7 +61,7 @@ function clearBullet(team, idx) {
 		clearDomItem(`ufoShip${ufoShots[idx].id}`);
 		ufoShots.splice(idx, 1);
 	} else {
-		clearDomItem(`shots${shots[idx].id}`);
+		clearDomItem(`spaceshipShot${shots[idx].id}`);
 		shots.splice(idx, 1);
 	}
 }

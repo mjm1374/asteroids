@@ -129,7 +129,7 @@ function hyperspace() {
 function makeShot() {
   shotCnt++;
   shots.push(new Shot(shotCnt, spaceship.x, spaceship.y, spaceship.vx, spaceship.vy, spaceship.theta, spaceship.yaw, 1800, 0, 0));
-  makeshotSVG(shotCnt, 'shot', '#f00');
+  makeshotSVG(shotCnt, 'spaceshipShot', '#f00');
 }
 
 /**
@@ -142,7 +142,7 @@ function makeshotSVG(id, indenity, color) {
   var newShot = document.createElementNS("http://www.w3.org/2000/svg", "svg");
   newShot.setAttribute('id', `${indenity}${id}`);
   newShot.setAttribute('data-id', id);
-  newShot.setAttribute('class', 'shot');
+  newShot.setAttribute('class', `${indenity}`);
   newShot.setAttribute('height', 6);
   newShot.setAttribute('width', 6);
 
@@ -156,6 +156,7 @@ function makeshotSVG(id, indenity, color) {
 
   newShot.appendChild(shotPath);
   document.body.appendChild(newShot);
+  console.log(newShot)
 }
 
 /**
@@ -312,7 +313,7 @@ function makeUFO(active, scale) {
 function blowupUfo(obj, shot) {
   ufoBoomSnd.play();
   clearDomItem('ufoShip');
-  clearDomItem('shot' + shot);
+  clearDomItem('spaceshipShot' + shot);
   pointCnt(obj.points);
   parkUfo();
   clearTimeout(ufoTimer);
@@ -329,4 +330,5 @@ function parkUfo() {
   ufo.y = -200;
   ufo.vx = 0;
   ufo.vy = 0;
+  clearDomClass('ufoshot');
 }
