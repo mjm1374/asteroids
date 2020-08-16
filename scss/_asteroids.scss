@@ -97,8 +97,12 @@ body {
 #spawn {
     display: block;
     position: absolute;
-    left: -100px;
-    top: -100px;
+    left: 50%;
+    top: 50%;
+    //border: 1px solid red;
+    width: 200px;
+    height: 200px;
+    transform: translate(-100px, -100px);
 }
 
 .rockAnim {
@@ -109,7 +113,22 @@ body {
     top: -100px;
     fill: rgba($white, 0.6);
     font-family: 'hyperspaceregular';
+    //border: 1px solid blue;
+}
 
+.rock100 {
+    width: 100px;
+    height: 100px;
+}
+
+.rock50 {
+    width: 50px;
+    height: 50px;
+}
+
+.rock25 {
+    width: 25px;
+    height: 25px;
 }
 
 .shot,
@@ -415,5 +434,11 @@ cntrlButton:last-child {
 @media screen and (max-width: 414px) {
     #highScore {
         left: 12px !important;
+    }
+
+    #spawn {
+        width: 100px;
+        height: 100px;
+        transform: translate(-50px, -50px);
     }
 }

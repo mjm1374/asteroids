@@ -108,8 +108,7 @@ function resetgame() {
 function clearDomClass(thisClass) {
 	let el = document.getElementsByClassName(thisClass);
 	for (let i = 0; i < el.length; i + 1) {
-		let thisRock = document.getElementById(el[i].id);
-		thisRock.remove();
+		document.getElementById(el[i].id).remove();
 	}
 }
 
@@ -144,7 +143,7 @@ function pointCnt(num) {
  * play sound for extra life
  */
 function playExtraLife() {
-	var extraLifesnd = new Sound('snd/extraShip.ogg');
+	var extraLifesnd = new Sound('./snd/extraShip.ogg');
 	setTimeout(function () {
 		extraLifesnd.play();
 	}, 1);

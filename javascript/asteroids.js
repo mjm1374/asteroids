@@ -34,9 +34,11 @@ function makeRock(id, w, h, color, scale, path) {
 	var newRock = document.createElementNS("http://www.w3.org/2000/svg", "svg");
 	newRock.setAttribute('id', `rockAnim${id}`);
 	newRock.setAttribute('data-id', id);
-	newRock.setAttribute('class', 'asteroid rocksize100 rockAnim');
 	newRock.setAttribute("aria-hidden", "true");
 	newRock.style.cssText = `color:${color}, border-color:${color}`;
+	newRock.setAttribute('class', 'asteroid rockAnim');
+
+	newRock.classList.add(`rock${scale * 100}`);
 
 
 	let rockPath = document.createElementNS("http://www.w3.org/2000/svg", "path");

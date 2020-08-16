@@ -73,12 +73,14 @@ let asteroids = [],
   spaceshipSvg = null,
   gameWrapper = null,
   gameOverBoard = null,
-  startover = null;
+  startover = null,
+  isMobile = false;
 
 //conditional mobile vars
-if (xLimit <= 414) {
-  screenScale = 2;
+if (xLimit < 414) {
+  screenScale = 1;
   rockCnt = 5;
+  isMobile = true;
 }
 
 // MAIN ANIMATION LOOP -----------------------------------------------------------------------------------------

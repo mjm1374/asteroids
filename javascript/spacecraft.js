@@ -17,14 +17,12 @@ function resetSpaceship() {
     clearTimeout(ufoTimer);
     spawnEnemy();
 
-    while (safeSpawn() == true) {
+    while (safeSpawn() === false) {
       inPlay = false;
       animateScreen();
     }
 
     inPlay = true;
-
-
     spaceshipSvg.style.opacity = '1';
   } else {
     inPlay = false;
@@ -119,7 +117,6 @@ function hyperspace() {
       HSNum.innerText = jumpCnt
     } else {
       hyperspaceFailSnd.play();
-      23
     }
   }
 
