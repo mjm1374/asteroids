@@ -18,7 +18,6 @@ NPM
 
 * [Gulp](hhttps://gulpjs.com/) - The JavaScript Task Runner
 * [NPM](https://www.npmjs.com/) - Package Manager
-* [Bootstrap 4](https://getbootstrap.com/) - Bootstrap is an open source toolkit for developing with HTML, CSS, and JS
 
 ## Contributing
 
