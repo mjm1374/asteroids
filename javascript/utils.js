@@ -52,20 +52,6 @@ function getSafeRandomFloat(min, max) {
 	return finalCoord;
 }
 /**
- * 
- * @param {*} team 
- * @param {*} idx 
- */
-function clearBullet(team, idx) {
-	if (team == "ufo") {
-		clearDomItem(`ufoShip${ufoShots[idx].id}`);
-		ufoShots.splice(idx, 1);
-	} else {
-		clearDomItem(`spaceshipShot${shots[idx].id}`);
-		shots.splice(idx, 1);
-	}
-}
-/**
  * check for no asteroids in a radius of the spawn sight
  */
 function safeSpawn() {

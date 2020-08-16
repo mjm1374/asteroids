@@ -195,7 +195,7 @@ function updateShots() {
       clearBullet('sp', idx);
     } else {
       shots[idx].changePosition(thisVX, thisVY);
-      let thisShot = document.getElementById('spaceshipShot' + shots[idx].id);
+      let thisShot = document.getElementById(`spaceshipShot${shots[idx].id}`);
       moveItem(thisShot, shots[idx].x, shots[idx].y);
       // paint the shot
 

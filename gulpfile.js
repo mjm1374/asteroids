@@ -14,7 +14,7 @@ const babel = require('gulp-babel');
 
 const input = {
   'sass': 'scss/**/*.scss',
-  javascript: ['javascript/models.js', 'javascript/main.js', 'javascript/controls.js', 'javascript/asteroids.js', 'javascript/collision.js', 'javascript/spacecraft.js', 'javascript/utils.js'],
+  javascript: ['javascript/models.js', 'javascript/main.js', 'javascript/controls.js', 'javascript/asteroids.js', 'javascript/collision.js', 'javascript/bullets.js', 'javascript/spacecraft.js', 'javascript/utils.js'],
   'javascriptPage': ['js/page-component/*.js'],
   'vendor': 'vendor/**/*.js'
 };
