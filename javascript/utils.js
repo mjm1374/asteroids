@@ -1,6 +1,6 @@
 window.addEventListener('resize', function () {
-	xLimit = resetWindowLimit("x");
-	yLimit = resetWindowLimit("y");
+	xLimit = resetWindowLimit('x');
+	yLimit = resetWindowLimit('y');
 });
 
 /**
@@ -11,18 +11,24 @@ function resetWindowLimit(whatDim) {
 	var newDim, newDimx, newDimy;
 	newDimx = window.innerHeight;
 	newDimy = window.innerHeight;
-	if (whatDim == "x") {
+	if (whatDim == 'x') {
 		newDim = window.innerWidth;
 		for (let i = 0; i < asteroids.length; i++) {
-			if (asteroids[i].x >= (newDimx - asteroids[i].width)) {
-				asteroids[i].changePosition((newDimx - asteroids[i].width), (newDimy - asteroids[i].height));
+			if (asteroids[i].x >= newDimx - asteroids[i].width) {
+				asteroids[i].changePosition(
+					newDimx - asteroids[i].width,
+					newDimy - asteroids[i].height
+				);
 			}
 		}
 	} else {
 		newDim = window.innerHeight;
 		for (let i = 0; i < asteroids.length; i++) {
-			if (asteroids[i].y >= (newDimy - asteroids[i].height)) {
-				asteroids[i].changePosition((newDimx - asteroids[i].width), (newDim - asteroids[i].height));
+			if (asteroids[i].y >= newDimy - asteroids[i].height) {
+				asteroids[i].changePosition(
+					newDimx - asteroids[i].width,
+					newDim - asteroids[i].height
+				);
 			}
 		}
 	}
@@ -58,10 +64,12 @@ function safeSpawn() {
 	var a = asteroids;
 	var b = spawnBox;
 	for (let i = 0; i < a.length; i++) {
-		if ((((a[i].y + a[i].height) < (b.y)) ||
-				(a[i].y > (b.y + b.height)) ||
-				((a[i].x + a[i].width) < b.x) ||
-				(a[i].x > (b.x + b.width))) == false) {
+		if (
+			(a[i].y + a[i].height < b.y ||
+				a[i].y > b.y + b.height ||
+				a[i].x + a[i].width < b.x ||
+				a[i].x > b.x + b.width) == false
+		) {
 			return true;
 		}
 	}
@@ -83,8 +91,7 @@ function resetgame() {
 	beatCnt = 1000;
 
 	regenerateAsteroids();
-	addSpaceship()
-
+	addSpaceship();
 	resetSpaceship();
 
 	if (heartbeat != null) clearInterval(heartbeat);
@@ -92,13 +99,11 @@ function resetgame() {
 	if (inPlay == true && firstRun == false) {
 		heartBeatSnd(beatCnt);
 	}
-
-
 }
 
 /**
- * 
- * @param {*} thisClass -  string -  what class to remove from the DOM 
+ *
+ * @param {*} thisClass -  string -  what class to remove from the DOM
  */
 function clearDomClass(thisClass) {
 	let el = document.getElementsByClassName(thisClass);
@@ -108,7 +113,7 @@ function clearDomClass(thisClass) {
 }
 
 /**
- * 
+ *
  * @param {*} thisId - string -  ID of the element tp remove from the DOM
  */
 function clearDomItem(thisId) {
@@ -132,8 +137,6 @@ function pointCnt(num) {
 	}
 }
 
-
-
 /**
  * play sound for extra life
  */
@@ -150,17 +153,14 @@ function playExtraLife() {
 	}, 500);
 }
 
-
-
 /**
- * 
+ *
  * @param {*} obj Object - the item to move
  * @param {*} x int -  the x value
  * @param {*} y int - the y value
  * @param {*} t int - theta , the rotational value
  */
 function moveItem(obj, x, y, t) {
-
 	if (t === undefined) t = 0;
 
 	try {
@@ -169,24 +169,21 @@ function moveItem(obj, x, y, t) {
 			obj.style.top = `${y}px`;
 			obj.style.transform = `rotate(${t}deg)`;
 		}
-
 	} catch (e) {
 		console.error(e.name); // logs 'Error'
 		console.error(e.message); // logs 'The message', or a JavaScript error message
 		console.trace();
 	}
-
-};
-
+}
 
 /**
  * Hide the cursor when game play is happening
  */
 function hideCursor() {
 	if (inPlay == true && lifeCnt > 0) {
-		gameWrapper.classList.add('cursorHide')
+		gameWrapper.classList.add('cursorHide');
 	} else {
-		gameWrapper.classList.remove('cursorHide')
+		gameWrapper.classList.remove('cursorHide');
 	}
 }
 
@@ -211,18 +208,16 @@ function setupSounds() {
 	beat2 = new Sound('snd/beat2.ogg');
 }
 
-
 /**
- * 
+ *
  * @param {*} dir - string -  open will enable the modal on game launch
- * 
- * TODO: should pass in the modal you want to enable and seperate the display from the modal background. 
+ *
+ * TODO: should pass in the modal you want to enable and seperate the display from the modal background.
  */
 function modalHandler(dir) {
 	if (dir === 'open') {
 		modal.classList.add('open');
 		modalDialog.classList.add('open');
-
 	} else {
 		modal.classList.remove('open');
 		modalDialog.classList.remove('open');
@@ -231,26 +226,21 @@ function modalHandler(dir) {
 		dialogCloseBtn.blur();
 		resetgame();
 	}
-
 }
 
+/**
+ * 
+ * @param {*} beatCnt - int - the timing on the beat. BTW, it must go on....
+ */
 function heartBeatSnd(beatCnt) {
 	clearInterval(heartbeat);
 	heartbeat = setInterval(() => {
-		beat1.stop();
-		beat1.reset();
-		beat1.play();
-		//console.log('beat1');
+		beat1.cycle();
 		setTimeout(() => {
-			beat2.stop();
-			beat2.reset();
-			beat2.play();
-			//console.log('beat2', beatCnt);
+			beat2.cycle();
 		}, beatCnt);
-
 	}, beatCnt * 2);
 }
-
 
 // localStorage ---------------------------------------------------------------------------------------
 
@@ -258,15 +248,15 @@ function heartBeatSnd(beatCnt) {
  * looks to see if the highscore is set and if not sets the current score as high score on local storage.
  */
 function checkHighScoreCookie() {
-	let hs = localStorage.getItem("highScore-asteroids");
+	let hs = localStorage.getItem('highScore-asteroids');
 	let highscore = document.getElementById('highScore').children;
 
-	if (hs == "" || hs == undefined) {
-		localStorage.setItem("highScore-asteroids", score);
+	if (hs == '' || hs == undefined) {
+		localStorage.setItem('highScore-asteroids', score);
 		highscore[0].innerHTML = score;
 	} else {
 		if (hs <= score) {
-			localStorage.setItem("highScore-asteroids", score);
+			localStorage.setItem('highScore-asteroids', score);
 			highscore[0].innerHTML = score;
 		} else {
 			highscore[0].innerHTML = hs;

@@ -176,6 +176,13 @@ class Sound {
 	unloop() {
 		this.sound.removeAttribute('loop');
 	}
+
+	cycle() {
+		this.sound.pause();
+		this.sound.currentTime = 0;
+		this.sound.play();
+	}
+
 }
 
 class Ufo {
