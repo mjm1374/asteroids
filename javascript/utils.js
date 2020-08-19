@@ -197,7 +197,7 @@ function setupSounds() {
 	boomSnd = new Sound('snd/boom2.mp3');
 	astroBoomSnd = new Sound('snd/bangLarge.mp3');
 	saucerBigSnd = new Sound('snd/saucerBig.mp3', true);
-	saucerSmallSnd = new Sound('snd/saucerSmall.mp3', true);
+	saucerSmallSnd = new Sound('snd/saucerSmall.ogg', true);
 }
 
 
