@@ -152,10 +152,12 @@ function playExtraLife() {
  */
 function moveItem(obj, x, y, t) {
 
+	if (t === undefined) t = 0;
+
 	try {
 		if (obj != null) {
-			obj.style.left = x;
-			obj.style.top = y;
+			obj.style.left = `${x}px`;
+			obj.style.top = `${y}px`;
 			obj.style.transform = `rotate(${t}deg)`;
 		}
 
