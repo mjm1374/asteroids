@@ -251,7 +251,7 @@ function makeUFO(active, scale) {
         saucerBigSnd.reset();
       } else {
         saucerSmallSnd.stop();
-        saucerSmallSnd.play();
+        saucerSmallSnd.reset();
       }
     }
   }

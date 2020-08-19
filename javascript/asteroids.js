@@ -91,6 +91,8 @@ function makeAsteroidPieces(x, y, size, cnt) {
 		asteroids.push(new Asteroid(rockID, 'test', size, size, x, y, getRandomFloat(-Math.abs(maxVel), maxVel), getRandomFloat(-Math.abs(maxVel), maxVel), Asteroid.colors[Math.floor(getRandomFloat(0, 5))], 'generic', false, rockPnt));
 
 		makeRock(asteroids[asteroids.length - 1].id, asteroids[asteroids.length - 1].width, asteroids[asteroids.length - 1].height, asteroids[asteroids.length - 1].color, scale, Asteroid.rocksLrg[Math.floor(getRandomFloat(0, 3))])
+
+		beatCnt = beatCnt - 100;
 	}
 }
 
@@ -105,6 +107,7 @@ function blowupAsteroid(obj, idx, shot) {
 	astroBoomSnd.play();
 
 	pointCnt(obj.points);
+	beatCnt = beatCnt - 10;
 
 	//make and clean up astroids array and svg's
 	if (obj.height > 25) {

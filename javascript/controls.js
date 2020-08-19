@@ -19,6 +19,7 @@ if (lifeCnt > 0) {
 					thrust = -1;
 					break;
 				case 13: //s = shoot
+					startover.blur();
 					pewpew();
 					resetGun = false;
 					break;

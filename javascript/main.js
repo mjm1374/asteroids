@@ -1,5 +1,5 @@
 //initialize the environment
-const version = 1.31,
+const version = 1.32,
   delta_time = 20,
   lifeStart = 3,
   jumpStart = 3,
@@ -70,11 +70,16 @@ let asteroids = [],
   astroBoomSnd = null,
   saucerBigSnd = null,
   saucerSmallSnd = null,
+  beat1 = null,
+  beat2 = null,
   spaceshipSvg = null,
   gameWrapper = null,
   gameOverBoard = null,
   startover = null,
-  isMobile = false;
+  isMobile = false,
+  beatCnt = 1000,
+  firstRun = true,
+  heatBeat = null;
 
 //conditional mobile vars
 if (xLimit < 414) {
@@ -277,4 +282,5 @@ document.addEventListener('DOMContentLoaded', function () {
   let startAstroStorm = setInterval(function () {
     animateScreen();
   }, delta_time);
+
 });

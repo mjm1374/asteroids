@@ -80,11 +80,35 @@ function resetgame() {
 	newLife = newLifeTarget;
 	ufoAim = ufoAimStart;
 	asteroids = [];
+	beatCnt = 1000;
 
 	regenerateAsteroids();
 	addSpaceship()
 
 	resetSpaceship();
+
+	console.log(heatBeat);
+
+	if (heatBeat != null) clearInterval(heatBeat);
+
+	if (inPlay == true && firstRun == false) {
+		console.log(inPlay);
+		heatBeat = setInterval(() => {
+			beat1.stop();
+			beat1.reset();
+			beat1.play();
+			console.log('beat1');
+			setTimeout(() => {
+				beat2.stop();
+				beat2.reset();
+				beat2.play();
+				console.log('beat2');
+			}, 1000);
+
+		}, beatCnt * 2);
+	}
+
+
 }
 
 /**
@@ -198,6 +222,8 @@ function setupSounds() {
 	astroBoomSnd = new Sound('snd/bangLarge.mp3');
 	saucerBigSnd = new Sound('snd/saucerBig.mp3', true);
 	saucerSmallSnd = new Sound('snd/saucerSmall.ogg', true);
+	beat1 = new Sound('snd/beat1.ogg');
+	beat2 = new Sound('snd/beat2.ogg');
 }
 
 
@@ -216,6 +242,9 @@ function modalHandler(dir) {
 		modal.classList.remove('open');
 		modalDialog.classList.remove('open');
 		inPlay = true;
+		firstRun = false;
+		dialogCloseBtn.blur();
+		resetgame();
 	}
 
 }
