@@ -28,6 +28,7 @@ function resetSpaceship() {
     inPlay = false;
     spaceshipSvg.style.display = 'none';
     gameOverBoard.classList.add('open');
+    clearInterval(heartbeat);
     checkHighScoreCookie();
   }
 }

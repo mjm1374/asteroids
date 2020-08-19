@@ -87,25 +87,10 @@ function resetgame() {
 
 	resetSpaceship();
 
-	console.log(heatBeat);
-
-	if (heatBeat != null) clearInterval(heatBeat);
+	if (heartbeat != null) clearInterval(heartbeat);
 
 	if (inPlay == true && firstRun == false) {
-		console.log(inPlay);
-		heatBeat = setInterval(() => {
-			beat1.stop();
-			beat1.reset();
-			beat1.play();
-			console.log('beat1');
-			setTimeout(() => {
-				beat2.stop();
-				beat2.reset();
-				beat2.play();
-				console.log('beat2');
-			}, 1000);
-
-		}, beatCnt * 2);
+		heartBeatSnd(beatCnt);
 	}
 
 
@@ -247,6 +232,23 @@ function modalHandler(dir) {
 		resetgame();
 	}
 
+}
+
+function heartBeatSnd(beatCnt) {
+	clearInterval(heartbeat);
+	heartbeat = setInterval(() => {
+		beat1.stop();
+		beat1.reset();
+		beat1.play();
+		//console.log('beat1');
+		setTimeout(() => {
+			beat2.stop();
+			beat2.reset();
+			beat2.play();
+			//console.log('beat2', beatCnt);
+		}, beatCnt);
+
+	}, beatCnt * 2);
 }
 
 
