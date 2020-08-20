@@ -108,8 +108,7 @@ function updateSpaceship(delta_time) {
 function hyperspace() {
   if (lifeCnt > 0 && inPlay == true) {
     if (jumpCnt > 0) {
-      hyperspaceSnd.reset();
-      hyperspaceSnd.play();
+      hyperspaceSnd.cycle();
       spaceship.x = getRandomFloat(1, (xLimit - 5));
       spaceship.y = getRandomFloat(1, (yLimit - 5));
       spaceship.vx = 0;
@@ -264,7 +263,7 @@ function makeUFO(active, scale) {
  * @param {*} obj the UFO
  */
 function blowupUfo(obj, shot) {
-  ufoBoomSnd.play();
+  ufoBoomSnd.cycle();
   clearDomItem('ufoShip');
   clearDomItem('spaceshipShot' + shot);
   pointCnt(obj.points);

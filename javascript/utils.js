@@ -204,8 +204,8 @@ function setupSounds() {
 	astroBoomSnd = new Sound('snd/bangLarge.mp3');
 	saucerBigSnd = new Sound('snd/saucerBig.mp3', true);
 	saucerSmallSnd = new Sound('snd/saucerSmall.ogg', true);
-	beat1 = new Sound('snd/beat1.ogg');
-	beat2 = new Sound('snd/beat2.ogg');
+	beat1Snd = new Sound('snd/beat1.ogg');
+	beat2Snd = new Sound('snd/beat2.ogg');
 }
 
 /**
@@ -235,9 +235,9 @@ function modalHandler(dir) {
 function heartBeatSnd(beatCnt) {
 	clearInterval(heartbeat);
 	heartbeat = setInterval(() => {
-		beat1.cycle();
+		beat1Snd.cycle();
 		setTimeout(() => {
-			beat2.cycle();
+			beat2Snd.cycle();
 		}, beatCnt);
 	}, beatCnt * 2);
 }
