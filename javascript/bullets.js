@@ -15,7 +15,7 @@ function pewpew() {
  */
 function makeShot() {
     shotCnt++;
-    shots.push(new Shot(shotCnt, spaceship.x, spaceship.y, spaceship.vx, spaceship.vy, spaceship.theta, spaceship.yaw, 1800, 0, 0));
+    shots.push(new Shot(shotCnt, spaceship.x + 7, spaceship.y + 5, spaceship.vx, spaceship.vy, spaceship.theta, spaceship.yaw, 1800, 0, 0));
     makeshotSVG(shotCnt, 'spaceshipShot', '#f00');
 }
 
