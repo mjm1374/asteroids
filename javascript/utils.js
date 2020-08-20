@@ -229,17 +229,20 @@ function modalHandler(dir) {
 }
 
 /**
- * 
+ *
  * @param {*} beatCnt - int - the timing on the beat. BTW, it must go on....
  */
 function heartBeatSnd(beatCnt) {
-	clearInterval(heartbeat);
-	heartbeat = setInterval(() => {
-		beat1Snd.cycle();
-		setTimeout(() => {
-			beat2Snd.cycle();
-		}, beatCnt);
-	}, beatCnt * 2);
+	if (soundless == false) {
+		clearInterval(heartbeat);
+		heartbeat = setInterval(() => {
+			beat1Snd.play();
+			setTimeout(() => {
+				beat2Snd.play();
+			}, beatCnt);
+		}, beatCnt * 2);
+	}
+
 }
 
 // localStorage ---------------------------------------------------------------------------------------
