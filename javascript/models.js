@@ -109,8 +109,8 @@ class Spaceship {
 		this.vx = vx;
 		this.vy = vy;
 		this.theta = theta;
-		this.width = 20;
-		this.height = 13;
+		this.width = 14;
+		this.height = 10;
 		this.yaw = yaw;
 		this.x_points = x_points;
 		this.y_points = y_points;

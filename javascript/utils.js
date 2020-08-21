@@ -211,7 +211,9 @@ function setupSounds() {
 	hyperspaceSnd = new Sound('snd/hyperspace.mp3');
 	hyperspaceFailSnd = new Sound('snd/Power-failure.mp3');
 	boomSnd = new Sound('snd/boom2.mp3');
-	astroBoomSnd = new Sound('snd/bangLarge.mp3');
+	astroBoom100Snd = new Sound('snd/bangLarge.mp3');
+	astroBoom50Snd = new Sound('snd/bangMedium.mp3');
+	astroBoom25Snd = new Sound('snd/bangSmall.mp3');
 	saucerBigSnd = new Sound('snd/saucerBig.mp3', true);
 	saucerSmallSnd = new Sound('snd/saucerSmall.ogg', true);
 	beat1Snd = new Sound('snd/beat1.ogg');

@@ -102,8 +102,17 @@ function makeAsteroidPieces(x, y, size, cnt) {
  * @param {*} idx int - what asteroid -  index in the array
  */
 function blowupAsteroid(obj, idx, shot) {
-	astroBoomSnd.cycle();
-
+	switch (obj.width) {
+		case 100:
+			astroBoom100Snd.cycle();
+			break;
+		case 50:
+			astroBoom50Snd.cycle();
+			break;
+		case 25:
+			astroBoom25Snd.cycle();
+			break;
+	}
 
 	pointCnt(obj.points);
 	beatCnt = beatCnt - 12;
