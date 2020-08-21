@@ -80,6 +80,7 @@ function safeSpawn() {
  */
 function resetgame() {
 	gameOverBoard.classList.remove('open');
+	generateBG();
 	startover.blur();
 	clearDomClass('asteroid');
 	lifeCnt = lifeStart;
@@ -98,6 +99,15 @@ function resetgame() {
 
 	if (inPlay == true && firstRun == false) {
 		heartBeatSnd(beatCnt);
+	}
+}
+
+/**
+ * generates a random background if turned on in main.js
+ */
+function generateBG() {
+	if (randomBG == true) {
+		gameWrapper.style.cssText = `background-image:url(../img/space${Math.floor(getRandomFloat(1, 7))}.jpg)`;
 	}
 }
 

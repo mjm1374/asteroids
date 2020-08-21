@@ -80,7 +80,8 @@ let asteroids = [],
   beatCnt = 1000,
   firstRun = true,
   heartbeat = null,
-  soundless = false;
+  soundless = false,
+  randomBG = false;
 
 //conditional mobile vars
 if (xLimit < 414) {
