@@ -42,6 +42,8 @@ let asteroids = [],
   ufoMinSpeed = 1,
   ufoSizeVar = 10,
   ufoTimer = null,
+  ufoZigZagCnt = 0,
+  ufoZigZagMaxCnt = 3,
   turn = 0,
   thrust = 0,
   turn_per_milli = 0.1,
@@ -173,7 +175,9 @@ function updateAsteroids() {
  */
 function checkUFO() {
   if (ufo != null && ufo != undefined && ufoActive == true) {
-    ufo.changePosition(ufo.x + ufo.vx, ufo.y + ufo.vy);
+    let
+      ufo.changePosition(ufo.x + ufo.vx, ufo.y + ufo.vy);
+    console.log(ufo.x);
     if (ufo.x > xLimit + 100) {
       parkUfo();
       spawnEnemy();
@@ -271,8 +275,6 @@ document.addEventListener('DOMContentLoaded', function () {
   for (let i = 0; i < versionNum.length; i++) {
     versionNum[i].innerText = version;
   }
-
-
 
   resetgame();
 

@@ -40,7 +40,7 @@ function isSpaceshipHit(obj) {
 }
 /**
  * The UFO is hit
- * @param {*} obj - the object in contact with teh UFO
+ * @param {*} obj - the object in contact with the UFO
  */
 function isUfoHit(obj) {
     var a = ufo;
