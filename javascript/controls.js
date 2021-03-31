@@ -4,7 +4,7 @@ if (lifeCnt > 0) {
 	document.onkeydown = function (e) {
 		if (inPlay == true) {
 			spaceshipSvg.style.opacity = 1;
-			var key = e.keyCode;
+			var key = e.key;
 			switch (key) {
 				case 68: //d = yaw left
 					turn = 2;
@@ -34,11 +34,10 @@ if (lifeCnt > 0) {
 					break;
 			}
 		}
-
 	};
 
 	document.onkeyup = function (e) {
-		var key = e.keyCode;
+		var key = e.key;
 		switch (key) {
 			case 65: //a = yaw left
 				turn = 0;
@@ -58,14 +57,12 @@ if (lifeCnt > 0) {
 				//endpew();
 				resetGun = true;
 				break;
-
 		}
 	};
 
 	// mobile controls   --------------->
 
-	document.addEventListener('touchstart', e => {
-
+	document.addEventListener('touchstart', (e) => {
 		spaceshipSvg.style.opacity = 1;
 		var key = e.target.id;
 		console.log(key);
@@ -88,12 +85,10 @@ if (lifeCnt > 0) {
 			case 'btnHS': // enter = hyperspace
 				hyperspace();
 				break;
-
 		}
 	});
 
-	document.addEventListener('touchend', e => {
-
+	document.addEventListener('touchend', (e) => {
 		var key = e.target.id;
 		switch (key) {
 			case 'btnLeft': //d = yaw left
@@ -120,7 +115,6 @@ if (lifeCnt > 0) {
 				break;
 		}
 	});
-
 }
 
 // End Input controls ---------------------------------------------------------------------------
