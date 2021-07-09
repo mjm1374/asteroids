@@ -37,12 +37,12 @@ function resetSpaceship() {
 
 /**
  * Update the position, speed, yaw and theta of the space ship
- * @param {*} delta_time  default clock cycle
+ * @param {*} deltaTime  default clock cycle
  */
-function moveSpaceship(delta_time) {
+function moveSpaceship(deltaTime) {
 	var deg2rad = Math.PI / 180;
 	if (turn != 0 && turn != undefined) {
-		spaceship.theta = spaceship.theta + turn * turn_per_milli * delta_time;
+		spaceship.theta = spaceship.theta + turn * turn_per_milli * deltaTime;
 		if (lifeCnt > 0) {
 			turnSnd.play();
 		}
@@ -51,7 +51,7 @@ function moveSpaceship(delta_time) {
 		turnSnd.reset();
 	}
 	if (thrust != 0 && thrust != undefined) {
-		del_v = thrust * thrust_per_milli * delta_time;
+		del_v = thrust * thrust_per_milli * deltaTime;
 		del_vx = del_v * Math.cos(spaceship.theta * deg2rad);
 		del_vy = del_v * Math.sin(spaceship.theta * deg2rad);
 
@@ -69,9 +69,9 @@ function moveSpaceship(delta_time) {
 
 /**
  * paints the screen with the spaceship, set screen position
- * @param {int} delta_time default time cycle
+ * @param {int} deltaTime default time cycle
  */
-function updateSpaceship(delta_time) {
+function updateSpaceship(deltaTime) {
 	if (spaceship.x >= xLimit) {
 		spaceship.x = 0;
 	}
@@ -85,9 +85,9 @@ function updateSpaceship(delta_time) {
 		spaceship.y = yLimit;
 	}
 
-	spaceship.theta += spaceship.yaw * delta_time;
-	spaceship.x += spaceship.vx * delta_time;
-	spaceship.y += spaceship.vy * delta_time;
+	spaceship.theta += spaceship.yaw * deltaTime;
+	spaceship.x += spaceship.vx * deltaTime;
+	spaceship.y += spaceship.vy * deltaTime;
 
 	moveItem(spaceshipSvg, spaceship.x, spaceship.y, spaceship.theta);
 	// Paint the spaceship
@@ -143,7 +143,7 @@ function boom(shot) {
 }
 
 /**
- * put the SVG shapeship on the DOM
+ * put the SVG spaceship in the DOM
  */
 function addSpaceship() {
 	//Add space ship
@@ -218,7 +218,7 @@ function makeUFO(active, scale) {
 		'polygon'
 	);
 	ufoPath.setAttribute('fill-rule', 'evenodd');
-	ufoPath.setAttribute('points', Ufo.shape);
+	ufoPath.setAttribute('points', Ufo.SHAPE);
 	ufoPath.setAttribute('stroke', '#fff');
 	ufoPath.setAttribute('stroke-width', 15);
 	ufoPath.setAttribute('id', 'myPolygon');

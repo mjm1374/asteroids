@@ -4,32 +4,31 @@ if (lifeCnt > 0) {
 	document.onkeydown = function (e) {
 		if (inPlay == true) {
 			spaceshipSvg.style.opacity = 1;
-			var key = e.key;
-			switch (key) {
-				case 68: //d = yaw left
-					turn = 2;
+			switch (e.code) {
+				case 'KeyD': //d = yaw left
+					turn = 1.5;
 					break;
-				case 65: //a = yaw right
-					turn = -2;
+				case 'KeyA': //a = yaw right
+					turn = -1.5;
 					break;
-				case 87: //w = forward
+				case 'KeyW': //w = forward
 					thrust = 1;
 					break;
-				case 83: //s = backward
+				case 'KeyS': //s = backward
 					thrust = -1;
 					break;
-				case 13: //s = shoot
+				case 'Enter': //s = shoot
 					startover.blur();
 					pewpew();
 					resetGun = false;
 					break;
-				case 32: // enter = hyperspace
+				case 'Space': // enter = hyperspace
 					hyperspace();
 					break;
-				case 8:
+				case 'Backspace':
 					boom();
 					break;
-				case 46:
+				case 'Delete':
 					boom();
 					break;
 			}
@@ -37,23 +36,22 @@ if (lifeCnt > 0) {
 	};
 
 	document.onkeyup = function (e) {
-		var key = e.key;
-		switch (key) {
-			case 65: //a = yaw left
+		switch (e.code) {
+			case 'KeyA': //a = yaw left
 				turn = 0;
 				turnSnd.reset();
 				break;
-			case 68: //d = yaw right
+			case 'KeyD': //d = yaw right
 				turn = 0;
 				turnSnd.reset();
 				break;
-			case 87: //w = forward
+			case 'KeyW': //w = forward
 				thrust = 0;
 				break;
-			case 83: //s = backward
+			case 'KeyS': //s = backward
 				thrust = 0;
 				break;
-			case 13:
+			case 'Enter':
 				//endpew();
 				resetGun = true;
 				break;
@@ -64,9 +62,7 @@ if (lifeCnt > 0) {
 
 	document.addEventListener('touchstart', (e) => {
 		spaceshipSvg.style.opacity = 1;
-		var key = e.target.id;
-		console.log(key);
-		switch (key) {
+		switch (e.target.id) {
 			case 'btnLeft': //d = yaw left
 				turn = -1;
 				break;
@@ -89,8 +85,7 @@ if (lifeCnt > 0) {
 	});
 
 	document.addEventListener('touchend', (e) => {
-		var key = e.target.id;
-		switch (key) {
+		switch (e.target.id) {
 			case 'btnLeft': //d = yaw left
 				turn = 0;
 				turnSnd.reset();

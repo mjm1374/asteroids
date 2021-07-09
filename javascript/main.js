@@ -1,6 +1,6 @@
 //initialize the environment
-const version = 1.32,
-	delta_time = 20,
+const version = 1.33,
+	deltaTime = 20,
 	lifeStart = 3,
 	jumpStart = 3,
 	newLifeTarget = 10000,
@@ -83,7 +83,8 @@ let asteroids = [],
 	firstRun = true,
 	heartbeat = null,
 	soundless = false,
-	randomBG = false;
+	randomBG = false,
+	currentYear = new Date().getFullYear();
 
 //conditional mobile vars
 if (xLimit < 414) {
@@ -103,8 +104,8 @@ function animateScreen() {
 	checkUFO();
 	updateShots();
 	updateUFOShot();
-	moveSpaceship(delta_time);
-	updateSpaceship(delta_time);
+	moveSpaceship(deltaTime);
+	updateSpaceship(deltaTime);
 	updateScoreCard();
 }
 
@@ -266,6 +267,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	gameWrapper = document.getElementById('game__wrapper');
 	gameOverBoard = document.getElementById('gameOverBoard');
 	startover = document.getElementById('startover');
+	document.getElementById('currentYear').innerText = currentYear;
 
 	dialogCloseBtn.addEventListener('click', () => {
 		modalHandler();
@@ -286,5 +288,5 @@ document.addEventListener('DOMContentLoaded', function () {
 	//kick off animation
 	let startAstroStorm = setInterval(function () {
 		animateScreen();
-	}, delta_time);
+	}, deltaTime);
 });
