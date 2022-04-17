@@ -3,12 +3,12 @@
 /**
  * reset the spaceship to its starting state
  */
-function resetSpaceship() {
-	spaceshipSvg = document.getElementById('spaceship');
+const resetSpaceship = () => {
+	spaceshipSvg = document.querySelector('#spaceship');
 	if (lifeCnt > 0) {
 		spaceshipSvg.style.cssText = 'display:block, opacity:.25';
 		spaceship = new Spaceship(xLimit / 2, yLimit / 2, 0, 0, -90, 0, 0, 0);
-		let thisSpawn = document.getElementById('spawn');
+		let thisSpawn = document.querySelector('#spawn');
 		thisSpawn.style.left = spawnBox.x;
 		thisSpawn.style.top = spawnBox.y;
 		thisSpawn.style.height = spawnBox.height;
@@ -31,7 +31,7 @@ function resetSpaceship() {
 		clearInterval(heartbeat);
 		checkHighScoreCookie();
 	}
-}
+};
 
 //spaceship controls || Speed & thrust
 
@@ -39,8 +39,7 @@ function resetSpaceship() {
  * Update the position, speed, yaw and theta of the space ship
  * @param {*} deltaTime  default clock cycle
  */
-function moveSpaceship(deltaTime) {
-	var deg2rad = Math.PI / 180;
+const moveSpaceship = (deltaTime) => {
 	if (turn != 0 && turn != undefined) {
 		spaceship.theta = spaceship.theta + turn * turn_per_milli * deltaTime;
 		if (lifeCnt > 0) {
@@ -65,13 +64,13 @@ function moveSpaceship(deltaTime) {
 	}
 	spaceship.vx = spaceship.vx + del_vx;
 	spaceship.vy = spaceship.vy + del_vy;
-}
+};
 
 /**
  * paints the screen with the spaceship, set screen position
  * @param {int} deltaTime default time cycle
  */
-function updateSpaceship(deltaTime) {
+const updateSpaceship = (deltaTime) => {
 	if (spaceship.x >= xLimit) {
 		spaceship.x = 0;
 	}
@@ -89,9 +88,10 @@ function updateSpaceship(deltaTime) {
 	spaceship.x += spaceship.vx * deltaTime;
 	spaceship.y += spaceship.vy * deltaTime;
 
+	moveSpaceship(deltaTime);
 	moveItem(spaceshipSvg, spaceship.x, spaceship.y, spaceship.theta);
 	// Paint the spaceship
-}
+};
 
 /**
  * Traveling through hyperspace ain't like dusting crops, boy!
@@ -102,7 +102,7 @@ function updateSpaceship(deltaTime) {
 /**
  * JUMP! -  randomly reassign the x & y positions
  */
-function hyperspace() {
+const hyperspace = () => {
 	if (lifeCnt > 0 && inPlay == true) {
 		if (jumpCnt > 0) {
 			hyperspaceSnd.cycle();
@@ -116,12 +116,12 @@ function hyperspace() {
 			hyperspaceFailSnd.play();
 		}
 	}
-}
+};
 
 /**
  * you died! - hide spaceship and start reset cycle
  */
-function boom(shot) {
+const boom = (shot) => {
 	spaceshipSvg.style.display = 'none';
 	inPlay = false;
 	ufoActive = false;
@@ -140,14 +140,14 @@ function boom(shot) {
 			resetSpaceship();
 		}, 3000);
 	}
-}
+};
 
 /**
  * put the SVG spaceship in the DOM
  */
-function addSpaceship() {
+const addSpaceship = () => {
 	//Add space ship
-	var newShip = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+	let newShip = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
 	newShip.setAttribute('id', `spaceship`);
 	let shipPath = document.createElementNS(
 		'http://www.w3.org/2000/svg',
@@ -160,20 +160,20 @@ function addSpaceship() {
 	newShip.appendChild(shipPath);
 
 	document.body.appendChild(newShip);
-}
+};
 
 // ----- UFO's ---------------------------------------------------------------
 
 /**
  * Kick off a new UFO
  */
-function spawnEnemy() {
+const spawnEnemy = () => {
 	clearDomItem('ufoShip');
-	var timer = Math.floor(getRandomFloat(25, 60) * 1000);
+	let timer = Math.floor(getRandomFloat(25, 60) * 1000);
 	ufoTimer = setTimeout(function () {
 		makeUFO(true, 0.1);
 	}, timer);
-}
+};
 
 // the Alien UF0 -  call Mulder and Scully
 /**
@@ -181,9 +181,9 @@ function spawnEnemy() {
  * @param {boolean} active boolean
  * @param {int} scale int
  */
-function makeUFO(active, scale) {
+const makeUFO = (active, scale) => {
 	ufoActive = active;
-	var direction = Math.random() < 0.5 ? -1 : 1;
+	let direction = Math.random() < 0.5 ? -1 : 1;
 	if (direction > 0) {
 		ufo.x = 0 - ufo.width;
 	} else {
@@ -193,7 +193,7 @@ function makeUFO(active, scale) {
 	ufoSizeVar = Math.pow(Math.floor(Math.random() * 10), 2);
 	ufoAim--; //every ship aims better
 	if (ufoAim < 0) ufoAim = 0;
-	var ufoScale = scale;
+	let ufoScale = scale;
 	ufo.y = getRandomFloat(0, yLimit);
 	ufo.vx = getRandomFloat(1, ufoMaxSpeed) * direction;
 	ufoMaxSpeed = ufoMaxSpeed + 0.25;
@@ -208,7 +208,7 @@ function makeUFO(active, scale) {
 		ufo.points = 1000;
 	}
 
-	var newUFO = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+	let newUFO = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
 	newUFO.setAttribute('id', 'ufoShip');
 	newUFO.setAttribute('class', 'ufo');
 	newUFO.setAttribute('aria-hidden', 'true');
@@ -230,12 +230,12 @@ function makeUFO(active, scale) {
 
 	newUFO.style.cssText = `width: ${ufo.width}, height: ${ufo.height}`;
 
-	var startFiring = setInterval(enemyShooter, ufoShootingSpeed);
+	let startFiring = setInterval(enemyShooter, ufoShootingSpeed);
 
 	function enemyShooter() {
 		if (ufoActive == true && inPlay == true) {
 			ufoShotCnt++;
-			var angleDeg =
+			let angleDeg =
 				(Math.atan2(spaceship.y - ufo.y, spaceship.x - ufo.x) * 180) /
 					Math.PI +
 				getRandomFloat(ufoAim * -1, ufoAim);
@@ -259,6 +259,7 @@ function makeUFO(active, scale) {
 			} else {
 				saucerSmallSnd.play();
 			}
+
 			makeshotSVG(ufoShotCnt, 'ufoshot', '#0f0');
 		} else {
 			clearInterval(startFiring);
@@ -271,26 +272,26 @@ function makeUFO(active, scale) {
 			}
 		}
 	}
-}
+};
 
 /**
  * remove the UFO after being hit by bullter
  * @param {*} obj the UFO
  */
-function blowupUfo(obj, shot) {
+const blowupUfo = (obj, shot) => {
 	ufoBoomSnd.cycle();
 	clearDomItem('ufoShip');
-	clearDomItem('spaceshipShot' + shot);
+	clearDomItem(`spaceshipShot${shot}`);
 	pointCnt(obj.points);
 	parkUfo();
 	clearTimeout(ufoTimer);
 	spawnEnemy();
-}
+};
 
 /**
  * Park the UFO off screen until it is needed again
  */
-function parkUfo() {
+const parkUfo = () => {
 	clearDomItem('ufoShip');
 	ufoActive = false;
 	ufo.x = -200;
@@ -298,4 +299,4 @@ function parkUfo() {
 	ufo.vx = 0;
 	ufo.vy = 0;
 	clearDomClass('ufoshot');
-}
+};

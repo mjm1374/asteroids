@@ -1,10 +1,10 @@
 // Input controls  ---------------------------------------------------------------------//
 
 if (lifeCnt > 0) {
-	document.onkeydown = function (e) {
+	document.onkeydown = (evt) => {
 		if (inPlay == true) {
 			spaceshipSvg.style.opacity = 1;
-			switch (e.code) {
+			switch (evt.code) {
 				case 'KeyD': //d = yaw left
 					turn = 1.5;
 					break;
@@ -26,17 +26,23 @@ if (lifeCnt > 0) {
 					hyperspace();
 					break;
 				case 'Backspace':
-					boom();
+					if (evt.ctrlKey) {
+						lifeCnt = 1;
+						boom();
+					}
 					break;
 				case 'Delete':
-					boom();
+					if (evt.ctrlKey) {
+						lifeCnt = 1;
+						boom();
+					}
 					break;
 			}
 		}
 	};
 
-	document.onkeyup = function (e) {
-		switch (e.code) {
+	document.onkeyup = (evt) => {
+		switch (evt.code) {
 			case 'KeyA': //a = yaw left
 				turn = 0;
 				turnSnd.reset();
@@ -60,9 +66,9 @@ if (lifeCnt > 0) {
 
 	// mobile controls   --------------->
 
-	document.addEventListener('touchstart', (e) => {
+	document.addEventListener('touchstart', (evt) => {
 		spaceshipSvg.style.opacity = 1;
-		switch (e.target.id) {
+		switch (evt.target.id) {
 			case 'btnLeft': //d = yaw left
 				turn = -1;
 				break;
@@ -84,8 +90,8 @@ if (lifeCnt > 0) {
 		}
 	});
 
-	document.addEventListener('touchend', (e) => {
-		switch (e.target.id) {
+	document.addEventListener('touchend', (evt) => {
+		switch (evt.target.id) {
 			case 'btnLeft': //d = yaw left
 				turn = 0;
 				turnSnd.reset();

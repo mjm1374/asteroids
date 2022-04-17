@@ -1,4 +1,4 @@
-window.addEventListener('resize', function () {
+window.addEventListener('resize', () => {
 	xLimit = resetWindowLimit('x');
 	yLimit = resetWindowLimit('y');
 });
@@ -8,7 +8,7 @@ window.addEventListener('resize', function () {
  * @param {*} whatDim  - string, X or Y
  */
 function resetWindowLimit(whatDim) {
-	var newDim, newDimx, newDimy;
+	let newDim, newDimx, newDimy;
 	newDimx = window.innerHeight;
 	newDimy = window.innerHeight;
 	if (whatDim == 'x') {
@@ -49,9 +49,9 @@ function getRandomFloat(min, max) {
  * @param {*} max - int
  */
 function getSafeRandomFloat(min, max) {
-	var split = min + max / 2;
-	var tempCoord = Math.random() * (max - min) + min;
-	var finalCoord = 0;
+	let split = min + max / 2;
+	let tempCoord = Math.random() * (max - min) + min;
+	let finalCoord = 0;
 	if (tempCoord >= split) {
 		finalCoord = max;
 	}
@@ -61,8 +61,8 @@ function getSafeRandomFloat(min, max) {
  * check for no asteroids in a radius of the spawn sight
  */
 function safeSpawn() {
-	var a = asteroids;
-	var b = spawnBox;
+	let a = asteroids;
+	let b = spawnBox;
 	for (let i = 0; i < a.length; i++) {
 		if (
 			(a[i].y + a[i].height < b.y ||
@@ -107,7 +107,9 @@ function resetgame() {
  */
 function generateBG() {
 	if (randomBG == true) {
-		gameWrapper.style.cssText = `background-image:url(../img/space${Math.floor(getRandomFloat(1, 7))}.jpg)`;
+		gameWrapper.style.cssText = `background-image:url(../img/space${Math.floor(
+			getRandomFloat(1, 7)
+		)}.jpg)`;
 	}
 }
 
@@ -151,7 +153,7 @@ function pointCnt(num) {
  * play sound for extra life
  */
 function playExtraLife() {
-	var extraLifesnd = new Sound('snd/extraShip.ogg');
+	let extraLifesnd = new Sound('snd/extraShip.ogg');
 	setTimeout(function () {
 		extraLifesnd.play();
 	}, 1);
@@ -254,7 +256,6 @@ function heartBeatSnd(beatCnt) {
 			}, beatCnt);
 		}, beatCnt * 2);
 	}
-
 }
 
 // localStorage ---------------------------------------------------------------------------------------
@@ -264,7 +265,7 @@ function heartBeatSnd(beatCnt) {
  */
 function checkHighScoreCookie() {
 	let hs = localStorage.getItem('highScore-asteroids');
-	let highscore = document.getElementById('highScore').children;
+	let highscore = document.querySelector('#highScore').children;
 
 	if (hs == '' || hs == undefined) {
 		localStorage.setItem('highScore-asteroids', score);

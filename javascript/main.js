@@ -1,12 +1,12 @@
 //initialize the environment
-const version = 1.33,
+const version = 1.34,
 	deltaTime = 20,
 	lifeStart = 3,
 	jumpStart = 3,
 	newLifeTarget = 10000,
 	rockID = 0, //for debugging only
 	mode = 'asteroids',
-	modal = document.getElementById('welcomeModel'),
+	modal = document.querySelector('#welcomeModel'),
 	modalDialog = document.querySelector('.modal-dialog'),
 	dialogCloseBtn = document.querySelector('.dialogCloseBtn');
 
@@ -84,7 +84,8 @@ let asteroids = [],
 	heartbeat = null,
 	soundless = false,
 	randomBG = false,
-	currentYear = new Date().getFullYear();
+	currentYear = new Date().getFullYear(),
+	deg2rad = Math.PI / 180;
 
 //conditional mobile vars
 if (xLimit < 414) {
@@ -98,35 +99,33 @@ if (xLimit < 414) {
 /**
  * The main animation loop
  */
-function animateScreen() {
+const animateScreen = () => {
 	hideCursor();
 	updateAsteroids();
 	checkUFO();
 	updateShots();
 	updateUFOShot();
-	moveSpaceship(deltaTime);
 	updateSpaceship(deltaTime);
 	updateScoreCard();
-}
+};
 
 // END animation Loop -------------------------------------------------------------------------------------------
 
 /**
  * Controls to update the score, life and Hyperspace count
  */
-function updateScoreCard() {
+const updateScoreCard = () => {
 	scoreNum.innerText = score;
 	lifeNum.innerText = lifeCnt;
 	HSNum.innerText = jumpCnt;
-}
+};
 
 /**
  * update the asteroids position
  */
-function updateAsteroids() {
-	for (var key in asteroids) {
+const updateAsteroids = () => {
+	for (let key in asteroids) {
 		if (asteroids.hasOwnProperty(key)) {
-			var newVel;
 			asteroids[key].changePosition(
 				asteroids[key].x + asteroids[key].xv,
 				asteroids[key].y + asteroids[key].yv
@@ -164,15 +163,15 @@ function updateAsteroids() {
 			}
 		}
 
-		let thisRock = document.getElementById('rockAnim' + asteroids[key].id);
+		let thisRock = document.querySelector(`#rockAnim${asteroids[key].id}`);
 		moveItem(thisRock, asteroids[key].x, asteroids[key].y);
 	} //end asteroids
-}
+};
 
 /**
  * Check on the status of the UFO
  */
-function checkUFO() {
+const checkUFO = () => {
 	if (ufo != null && ufo != undefined && ufoActive == true) {
 		ufo.changePosition(ufo.x + ufo.vx, ufo.y + ufo.vy);
 		if (ufo.x > xLimit + 100) {
@@ -183,30 +182,30 @@ function checkUFO() {
 			parkUfo();
 			spawnEnemy();
 		}
-		let thisUfo = document.getElementById('ufoShip');
+		let thisUfo = document.querySelector('#ufoShip');
 		moveItem(thisUfo, ufo.x, ufo.y);
 		// paint the ufo
 	}
-}
+};
 
 /**
  * Update the bullets
  */
-function updateShots() {
-	for (var idx in shots) {
-		var thisVX =
+const updateShots = () => {
+	for (let idx in shots) {
+		let thisVX =
 			Math.cos((shots[idx].theta * Math.PI) / 180) * 10 + shots[idx].x;
-		var thisVY =
+		let thisVY =
 			Math.sin((shots[idx].theta * Math.PI) / 180) * 10 + shots[idx].y;
-		var thisLife = shots[idx].life - 5;
+		let thisLife = shots[idx].life - 5;
 		shots[idx].changeLife(thisLife);
 
 		if (shots[idx].life < 0) {
 			clearBullet('sp', idx);
 		} else {
 			shots[idx].changePosition(thisVX, thisVY);
-			let thisShot = document.getElementById(
-				`spaceshipShot${shots[idx].id}`
+			let thisShot = document.querySelector(
+				`#spaceshipShot${shots[idx].id}`
 			);
 			moveItem(thisShot, shots[idx].x, shots[idx].y);
 			// paint the shot
@@ -220,13 +219,13 @@ function updateShots() {
 			}
 		}
 	}
-}
+};
 
 /**
  * update the UFO bullters
  */
-function updateUFOShot() {
-	for (var ind in ufoShots) {
+const updateUFOShot = () => {
+	for (let ind in ufoShots) {
 		let thisUfoVX =
 			Math.cos((ufoShots[ind].theta * Math.PI) / 180) * 10 +
 			ufoShots[ind].x;
@@ -253,21 +252,21 @@ function updateUFOShot() {
 			}
 		}
 	}
-}
+};
 
 // Kick it off!
 document.addEventListener('DOMContentLoaded', function () {
 	//establish reusable sounds
 	setupSounds();
 
-	scoreNum = document.getElementById('scoreNum');
-	versionNum = document.getElementsByClassName('versionNum');
-	lifeNum = document.getElementById('lifeNum');
-	HSNum = document.getElementById('HSNum');
-	gameWrapper = document.getElementById('game__wrapper');
-	gameOverBoard = document.getElementById('gameOverBoard');
-	startover = document.getElementById('startover');
-	document.getElementById('currentYear').innerText = currentYear;
+	scoreNum = document.querySelector('#scoreNum');
+	versionNum = document.querySelector('.versionNum');
+	lifeNum = document.querySelector('#lifeNum');
+	HSNum = document.querySelector('#HSNum');
+	gameWrapper = document.querySelector('#game__wrapper');
+	gameOverBoard = document.querySelector('#gameOverBoard');
+	startover = document.querySelector('#startover');
+	document.querySelector('#currentYear').innerText = currentYear;
 
 	dialogCloseBtn.addEventListener('click', () => {
 		modalHandler();
