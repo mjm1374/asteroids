@@ -56,7 +56,7 @@ let asteroids = [],
 	scoreNum = null,
 	versionNum = null,
 	lifeNum = null,
-	HSNum = null,
+	highScoreCnt = null,
 	ufoSnd = null,
 	extraLifeSnd = null,
 	ufoBoomSnd = null,
@@ -64,8 +64,8 @@ let asteroids = [],
 	shootSnd = null,
 	thrustSnd = null,
 	turnSnd = null,
-	hyperspaceSnd = null,
-	hyperspaceFailSnd = null,
+	hyperpaceSnd = null,
+	hyperSpaceFailSnd = null,
 	boomSnd = null,
 	astroBoom100Snd = null,
 	astroBoom50Snd = null,
@@ -74,10 +74,10 @@ let asteroids = [],
 	saucerSmallSnd = null,
 	beat1Snd = null,
 	beat2Snd = null,
-	spaceshipSvg = null,
+	spaceShipSvg = null,
 	gameWrapper = null,
 	gameOverBoard = null,
-	startover = null,
+	startOver = null,
 	isMobile = false,
 	beatCnt = 1000,
 	firstRun = true,
@@ -117,7 +117,7 @@ const animateScreen = () => {
 const updateScoreCard = () => {
 	scoreNum.innerText = score;
 	lifeNum.innerText = lifeCnt;
-	HSNum.innerText = jumpCnt;
+	highScoreCnt.innerText = jumpCnt;
 };
 
 /**
@@ -262,10 +262,10 @@ document.addEventListener('DOMContentLoaded', function () {
 	scoreNum = document.querySelector('#scoreNum');
 	versionNum = document.querySelector('.versionNum');
 	lifeNum = document.querySelector('#lifeNum');
-	HSNum = document.querySelector('#HSNum');
+	highScoreCnt = document.querySelector('#highScoreCnt');
 	gameWrapper = document.querySelector('#game__wrapper');
 	gameOverBoard = document.querySelector('#gameOverBoard');
-	startover = document.querySelector('#startover');
+	startOver = document.querySelector('#startOver');
 	document.querySelector('#currentYear').innerText = currentYear;
 
 	dialogCloseBtn.addEventListener('click', () => {

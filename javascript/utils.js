@@ -81,7 +81,7 @@ function safeSpawn() {
 function resetGame() {
 	gameOverBoard.classList.remove('open');
 	generateBG();
-	startover.blur();
+	startOver.blur();
 	clearDomClass('asteroid');
 	lifeCnt = lifeStart;
 	jumpCnt = jumpStart;
@@ -210,8 +210,8 @@ function setUpSounds() {
 	ufoBulletSnd = new Sound('snd/laser.mp3');
 	ufoBoomSnd = new Sound('snd/bangMedium.mp3');
 	turnSnd = new Sound('snd/hiss.mp3');
-	hyperspaceSnd = new Sound('snd/hyperspace.mp3');
-	hyperspaceFailSnd = new Sound('snd/Power-failure.mp3');
+	hyperpaceSnd = new Sound('snd/hyperspace.mp3');
+	hyperSpaceFailSnd = new Sound('snd/Power-failure.mp3');
 	boomSnd = new Sound('snd/boom2.mp3');
 	astroBoom100Snd = new Sound('snd/bangLarge.mp3');
 	astroBoom50Snd = new Sound('snd/bangMedium.mp3');

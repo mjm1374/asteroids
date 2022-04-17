@@ -3,7 +3,7 @@
 if (lifeCnt > 0) {
 	document.onkeydown = (evt) => {
 		if (inPlay == true) {
-			spaceshipSvg.style.opacity = 1;
+			spaceShipSvg.style.opacity = 1;
 			switch (evt.code) {
 				case 'KeyD': //d = yaw left
 					turn = 1.5;
@@ -18,7 +18,7 @@ if (lifeCnt > 0) {
 					thrust = -1;
 					break;
 				case 'Enter': //s = shoot
-					startover.blur();
+					startOver.blur();
 					pewpew();
 					resetGun = false;
 					break;
@@ -67,7 +67,7 @@ if (lifeCnt > 0) {
 	// mobile controls   --------------->
 
 	document.addEventListener('touchstart', (evt) => {
-		spaceshipSvg.style.opacity = 1;
+		spaceShipSvg.style.opacity = 1;
 		switch (evt.target.id) {
 			case 'btnLeft': //d = yaw left
 				turn = -1;

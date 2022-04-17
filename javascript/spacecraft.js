@@ -4,9 +4,9 @@
  * reset the spaceship to its starting state
  */
 const resetSpaceShip = () => {
-	spaceshipSvg = document.querySelector('#spaceship');
+	spaceShipSvg = document.querySelector('#spaceship');
 	if (lifeCnt > 0) {
-		spaceshipSvg.style.cssText = 'display:block, opacity:.25';
+		spaceShipSvg.style.cssText = 'display:block, opacity:.25';
 		spaceship = new Spaceship(xLimit / 2, yLimit / 2, 0, 0, -90, 0, 0, 0);
 		let thisSpawn = document.querySelector('#spawn');
 		thisSpawn.style.left = spawnBox.x;
@@ -23,10 +23,10 @@ const resetSpaceShip = () => {
 		}
 
 		inPlay = true;
-		spaceshipSvg.style.opacity = '1';
+		spaceShipSvg.style.opacity = '1';
 	} else {
 		inPlay = false;
-		spaceshipSvg.style.display = 'none';
+		spaceShipSvg.style.display = 'none';
 		gameOverBoard.classList.add('open');
 		clearInterval(heartbeat);
 		checkHighScoreCookie();
@@ -89,7 +89,7 @@ const updateSpaceShip = (deltaTime) => {
 	spaceship.y += spaceship.vy * deltaTime;
 
 	moveSpaceShip(deltaTime);
-	moveItem(spaceshipSvg, spaceship.x, spaceship.y, spaceship.theta);
+	moveItem(spaceShipSvg, spaceship.x, spaceship.y, spaceship.theta);
 	// Paint the spaceship
 };
 
@@ -105,15 +105,15 @@ const updateSpaceShip = (deltaTime) => {
 const hyperspace = () => {
 	if (lifeCnt > 0 && inPlay == true) {
 		if (jumpCnt > 0) {
-			hyperspaceSnd.cycle();
+			hyperpaceSnd.cycle();
 			spaceship.x = getRandomFloat(1, xLimit - 5);
 			spaceship.y = getRandomFloat(1, yLimit - 5);
 			spaceship.vx = 0;
 			spaceship.vy = 0;
 			jumpCnt--;
-			HSNum.innerText = jumpCnt;
+			highScoreCnt.innerText = jumpCnt;
 		} else {
-			hyperspaceFailSnd.play();
+			hyperSpaceFailSnd.play();
 		}
 	}
 };
@@ -122,7 +122,7 @@ const hyperspace = () => {
  * you died! - hide spaceship and start reset cycle
  */
 const boom = (shot) => {
-	spaceshipSvg.style.display = 'none';
+	spaceShipSvg.style.display = 'none';
 	inPlay = false;
 	ufoActive = false;
 	spaceship.x = -1000;
