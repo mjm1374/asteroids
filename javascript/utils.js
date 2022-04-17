@@ -78,7 +78,7 @@ function safeSpawn() {
 /**
  * Reset the game to default games start values
  */
-function resetgame() {
+function resetGame() {
 	gameOverBoard.classList.remove('open');
 	generateBG();
 	startover.blur();
@@ -92,8 +92,8 @@ function resetgame() {
 	beatCnt = 1000;
 
 	regenerateAsteroids();
-	addSpaceship();
-	resetSpaceship();
+	addSpaceShip();
+	resetSpaceShip();
 
 	if (heartbeat != null) clearInterval(heartbeat);
 
@@ -202,7 +202,7 @@ function hideCursor() {
 /**
  * Set up the reuseable sounds
  */
-function setupSounds() {
+function setUpSounds() {
 	shootSnd = new Sound('snd/fire.mp3');
 	thrustSnd = new Sound('snd/thrust.mp3');
 	extraLifeSnd = new Sound('snd/extraShip.ogg');
@@ -238,7 +238,7 @@ function modalHandler(dir) {
 		inPlay = true;
 		firstRun = false;
 		dialogCloseBtn.blur();
-		resetgame();
+		resetGame();
 	}
 }
 

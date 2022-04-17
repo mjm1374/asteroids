@@ -18,7 +18,7 @@ const isHit = (obj) => {
 
 	for (let i = 0; i < a.length; i++) {
 		if (badTouch(a[i], b) == false) {
-			blowupAsteroid(a[i], i, b.id);
+			blowUpAsteroid(a[i], i, b.id);
 			return true;
 		}
 	}
@@ -47,7 +47,7 @@ const isUfoHit = (obj) => {
 	var b = obj;
 
 	if (badTouch(a, b) == false) {
-		blowupUfo(a, b.id);
+		blowUpUFO(a, b.id);
 		ufoActive = false;
 		return true;
 	}

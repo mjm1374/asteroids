@@ -29,7 +29,7 @@ const makeShot = () => {
 			0
 		)
 	);
-	makeshotSVG(shotCnt, 'spaceshipShot', '#f00');
+	makeShotSVG(shotCnt, 'spaceshipShot', '#f00');
 };
 
 /**
@@ -38,7 +38,7 @@ const makeShot = () => {
  * @param {*} indenity - string -  the team of the shot, options: shot or ufoShot
  * @param {*} color - string -  a hex or css color
  */
-const makeshotSVG = (id, indenity, color) => {
+const makeShotSVG = (id, indenity, color) => {
 	let newShot = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
 	newShot.setAttribute('id', `${indenity}${id}`);
 	newShot.setAttribute('data-id', id);

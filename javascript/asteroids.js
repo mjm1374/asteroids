@@ -146,7 +146,7 @@ function makeAsteroidPieces(x, y, size, cnt) {
  * @param {*} obj array -the asteroid in the array to be worked on
  * @param {*} idx int - what asteroid -  index in the array
  */
-function blowupAsteroid(obj, idx, shot) {
+function blowUpAsteroid(obj, idx, shot) {
 	switch (obj.width) {
 		case 100:
 			astroBoom100Snd.cycle();

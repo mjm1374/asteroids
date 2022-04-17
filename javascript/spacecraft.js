@@ -3,7 +3,7 @@
 /**
  * reset the spaceship to its starting state
  */
-const resetSpaceship = () => {
+const resetSpaceShip = () => {
 	spaceshipSvg = document.querySelector('#spaceship');
 	if (lifeCnt > 0) {
 		spaceshipSvg.style.cssText = 'display:block, opacity:.25';
@@ -13,7 +13,7 @@ const resetSpaceship = () => {
 		thisSpawn.style.top = spawnBox.y;
 		thisSpawn.style.height = spawnBox.height;
 		thisSpawn.style.width = spawnBox.width;
-		parkUfo();
+		parkUFO();
 		clearTimeout(ufoTimer);
 		spawnEnemy();
 
@@ -39,7 +39,7 @@ const resetSpaceship = () => {
  * Update the position, speed, yaw and theta of the space ship
  * @param {*} deltaTime  default clock cycle
  */
-const moveSpaceship = (deltaTime) => {
+const moveSpaceShip = (deltaTime) => {
 	if (turn != 0 && turn != undefined) {
 		spaceship.theta = spaceship.theta + turn * turn_per_milli * deltaTime;
 		if (lifeCnt > 0) {
@@ -70,7 +70,7 @@ const moveSpaceship = (deltaTime) => {
  * paints the screen with the spaceship, set screen position
  * @param {int} deltaTime default time cycle
  */
-const updateSpaceship = (deltaTime) => {
+const updateSpaceShip = (deltaTime) => {
 	if (spaceship.x >= xLimit) {
 		spaceship.x = 0;
 	}
@@ -88,7 +88,7 @@ const updateSpaceship = (deltaTime) => {
 	spaceship.x += spaceship.vx * deltaTime;
 	spaceship.y += spaceship.vy * deltaTime;
 
-	moveSpaceship(deltaTime);
+	moveSpaceShip(deltaTime);
 	moveItem(spaceshipSvg, spaceship.x, spaceship.y, spaceship.theta);
 	// Paint the spaceship
 };
@@ -137,7 +137,7 @@ const boom = (shot) => {
 
 		setTimeout(function () {
 			jumpCnt = 3;
-			resetSpaceship();
+			resetSpaceShip();
 		}, 3000);
 	}
 };
@@ -145,7 +145,7 @@ const boom = (shot) => {
 /**
  * put the SVG spaceship in the DOM
  */
-const addSpaceship = () => {
+const addSpaceShip = () => {
 	//Add space ship
 	let newShip = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
 	newShip.setAttribute('id', `spaceship`);
@@ -260,7 +260,7 @@ const makeUFO = (active, scale) => {
 				saucerSmallSnd.play();
 			}
 
-			makeshotSVG(ufoShotCnt, 'ufoshot', '#0f0');
+			makeShotSVG(ufoShotCnt, 'ufoshot', '#0f0');
 		} else {
 			clearInterval(startFiring);
 			if (ufoScale == 0.1) {
@@ -278,12 +278,12 @@ const makeUFO = (active, scale) => {
  * remove the UFO after being hit by bullter
  * @param {*} obj the UFO
  */
-const blowupUfo = (obj, shot) => {
+const blowUpUFO = (obj, shot) => {
 	ufoBoomSnd.cycle();
 	clearDomItem('ufoShip');
 	clearDomItem(`spaceshipShot${shot}`);
 	pointCnt(obj.points);
-	parkUfo();
+	parkUFO();
 	clearTimeout(ufoTimer);
 	spawnEnemy();
 };
@@ -291,7 +291,7 @@ const blowupUfo = (obj, shot) => {
 /**
  * Park the UFO off screen until it is needed again
  */
-const parkUfo = () => {
+const parkUFO = () => {
 	clearDomItem('ufoShip');
 	ufoActive = false;
 	ufo.x = -200;

@@ -105,7 +105,7 @@ const animateScreen = () => {
 	checkUFO();
 	updateShots();
 	updateUFOShot();
-	updateSpaceship(deltaTime);
+	updateSpaceShip(deltaTime);
 	updateScoreCard();
 };
 
@@ -175,11 +175,11 @@ const checkUFO = () => {
 	if (ufo != null && ufo != undefined && ufoActive == true) {
 		ufo.changePosition(ufo.x + ufo.vx, ufo.y + ufo.vy);
 		if (ufo.x > xLimit + 100) {
-			parkUfo();
+			parkUFO();
 			spawnEnemy();
 		}
 		if (ufo.x < -60 && ufo.x > -199) {
-			parkUfo();
+			parkUFO();
 			spawnEnemy();
 		}
 		let thisUfo = document.querySelector('#ufoShip');
@@ -257,7 +257,7 @@ const updateUFOShot = () => {
 // Kick it off!
 document.addEventListener('DOMContentLoaded', function () {
 	//establish reusable sounds
-	setupSounds();
+	setUpSounds();
 
 	scoreNum = document.querySelector('#scoreNum');
 	versionNum = document.querySelector('.versionNum');
@@ -276,7 +276,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		versionNum[i].innerText = version;
 	}
 
-	resetgame();
+	resetGame();
 
 	// show instructions for desktop
 	if (xLimit > 768) {
