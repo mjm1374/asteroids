@@ -4,7 +4,7 @@ const version = 1.34,
 	lifeStart = 3,
 	jumpStart = 3,
 	newLifeTarget = 10000,
-	rockID = 0, //for debugging only
+	rockID = 0,
 	mode = 'asteroids',
 	modal = document.querySelector('#welcomeModel'),
 	modalDialog = document.querySelector('.modal-dialog'),
@@ -40,8 +40,6 @@ let asteroids = [],
 	ufoMinSpeed = 1,
 	ufoSizeVar = 10,
 	ufoTimer = null,
-	ufoZigZagCnt = 0,
-	ufoZigZagMaxCnt = 3,
 	turn = 0,
 	thrust = 0,
 	turn_per_milli = 0.1,
@@ -81,7 +79,7 @@ let asteroids = [],
 	isMobile = false,
 	beatCnt = 1000,
 	firstRun = true,
-	heartbeat = null,
+	heartBeat = null,
 	soundless = false,
 	randomBG = false,
 	currentYear = new Date().getFullYear(),
@@ -165,7 +163,7 @@ const updateAsteroids = () => {
 
 		let thisRock = document.querySelector(`#rockAnim${asteroids[key].id}`);
 		moveItem(thisRock, asteroids[key].x, asteroids[key].y);
-	} //end asteroids
+	} //end asteroid position
 };
 
 /**
@@ -201,7 +199,7 @@ const updateShots = () => {
 		shots[idx].changeLife(thisLife);
 
 		if (shots[idx].life < 0) {
-			clearBullet('sp', idx);
+			clearBullet('spaceShip', idx);
 		} else {
 			shots[idx].changePosition(thisVX, thisVY);
 			let thisShot = document.querySelector(
@@ -211,10 +209,10 @@ const updateShots = () => {
 			// paint the shot
 
 			if (isHit(shots[idx])) {
-				clearBullet('sp', idx);
+				clearBullet('spaceShip', idx);
 			} else {
 				if (isUfoHit(shots[idx])) {
-					clearBullet('sp', idx);
+					clearBullet('spaceShip', idx);
 				}
 			}
 		}
@@ -260,7 +258,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	setUpSounds();
 
 	scoreNum = document.querySelector('#scoreNum');
-	versionNum = document.querySelector('.versionNum');
+	versionNum = document.querySelectorAll('.versionNum');
 	lifeNum = document.querySelector('#lifeNum');
 	highScoreCnt = document.querySelector('#highScoreCnt');
 	gameWrapper = document.querySelector('#game__wrapper');
@@ -272,9 +270,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		modalHandler();
 	});
 
-	for (let i = 0; i < versionNum.length; i++) {
-		versionNum[i].innerText = version;
-	}
+	versionNum.forEach((element) => (element.innerText = version));
 
 	resetGame();
 
@@ -285,7 +281,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 
 	//kick off animation
-	let startAstroStorm = setInterval(function () {
+	let startAstroStorm = setInterval(() => {
 		animateScreen();
 	}, deltaTime);
 });

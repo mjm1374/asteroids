@@ -4,7 +4,7 @@
 function regenerateAsteroids() {
 	scale = 1;
 	beatCnt = 1000;
-	clearInterval(heartbeat);
+	clearInterval(heartBeat);
 	rock_max_v = rock_max_v + 0.25;
 	if (rock_max_v >= rock_max_v_cap) {
 		rock_max_v = rock_max_v_cap; //cap out speed

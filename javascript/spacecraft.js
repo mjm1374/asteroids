@@ -28,7 +28,7 @@ const resetSpaceShip = () => {
 		inPlay = false;
 		spaceShipSvg.style.display = 'none';
 		gameOverBoard.classList.add('open');
-		clearInterval(heartbeat);
+		clearInterval(heartBeat);
 		checkHighScoreCookie();
 	}
 };

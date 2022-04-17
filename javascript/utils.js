@@ -95,7 +95,7 @@ function resetGame() {
 	addSpaceShip();
 	resetSpaceShip();
 
-	if (heartbeat != null) clearInterval(heartbeat);
+	if (heartBeat != null) clearInterval(heartBeat);
 
 	if (inPlay == true && firstRun == false) {
 		heartBeatSnd(beatCnt);
@@ -118,10 +118,8 @@ function generateBG() {
  * @param {*} thisClass -  string -  what class to remove from the DOM
  */
 function clearDomClass(thisClass) {
-	let el = document.getElementsByClassName(thisClass);
-	for (let i = 0; i < el.length; i + 1) {
-		document.getElementById(el[i].id).remove();
-	}
+	let objectToClear = document.querySelectorAll(`.${thisClass}`);
+	objectToClear.forEach((el) => document.querySelector(`#${el.id}`).remove());
 }
 
 /**
@@ -248,8 +246,8 @@ function modalHandler(dir) {
  */
 function heartBeatSnd(beatCnt) {
 	if (soundless == false) {
-		clearInterval(heartbeat);
-		heartbeat = setInterval(() => {
+		clearInterval(heartBeat);
+		heartBeat = setInterval(() => {
 			beat1Snd.play();
 			setTimeout(() => {
 				beat2Snd.play();
