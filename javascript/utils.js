@@ -119,25 +119,27 @@ function generateBG() {
  */
 function clearDomClass(thisClass) {
 	let objectToClear = document.querySelectorAll(`.${thisClass}`);
-	objectToClear.forEach((el) => document.querySelector(`#${el.id}`).remove());
+	objectToClear.forEach((target) =>
+		document.querySelector(`#${target.id}`).remove()
+	);
 }
 
 /**
  *
  * @param {*} thisId - string -  ID of the element tp remove from the DOM
  */
-function clearDomItem(thisId) {
-	let el = document.getElementById(thisId);
-	if (el != null) {
-		el.remove();
+const clearDomItem = (thisElementId) => {
+	let target = document.querySelector(`#${thisElementId}`);
+	if (target != null) {
+		target.remove();
 	}
-}
+};
 
 /**
  * update the score
  * @param {*} num  - int
  */
-function pointCnt(num) {
+const pointCnt = (num) => {
 	score = score + num;
 	newLife = newLife - num;
 	if (newLife < 0) {
@@ -145,23 +147,23 @@ function pointCnt(num) {
 		newLife = newLifeTarget + newLife;
 		playExtraLife();
 	}
-}
+};
 
 /**
  * play sound for extra life
  */
-function playExtraLife() {
+const playExtraLife = () => {
 	let extraLifesnd = new Sound('snd/extraShip.ogg');
-	setTimeout(function () {
+	setTimeout(() => {
 		extraLifesnd.play();
 	}, 1);
-	setTimeout(function () {
+	setTimeout(() => {
 		extraLifesnd.play();
 	}, 250);
-	setTimeout(function () {
+	setTimeout(() => {
 		extraLifesnd.play();
 	}, 500);
-}
+};
 
 /**
  *
@@ -170,7 +172,7 @@ function playExtraLife() {
  * @param {*} y int - the y value
  * @param {*} t int - theta , the rotational value
  */
-function moveItem(obj, x, y, t) {
+const moveItem = (obj, x, y, t) => {
 	if (t === undefined) t = 0;
 
 	try {
@@ -184,23 +186,23 @@ function moveItem(obj, x, y, t) {
 		console.error(e.message); // logs 'The message', or a JavaScript error message
 		console.trace();
 	}
-}
+};
 
 /**
  * Hide the cursor when game play is happening
  */
-function hideCursor() {
+const hideCursor = () => {
 	if (inPlay == true && lifeCnt > 0) {
 		gameWrapper.classList.add('cursorHide');
 	} else {
 		gameWrapper.classList.remove('cursorHide');
 	}
-}
+};
 
 /**
  * Set up the reuseable sounds
  */
-function setUpSounds() {
+const setUpSounds = () => {
 	shootSnd = new Sound('snd/fire.mp3');
 	thrustSnd = new Sound('snd/thrust.mp3');
 	extraLifeSnd = new Sound('snd/extraShip.ogg');
@@ -218,7 +220,7 @@ function setUpSounds() {
 	saucerSmallSnd = new Sound('snd/saucerSmall.ogg', true);
 	beat1Snd = new Sound('snd/beat1.ogg');
 	beat2Snd = new Sound('snd/beat2.ogg');
-}
+};
 
 /**
  *
@@ -226,7 +228,7 @@ function setUpSounds() {
  *
  * TODO: should pass in the modal you want to enable and seperate the display from the modal background.
  */
-function modalHandler(dir) {
+const modalHandler = (dir) => {
 	if (dir === 'open') {
 		modal.classList.add('open');
 		modalDialog.classList.add('open');
@@ -238,13 +240,13 @@ function modalHandler(dir) {
 		dialogCloseBtn.blur();
 		resetGame();
 	}
-}
+};
 
 /**
  *
  * @param {*} beatCnt - int - the timing on the beat. BTW, it must go on....
  */
-function heartBeatSnd(beatCnt) {
+const heartBeatSnd = (beatCnt) => {
 	if (soundless == false) {
 		clearInterval(heartBeat);
 		heartBeat = setInterval(() => {
@@ -254,14 +256,14 @@ function heartBeatSnd(beatCnt) {
 			}, beatCnt);
 		}, beatCnt * 2);
 	}
-}
+};
 
 // localStorage ---------------------------------------------------------------------------------------
 
 /**
  * looks to see if the highscore is set and if not sets the current score as high score on local storage.
  */
-function checkHighScoreCookie() {
+const checkHighScoreCookie = () => {
 	let hs = localStorage.getItem('highScore-asteroids');
 	let highscore = document.querySelector('#highScore').children;
 
@@ -276,4 +278,4 @@ function checkHighScoreCookie() {
 			highscore[0].innerHTML = hs;
 		}
 	}
-}
+};

@@ -130,7 +130,7 @@ const boom = (shot) => {
 	spaceship.vx = 0;
 	spaceship.vy = 0;
 	boomSnd.play();
-	clearDomItem(`#ufoShot${shot}`);
+	clearDomItem(`ufoShot${shot}`);
 
 	if (lifeCnt > 0) {
 		lifeCnt--;

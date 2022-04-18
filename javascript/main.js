@@ -186,13 +186,7 @@ const checkUFO = () => {
 /**
  * Update the bullets
  */
-
-let x = 0;
 const updateShots = (teamShots) => {
-	if (x < 3) {
-		console.log(teamShots);
-		x++;
-	}
 	teamShots.forEach((shot) => {
 		let thisVX = Math.cos((shot.theta * Math.PI) / 180) * 10 + shot.x;
 		let thisVY = Math.sin((shot.theta * Math.PI) / 180) * 10 + shot.y;
@@ -212,26 +206,20 @@ const updateShots = (teamShots) => {
 			// paint the shot
 
 			if (shot.team === 'spaceShip') {
-				if (isHit(shot)) {
-					clearBullet(shot.team, shot.id);
-				}
+				if (isHit(shot)) clearBullet(shot.team, shot.id);
 
-				if (isUfoHit(shot)) {
-					clearBullet(shot.team, shot.id);
-				}
+				if (isUfoHit(shot)) clearBullet(shot.team, shot.id);
 			}
 
 			if (shot.team === 'ufo') {
-				if (isSpaceShipHit(shot)) {
-					clearBullet('ufo', shot.id);
-				}
+				if (isSpaceShipHit(shot)) clearBullet(shot.team, shot.id);
 			}
 		}
 	});
 };
 
 // Kick it off!
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', () => {
 	//establish reusable sounds
 	setUpSounds();
 
