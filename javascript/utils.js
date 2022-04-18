@@ -48,7 +48,7 @@ function getRandomFloat(min, max) {
  * @param {*} min - int
  * @param {*} max - int
  */
-function getSafeRandomFloat(min, max) {
+const getSafeRandomFloat = (min, max) => {
 	let split = min + max / 2;
 	let tempCoord = Math.random() * (max - min) + min;
 	let finalCoord = 0;
@@ -56,11 +56,11 @@ function getSafeRandomFloat(min, max) {
 		finalCoord = max;
 	}
 	return finalCoord;
-}
+};
 /**
  * check for no asteroids in a radius of the spawn sight
  */
-function safeSpawn() {
+const safeSpawn = () => {
 	let a = asteroids;
 	let b = spawnBox;
 	for (let i = 0; i < a.length; i++) {
@@ -73,12 +73,12 @@ function safeSpawn() {
 			return true;
 		}
 	}
-}
+};
 
 /**
  * Reset the game to default games start values
  */
-function resetGame() {
+const resetGame = () => {
 	gameOverBoard.classList.remove('open');
 	generateBG();
 	startOver.blur();
@@ -100,29 +100,29 @@ function resetGame() {
 	if (inPlay == true && firstRun == false) {
 		heartBeatSnd(beatCnt);
 	}
-}
+};
 
 /**
  * generates a random background if turned on in main.js
  */
-function generateBG() {
+const generateBG = () => {
 	if (randomBG == true) {
 		gameWrapper.style.cssText = `background-image:url(../img/space${Math.floor(
 			getRandomFloat(1, 7)
 		)}.jpg)`;
 	}
-}
+};
 
 /**
  *
  * @param {*} thisClass -  string -  what class to remove from the DOM
  */
-function clearDomClass(thisClass) {
+const clearDomClass = (thisClass) => {
 	let objectToClear = document.querySelectorAll(`.${thisClass}`);
 	objectToClear.forEach((target) =>
 		document.querySelector(`#${target.id}`).remove()
 	);
-}
+};
 
 /**
  *
