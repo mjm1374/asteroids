@@ -1,4 +1,4 @@
-window.addEventListener('resize', function () {
+window.addEventListener('resize', () => {
 	xLimit = resetWindowLimit('x');
 	yLimit = resetWindowLimit('y');
 });
@@ -8,7 +8,7 @@ window.addEventListener('resize', function () {
  * @param {*} whatDim  - string, X or Y
  */
 function resetWindowLimit(whatDim) {
-	var newDim, newDimx, newDimy;
+	let newDim, newDimx, newDimy;
 	newDimx = window.innerHeight;
 	newDimy = window.innerHeight;
 	if (whatDim == 'x') {
@@ -48,21 +48,21 @@ function getRandomFloat(min, max) {
  * @param {*} min - int
  * @param {*} max - int
  */
-function getSafeRandomFloat(min, max) {
-	var split = min + max / 2;
-	var tempCoord = Math.random() * (max - min) + min;
-	var finalCoord = 0;
+const getSafeRandomFloat = (min, max) => {
+	let split = min + max / 2;
+	let tempCoord = Math.random() * (max - min) + min;
+	let finalCoord = 0;
 	if (tempCoord >= split) {
 		finalCoord = max;
 	}
 	return finalCoord;
-}
+};
 /**
  * check for no asteroids in a radius of the spawn sight
  */
-function safeSpawn() {
-	var a = asteroids;
-	var b = spawnBox;
+const safeSpawn = () => {
+	let a = asteroids;
+	let b = spawnBox;
 	for (let i = 0; i < a.length; i++) {
 		if (
 			(a[i].y + a[i].height < b.y ||
@@ -73,15 +73,15 @@ function safeSpawn() {
 			return true;
 		}
 	}
-}
+};
 
 /**
  * Reset the game to default games start values
  */
-function resetgame() {
+const resetGame = () => {
 	gameOverBoard.classList.remove('open');
 	generateBG();
-	startover.blur();
+	startOver.blur();
 	clearDomClass('asteroid');
 	lifeCnt = lifeStart;
 	jumpCnt = jumpStart;
@@ -92,52 +92,54 @@ function resetgame() {
 	beatCnt = 1000;
 
 	regenerateAsteroids();
-	addSpaceship();
-	resetSpaceship();
+	addSpaceShip();
+	resetSpaceShip();
 
-	if (heartbeat != null) clearInterval(heartbeat);
+	if (heartBeat != null) clearInterval(heartBeat);
 
 	if (inPlay == true && firstRun == false) {
 		heartBeatSnd(beatCnt);
 	}
-}
+};
 
 /**
  * generates a random background if turned on in main.js
  */
-function generateBG() {
+const generateBG = () => {
 	if (randomBG == true) {
-		gameWrapper.style.cssText = `background-image:url(../img/space${Math.floor(getRandomFloat(1, 7))}.jpg)`;
+		gameWrapper.style.cssText = `background-image:url(../img/space${Math.floor(
+			getRandomFloat(1, 7)
+		)}.jpg)`;
 	}
-}
+};
 
 /**
  *
  * @param {*} thisClass -  string -  what class to remove from the DOM
  */
-function clearDomClass(thisClass) {
-	let el = document.getElementsByClassName(thisClass);
-	for (let i = 0; i < el.length; i + 1) {
-		document.getElementById(el[i].id).remove();
-	}
-}
+const clearDomClass = (thisClass) => {
+	let objectToClear = document.querySelectorAll(`.${thisClass}`);
+	objectToClear.forEach((target) =>
+		document.querySelector(`#${target.id}`).remove()
+	);
+};
 
 /**
  *
  * @param {*} thisId - string -  ID of the element tp remove from the DOM
  */
-function clearDomItem(thisId) {
-	let el = document.getElementById(thisId);
-	if (el != null) {
-		el.remove();
+const clearDomItem = (thisElementId) => {
+	let target = document.querySelector(`#${thisElementId}`);
+	if (target != null) {
+		target.remove();
 	}
-}
+};
 
 /**
  * update the score
  * @param {*} num  - int
  */
-function pointCnt(num) {
+const pointCnt = (num) => {
 	score = score + num;
 	newLife = newLife - num;
 	if (newLife < 0) {
@@ -145,23 +147,23 @@ function pointCnt(num) {
 		newLife = newLifeTarget + newLife;
 		playExtraLife();
 	}
-}
+};
 
 /**
  * play sound for extra life
  */
-function playExtraLife() {
-	var extraLifesnd = new Sound('snd/extraShip.ogg');
-	setTimeout(function () {
+const playExtraLife = () => {
+	let extraLifesnd = new Sound('snd/extraShip.ogg');
+	setTimeout(() => {
 		extraLifesnd.play();
 	}, 1);
-	setTimeout(function () {
+	setTimeout(() => {
 		extraLifesnd.play();
 	}, 250);
-	setTimeout(function () {
+	setTimeout(() => {
 		extraLifesnd.play();
 	}, 500);
-}
+};
 
 /**
  *
@@ -170,7 +172,7 @@ function playExtraLife() {
  * @param {*} y int - the y value
  * @param {*} t int - theta , the rotational value
  */
-function moveItem(obj, x, y, t) {
+const moveItem = (obj, x, y, t) => {
 	if (t === undefined) t = 0;
 
 	try {
@@ -184,23 +186,23 @@ function moveItem(obj, x, y, t) {
 		console.error(e.message); // logs 'The message', or a JavaScript error message
 		console.trace();
 	}
-}
+};
 
 /**
  * Hide the cursor when game play is happening
  */
-function hideCursor() {
+const hideCursor = () => {
 	if (inPlay == true && lifeCnt > 0) {
 		gameWrapper.classList.add('cursorHide');
 	} else {
 		gameWrapper.classList.remove('cursorHide');
 	}
-}
+};
 
 /**
  * Set up the reuseable sounds
  */
-function setupSounds() {
+const setUpSounds = () => {
 	shootSnd = new Sound('snd/fire.mp3');
 	thrustSnd = new Sound('snd/thrust.mp3');
 	extraLifeSnd = new Sound('snd/extraShip.ogg');
@@ -208,8 +210,8 @@ function setupSounds() {
 	ufoBulletSnd = new Sound('snd/laser.mp3');
 	ufoBoomSnd = new Sound('snd/bangMedium.mp3');
 	turnSnd = new Sound('snd/hiss.mp3');
-	hyperspaceSnd = new Sound('snd/hyperspace.mp3');
-	hyperspaceFailSnd = new Sound('snd/Power-failure.mp3');
+	hyperpaceSnd = new Sound('snd/hyperspace.mp3');
+	hyperSpaceFailSnd = new Sound('snd/Power-failure.mp3');
 	boomSnd = new Sound('snd/boom2.mp3');
 	astroBoom100Snd = new Sound('snd/bangLarge.mp3');
 	astroBoom50Snd = new Sound('snd/bangMedium.mp3');
@@ -218,7 +220,7 @@ function setupSounds() {
 	saucerSmallSnd = new Sound('snd/saucerSmall.ogg', true);
 	beat1Snd = new Sound('snd/beat1.ogg');
 	beat2Snd = new Sound('snd/beat2.ogg');
-}
+};
 
 /**
  *
@@ -226,7 +228,7 @@ function setupSounds() {
  *
  * TODO: should pass in the modal you want to enable and seperate the display from the modal background.
  */
-function modalHandler(dir) {
+const modalHandler = (dir) => {
 	if (dir === 'open') {
 		modal.classList.add('open');
 		modalDialog.classList.add('open');
@@ -236,35 +238,34 @@ function modalHandler(dir) {
 		inPlay = true;
 		firstRun = false;
 		dialogCloseBtn.blur();
-		resetgame();
+		resetGame();
 	}
-}
+};
 
 /**
  *
  * @param {*} beatCnt - int - the timing on the beat. BTW, it must go on....
  */
-function heartBeatSnd(beatCnt) {
+const heartBeatSnd = (beatCnt) => {
 	if (soundless == false) {
-		clearInterval(heartbeat);
-		heartbeat = setInterval(() => {
+		clearInterval(heartBeat);
+		heartBeat = setInterval(() => {
 			beat1Snd.play();
 			setTimeout(() => {
 				beat2Snd.play();
 			}, beatCnt);
 		}, beatCnt * 2);
 	}
-
-}
+};
 
 // localStorage ---------------------------------------------------------------------------------------
 
 /**
  * looks to see if the highscore is set and if not sets the current score as high score on local storage.
  */
-function checkHighScoreCookie() {
+const checkHighScoreCookie = () => {
 	let hs = localStorage.getItem('highScore-asteroids');
-	let highscore = document.getElementById('highScore').children;
+	let highscore = document.querySelector('#highScore').children;
 
 	if (hs == '' || hs == undefined) {
 		localStorage.setItem('highScore-asteroids', score);
@@ -277,4 +278,4 @@ function checkHighScoreCookie() {
 			highscore[0].innerHTML = hs;
 		}
 	}
-}
+};

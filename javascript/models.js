@@ -55,7 +55,6 @@ class Asteroid {
 	}
 
 	hitBottom() {
-		//var rockbottom = window.screen.availHeight - this.height;
 		var rockbottom = window.innerHeight - this.height;
 		if (this.y > rockbottom) {
 			this.x = rockbottom;
@@ -67,7 +66,7 @@ class Asteroid {
 		if (this.x < 0 - this.width) {
 			this.x = window.innerWidth + this.width;
 		}
-	};
+	}
 
 	changeColor(color) {
 		this.color = color;
@@ -101,7 +100,8 @@ class Asteroid {
 }
 
 class Spaceship {
-	static shape = '14.383032,5.9181762 0.35137621,0.04626516 2.7568063,5.9181762 0.35137621,11.338401';
+	static SHAPE =
+		'14.383032,5.9181762 0.35137621,0.04626516 2.7568063,5.9181762 0.35137621,11.338401';
 
 	constructor(x, y, vx, vy, theta, yaw, x_points, y_points) {
 		this.x = x;
@@ -114,13 +114,14 @@ class Spaceship {
 		this.yaw = yaw;
 		this.x_points = x_points;
 		this.y_points = y_points;
-		this.shape = Spaceship.shape;
+		this.shape = Spaceship.SHAPE;
 	}
 }
 
 class Shot {
-	constructor(id, x, y, vx, vy, theta, yaw, life, x_points, y_points) {
+	constructor(id, team, x, y, vx, vy, theta, yaw, life, x_points, y_points) {
 		this.id = id;
+		this.team = team;
 		this.x = x;
 		this.y = y;
 		this.vx = vx;
@@ -141,7 +142,7 @@ class Shot {
 
 	changeLife(l) {
 		this.life = l;
-	};
+	}
 }
 
 class Sound {
@@ -182,12 +183,11 @@ class Sound {
 		this.sound.currentTime = 0;
 		this.sound.play();
 	}
-
 }
 
 class Ufo {
-
-	static shape = '466.697 275.189, 350.500 226.628, 329.099 170.984, 294.919 147.509, 242.500 147.509, 242.500 112.989, 235.000 105.489, 227.500 112.989, 227.500 147.509, 175.081 147.509, 140.901 170.984, 119.500 226.628, 3.303 275.189, 0.000 281.405, 3.303 287.621, 106.027 332.782, 143.504 364.510, 326.496 364.510, 363.973 332.782, 466.697 287.621, 470.000 281.405, 466.697 275.189'
+	static SHAPE =
+		'466.697 275.189, 350.500 226.628, 329.099 170.984, 294.919 147.509, 242.500 147.509, 242.500 112.989, 235.000 105.489, 227.500 112.989, 227.500 147.509, 175.081 147.509, 140.901 170.984, 119.500 226.628, 3.303 275.189, 0.000 281.405, 3.303 287.621, 106.027 332.782, 143.504 364.510, 326.496 364.510, 363.973 332.782, 466.697 287.621, 470.000 281.405, 466.697 275.189';
 
 	constructor(x, y, vx, vy, theta, yaw, points) {
 		this.x = x;

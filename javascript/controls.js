@@ -1,75 +1,79 @@
 // Input controls  ---------------------------------------------------------------------//
 
 if (lifeCnt > 0) {
-	document.onkeydown = function (e) {
+	document.onkeydown = (evt) => {
 		if (inPlay == true) {
-			spaceshipSvg.style.opacity = 1;
-			var key = e.keyCode;
-			switch (key) {
-				case 68: //d = yaw left
-					turn = 2;
+			spaceShipSvg.style.opacity = 1;
+			switch (evt.code) {
+				case 'KeyD': //d = yaw left
+					turn = 1.5;
 					break;
-				case 65: //a = yaw right
-					turn = -2;
+				case 'KeyA': //a = yaw right
+					turn = -1.5;
 					break;
-				case 87: //w = forward
+				case 'KeyW': //w = forward
 					thrust = 1;
 					break;
-				case 83: //s = backward
+				case 'KeyS': //s = backward
 					thrust = -1;
 					break;
-				case 13: //s = shoot
-					startover.blur();
+				case 'Enter': //s = shoot
+					startOver.blur();
 					pewpew();
 					resetGun = false;
 					break;
-				case 32: // enter = hyperspace
+				case 'Space': // enter = hyperspace
 					hyperspace();
 					break;
-				case 8:
-					boom();
+				case 'KeyP': // swamp a UFO
+					if (evt.ctrlKey) {
+						makeUFO(true, 0.1);
+					}
 					break;
-				case 46:
-					boom();
+				case 'Backspace':
+					if (evt.ctrlKey) {
+						lifeCnt = 1;
+						boom();
+					}
+					break;
+				case 'Delete':
+					if (evt.ctrlKey) {
+						lifeCnt = 1;
+						boom();
+					}
 					break;
 			}
 		}
-
 	};
 
-	document.onkeyup = function (e) {
-		var key = e.keyCode;
-		switch (key) {
-			case 65: //a = yaw left
+	document.onkeyup = (evt) => {
+		switch (evt.code) {
+			case 'KeyA': //a = yaw left
 				turn = 0;
 				turnSnd.reset();
 				break;
-			case 68: //d = yaw right
+			case 'KeyD': //d = yaw right
 				turn = 0;
 				turnSnd.reset();
 				break;
-			case 87: //w = forward
+			case 'KeyW': //w = forward
 				thrust = 0;
 				break;
-			case 83: //s = backward
+			case 'KeyS': //s = backward
 				thrust = 0;
 				break;
-			case 13:
+			case 'Enter':
 				//endpew();
 				resetGun = true;
 				break;
-
 		}
 	};
 
 	// mobile controls   --------------->
 
-	document.addEventListener('touchstart', e => {
-
-		spaceshipSvg.style.opacity = 1;
-		var key = e.target.id;
-		console.log(key);
-		switch (key) {
+	document.addEventListener('touchstart', (evt) => {
+		spaceShipSvg.style.opacity = 1;
+		switch (evt.target.id) {
 			case 'btnLeft': //d = yaw left
 				turn = -1;
 				break;
@@ -88,14 +92,11 @@ if (lifeCnt > 0) {
 			case 'btnHS': // enter = hyperspace
 				hyperspace();
 				break;
-
 		}
 	});
 
-	document.addEventListener('touchend', e => {
-
-		var key = e.target.id;
-		switch (key) {
+	document.addEventListener('touchend', (evt) => {
+		switch (evt.target.id) {
 			case 'btnLeft': //d = yaw left
 				turn = 0;
 				turnSnd.reset();
@@ -120,7 +121,6 @@ if (lifeCnt > 0) {
 				break;
 		}
 	});
-
 }
 
 // End Input controls ---------------------------------------------------------------------------

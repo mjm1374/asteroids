@@ -56,6 +56,7 @@ body {
 
 .atari {
     font-family: 'hyperspaceregular';
+    letter-spacing: 1px;
 
     @media screen and (max-width: 414px) {
         font-size: 0.75em;
@@ -65,9 +66,8 @@ body {
 #scorecard {
     position: absolute;
     top: 0px;
-    right: 0px;
+    right: 20px;
     display: block;
-    width: 200px;
     height: 70px;
     font-weight: 700;
     padding: 10px;
@@ -132,8 +132,8 @@ body {
     height: 25px;
 }
 
-.spaceshipShot,
-.ufoshot {
+.spaceShipShot,
+.ufoShot {
     display: block;
     position: absolute;
     left: -100px;
@@ -162,7 +162,7 @@ h1 {
     position: relative;
     z-index: 10000;
     color: $white;
-    font-family: 'hyperspaceregular';
+
 
     .game__title {
         opacity: 0.3;
@@ -210,7 +210,7 @@ h1 {
         font-size: 1.25em;
     }
 
-    #startover {
+    #startOver {
         width: 150px;
         font-family: 'hyperspaceregular';
         background: $white;
@@ -220,7 +220,7 @@ h1 {
         opacity: 0.5;
     }
 
-    #startover:hover {
+    #startOver:hover {
         opacity: 1;
         font-weight: 700;
     }
@@ -260,7 +260,6 @@ cntrlButton:last-child {
         position: absolute;
         color: $red;
         border: 1px solid $white;
-        ;
         display: block;
         z-index: 1000;
         background: url('../img/arrow-alt-down.png') center no-repeat;
