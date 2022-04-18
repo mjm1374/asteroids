@@ -5,7 +5,7 @@
 const pewpew = () => {
 	if (lifeCnt > 0 && resetGun == true && inPlay == true) {
 		shootSnd.play();
-		makeShot();
+		makeShot('spaceShip');
 		resetGun = false;
 	}
 };
@@ -13,11 +13,12 @@ const pewpew = () => {
 /**
  * Create the shot
  */
-const makeShot = () => {
+const makeShot = (team) => {
 	shotCnt++;
 	shots.push(
 		new Shot(
 			shotCnt,
+			team,
 			spaceship.x + spaceship.width / 2,
 			spaceship.y + spaceship.height / 2,
 			spaceship.vx,
@@ -29,7 +30,7 @@ const makeShot = () => {
 			0
 		)
 	);
-	makeShotSVG(shotCnt, 'spaceshipShot', '#f00');
+	makeShotSVG(shotCnt, 'spaceShipShot', '#f00');
 };
 
 /**
@@ -66,12 +67,13 @@ const makeShotSVG = (id, indenity, color) => {
  * @param {*} team - string
  * @param {*} idx - int
  */
+let x = 0;
 const clearBullet = (team, idx) => {
 	if (team == 'ufo') {
-		clearDomItem(`ufoShip${ufoShots[idx].id}`);
-		ufoShots.splice(idx, 1);
+		clearDomItem(`ufoShot${idx}`);
+		ufoShots = ufoShots.filter((shot) => shot.id !== idx);
 	} else {
-		clearDomItem(`spaceshipShot${shots[idx].id}`);
-		shots.splice(idx, 1);
+		clearDomItem(`spaceShipShot${idx}`);
+		shots = shots.filter((shot) => shot.id !== idx);
 	}
 };

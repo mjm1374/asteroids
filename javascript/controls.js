@@ -25,6 +25,11 @@ if (lifeCnt > 0) {
 				case 'Space': // enter = hyperspace
 					hyperspace();
 					break;
+				case 'KeyP': // swamp a UFO
+					if (evt.ctrlKey) {
+						makeUFO(true, 0.1);
+					}
+					break;
 				case 'Backspace':
 					if (evt.ctrlKey) {
 						lifeCnt = 1;

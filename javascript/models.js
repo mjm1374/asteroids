@@ -119,8 +119,9 @@ class Spaceship {
 }
 
 class Shot {
-	constructor(id, x, y, vx, vy, theta, yaw, life, x_points, y_points) {
+	constructor(id, team, x, y, vx, vy, theta, yaw, life, x_points, y_points) {
 		this.id = id;
+		this.team = team;
 		this.x = x;
 		this.y = y;
 		this.vx = vx;

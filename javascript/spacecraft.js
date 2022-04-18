@@ -130,7 +130,7 @@ const boom = (shot) => {
 	spaceship.vx = 0;
 	spaceship.vy = 0;
 	boomSnd.play();
-	clearDomItem(`ufoshot${shot}`);
+	clearDomItem(`#ufoShot${shot}`);
 
 	if (lifeCnt > 0) {
 		lifeCnt--;
@@ -242,6 +242,7 @@ const makeUFO = (active, scale) => {
 			ufoShots.push(
 				new Shot(
 					ufoShotCnt,
+					'ufo',
 					ufo.x,
 					ufo.y,
 					ufo.vx,
@@ -260,7 +261,7 @@ const makeUFO = (active, scale) => {
 				saucerSmallSnd.play();
 			}
 
-			makeShotSVG(ufoShotCnt, 'ufoshot', '#0f0');
+			makeShotSVG(ufoShotCnt, 'ufoShot', '#0f0');
 		} else {
 			clearInterval(startFiring);
 			if (ufoScale == 0.1) {
@@ -281,7 +282,7 @@ const makeUFO = (active, scale) => {
 const blowUpUFO = (obj, shot) => {
 	ufoBoomSnd.cycle();
 	clearDomItem('ufoShip');
-	clearDomItem(`spaceshipShot${shot}`);
+	clearDomItem(`spaceShipShot${shot}`);
 	pointCnt(obj.points);
 	parkUFO();
 	clearTimeout(ufoTimer);
@@ -298,5 +299,5 @@ const parkUFO = () => {
 	ufo.y = -200;
 	ufo.vx = 0;
 	ufo.vy = 0;
-	clearDomClass('ufoshot');
+	clearDomClass('ufoShot');
 };

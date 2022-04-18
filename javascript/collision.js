@@ -28,7 +28,7 @@ const isHit = (obj) => {
  * Spaceship is hit
  * @param {*} obj - the current object in contact with spaceship
  */
-const isSpaceshipHit = (obj) => {
+const isSpaceShipHit = (obj) => {
 	var a = spaceship;
 	var b = obj;
 

@@ -101,8 +101,8 @@ const animateScreen = () => {
 	hideCursor();
 	updateAsteroids();
 	checkUFO();
-	updateShots();
-	updateUFOShot();
+	updateShots(shots);
+	updateShots(ufoShots);
 	updateSpaceShip(deltaTime);
 	updateScoreCard();
 };
@@ -110,7 +110,7 @@ const animateScreen = () => {
 // END animation Loop -------------------------------------------------------------------------------------------
 
 /**
- * Controls to update the score, life and Hyperspace count
+ * Controls to update the Score, life and Hyperspace count
  */
 const updateScoreCard = () => {
 	scoreNum.innerText = score;
@@ -122,48 +122,45 @@ const updateScoreCard = () => {
  * update the asteroids position
  */
 const updateAsteroids = () => {
-	for (let key in asteroids) {
-		if (asteroids.hasOwnProperty(key)) {
-			asteroids[key].changePosition(
-				asteroids[key].x + asteroids[key].xv,
-				asteroids[key].y + asteroids[key].yv
-			);
+	asteroids.forEach((asteroid) => {
+		asteroid.changePosition(
+			asteroid.x + asteroid.xv,
+			asteroid.y + asteroid.yv
+		);
 
-			if (mode == 'asteroids') {
-				if (
-					asteroids[key].x <= 0 - asteroids[key].width ||
-					asteroids[key].x >= xLimit + asteroids[key].width
-				) {
-					if (asteroids[key].x >= xLimit + asteroids[key].width) {
-						asteroids[key].x = -Math.abs(0 - asteroids[key].width);
-					} else {
-						asteroids[key].x = xLimit + asteroids[key].width;
-					}
-				}
-
-				if (
-					asteroids[key].y <= 0 - asteroids[key].width ||
-					asteroids[key].y >= yLimit + asteroids[key].height
-				) {
-					if (asteroids[key].y >= yLimit + asteroids[key].height) {
-						asteroids[key].y = -Math.abs(0 - asteroids[key].height);
-					} else {
-						asteroids[key].y = yLimit + asteroids[key].height;
-					}
+		if (mode == 'asteroids') {
+			if (
+				asteroid.x <= 0 - asteroid.width ||
+				asteroid.x >= xLimit + asteroid.width
+			) {
+				if (asteroid.x >= xLimit + asteroid.width) {
+					asteroid.x = -Math.abs(0 - asteroid.width);
+				} else {
+					asteroid.x = xLimit + asteroid.width;
 				}
 			}
 
-			// cheeck for collision
-			if (inPlay == true) {
-				if (inCollision(asteroids[key])) {
-					boom();
+			if (
+				asteroid.y <= 0 - asteroid.width ||
+				asteroid.y >= yLimit + asteroid.height
+			) {
+				if (asteroid.y >= yLimit + asteroid.height) {
+					asteroid.y = -Math.abs(0 - asteroid.height);
+				} else {
+					asteroid.y = yLimit + asteroid.height;
 				}
 			}
 		}
 
-		let thisRock = document.querySelector(`#rockAnim${asteroids[key].id}`);
-		moveItem(thisRock, asteroids[key].x, asteroids[key].y);
-	} //end asteroid position
+		if (inPlay == true) {
+			if (inCollision(asteroid)) {
+				boom();
+			}
+		}
+
+		let thisRock = document.querySelector(`#rockAnim${asteroid.id}`);
+		moveItem(thisRock, asteroid.x, asteroid.y);
+	});
 };
 
 /**
@@ -189,67 +186,48 @@ const checkUFO = () => {
 /**
  * Update the bullets
  */
-const updateShots = () => {
-	for (let idx in shots) {
-		let thisVX =
-			Math.cos((shots[idx].theta * Math.PI) / 180) * 10 + shots[idx].x;
-		let thisVY =
-			Math.sin((shots[idx].theta * Math.PI) / 180) * 10 + shots[idx].y;
-		let thisLife = shots[idx].life - 5;
-		shots[idx].changeLife(thisLife);
 
-		if (shots[idx].life < 0) {
-			clearBullet('spaceShip', idx);
+let x = 0;
+const updateShots = (teamShots) => {
+	if (x < 3) {
+		console.log(teamShots);
+		x++;
+	}
+	teamShots.forEach((shot) => {
+		let thisVX = Math.cos((shot.theta * Math.PI) / 180) * 10 + shot.x;
+		let thisVY = Math.sin((shot.theta * Math.PI) / 180) * 10 + shot.y;
+		let thisLife = shot.life - 5;
+		let ShotTagId =
+			shot.team === 'spaceShip'
+				? `#spaceShipShot${shot.id}`
+				: `#ufoShot${shot.id}`;
+		shot.changeLife(thisLife);
+
+		if (shot.life < 0) {
+			clearBullet(shot.team, shot.id);
 		} else {
-			shots[idx].changePosition(thisVX, thisVY);
-			let thisShot = document.querySelector(
-				`#spaceshipShot${shots[idx].id}`
-			);
-			moveItem(thisShot, shots[idx].x, shots[idx].y);
+			shot.changePosition(thisVX, thisVY);
+			let thisShot = document.querySelector(ShotTagId);
+			moveItem(thisShot, shot.x, shot.y);
 			// paint the shot
 
-			if (isHit(shots[idx])) {
-				clearBullet('spaceShip', idx);
-			} else {
-				if (isUfoHit(shots[idx])) {
-					clearBullet('spaceShip', idx);
+			if (shot.team === 'spaceShip') {
+				if (isHit(shot)) {
+					clearBullet(shot.team, shot.id);
+				}
+
+				if (isUfoHit(shot)) {
+					clearBullet(shot.team, shot.id);
+				}
+			}
+
+			if (shot.team === 'ufo') {
+				if (isSpaceShipHit(shot)) {
+					clearBullet('ufo', shot.id);
 				}
 			}
 		}
-	}
-};
-
-/**
- * update the UFO bullters
- */
-const updateUFOShot = () => {
-	for (let ind in ufoShots) {
-		let thisUfoVX =
-			Math.cos((ufoShots[ind].theta * Math.PI) / 180) * 10 +
-			ufoShots[ind].x;
-		let thisUfoVY =
-			Math.sin((ufoShots[ind].theta * Math.PI) / 180) * 10 +
-			ufoShots[ind].y;
-		let thisUfoLife = ufoShots[ind].life - 5;
-		ufoShots[ind].changeLife(thisUfoLife);
-
-		if (ufoShots[ind].life < 0) {
-			clearBullet('ufo', ind);
-		} else {
-			ufoShots[ind].changePosition(thisUfoVX, thisUfoVY);
-
-			let thisUfoShot = document.getElementById(
-				'ufoshot' + ufoShots[ind].id
-			);
-
-			moveItem(thisUfoShot, ufoShots[ind].x, ufoShots[ind].y);
-			// paint the shot
-
-			if (isSpaceshipHit(ufoShots[ind])) {
-				clearBullet('ufo', ind);
-			}
-		}
-	}
+	});
 };
 
 // Kick it off!
