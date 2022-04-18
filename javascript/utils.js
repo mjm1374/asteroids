@@ -4,7 +4,7 @@ window.addEventListener('resize', () => {
 });
 
 /**
- * Reset the window paramameters when resized
+ * Reset the window paramameters when resized - REFACTOR to not have x y and use the same function
  * @param {*} whatDim  - string, X or Y
  */
 function resetWindowLimit(whatDim) {
@@ -13,24 +13,24 @@ function resetWindowLimit(whatDim) {
 	newDimy = window.innerHeight;
 	if (whatDim == 'x') {
 		newDim = window.innerWidth;
-		for (let i = 0; i < asteroids.length; i++) {
-			if (asteroids[i].x >= newDimx - asteroids[i].width) {
-				asteroids[i].changePosition(
-					newDimx - asteroids[i].width,
-					newDimy - asteroids[i].height
+		asteroids.forEach((asteroid) => {
+			if (asteroid.x >= newDimx - asteroid.width) {
+				asteroid.changePosition(
+					newDimx - asteroid.width,
+					newDimy - asteroid.height
 				);
 			}
-		}
+		});
 	} else {
 		newDim = window.innerHeight;
-		for (let i = 0; i < asteroids.length; i++) {
-			if (asteroids[i].y >= newDimy - asteroids[i].height) {
-				asteroids[i].changePosition(
-					newDimx - asteroids[i].width,
-					newDim - asteroids[i].height
+		asteroids.forEach((asteroid) => {
+			if (asteroid.y >= newDimy - asteroid.height) {
+				asteroid.changePosition(
+					newDimx - asteroid.width,
+					newDimy - asteroid.height
 				);
 			}
-		}
+		});
 	}
 	return newDim;
 }
@@ -52,9 +52,7 @@ const getSafeRandomFloat = (min, max) => {
 	let split = min + max / 2;
 	let tempCoord = Math.random() * (max - min) + min;
 	let finalCoord = 0;
-	if (tempCoord >= split) {
-		finalCoord = max;
-	}
+	if (tempCoord >= split) finalCoord = max;
 	return finalCoord;
 };
 /**
@@ -130,9 +128,7 @@ const clearDomClass = (thisClass) => {
  */
 const clearDomItem = (thisElementId) => {
 	let target = document.querySelector(`#${thisElementId}`);
-	if (target != null) {
-		target.remove();
-	}
+	if (target != null) target.remove();
 };
 
 /**
@@ -192,11 +188,9 @@ const moveItem = (obj, x, y, t) => {
  * Hide the cursor when game play is happening
  */
 const hideCursor = () => {
-	if (inPlay == true && lifeCnt > 0) {
-		gameWrapper.classList.add('cursorHide');
-	} else {
-		gameWrapper.classList.remove('cursorHide');
-	}
+	inPlay == true && lifeCnt > 0
+		? gameWrapper.classList.add('cursorHide')
+		: gameWrapper.classList.remove('cursorHide');
 };
 
 /**
@@ -256,6 +250,11 @@ const heartBeatSnd = (beatCnt) => {
 			}, beatCnt);
 		}, beatCnt * 2);
 	}
+};
+
+const resetSound = (sound) => {
+	sound.stop();
+	sound.reset();
 };
 
 // localStorage ---------------------------------------------------------------------------------------
