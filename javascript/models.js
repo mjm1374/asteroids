@@ -45,7 +45,7 @@ class Asteroid {
 	newPos() {
 		this.gravitySpeed += this.gravity;
 		this.x += this.xvel;
-		var gavVel = this.yv;
+		let gavVel = this.yv;
 		if (this.yv < 0) {
 			gavVel = 0;
 		}
@@ -55,7 +55,7 @@ class Asteroid {
 	}
 
 	hitBottom() {
-		var rockbottom = window.innerHeight - this.height;
+		let rockbottom = window.innerHeight - this.height;
 		if (this.y > rockbottom) {
 			this.x = rockbottom;
 			this.gravitySpeed = -(this.gravitySpeed * this.bounce);

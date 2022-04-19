@@ -4,7 +4,6 @@ const version = 1.34,
 	lifeStart = 3,
 	jumpStart = 3,
 	newLifeTarget = 10000,
-	rockID = 0,
 	mode = 'asteroids',
 	modal = document.querySelector('#welcomeModel'),
 	modalDialog = document.querySelector('.modal-dialog'),
@@ -23,6 +22,7 @@ let asteroids = [],
 	newLife = newLifeTarget,
 	resetGun = true,
 	inPlay = false,
+	rockId = 0,
 	rockCnt = 10,
 	scale = 1,
 	ufo = new Ufo(-100, -100, 0, 0, 0, 0, 200),
@@ -169,14 +169,11 @@ const updateAsteroids = () => {
 const checkUFO = () => {
 	if (ufo != null && ufo != undefined && ufoActive == true) {
 		ufo.changePosition(ufo.x + ufo.vx, ufo.y + ufo.vy);
-		if (ufo.x > xLimit + 100) {
+		if (ufo.x > xLimit + 100 || (ufo.x < -60 && ufo.x > -199)) {
 			parkUFO();
 			spawnEnemy();
 		}
-		if (ufo.x < -60 && ufo.x > -199) {
-			parkUFO();
-			spawnEnemy();
-		}
+
 		let thisUfo = document.querySelector('#ufoShip');
 		moveItem(thisUfo, ufo.x, ufo.y);
 		// paint the ufo
@@ -193,26 +190,28 @@ const updateShots = (teamShots) => {
 		let thisLife = shot.life - 5;
 		let ShotTagId =
 			shot.team === 'spaceShip'
-				? `#spaceShipShot${shot.id}`
-				: `#ufoShot${shot.id}`;
+				? `spaceShipShot${shot.id}`
+				: `ufoShot${shot.id}`;
 		shot.changeLife(thisLife);
+		let thisShot = document.querySelector(`#${ShotTagId}`);
 
 		if (shot.life < 0) {
-			clearBullet(shot.team, shot.id);
+			shots = clearBullet(shots, shot.id, ShotTagId);
 		} else {
 			shot.changePosition(thisVX, thisVY);
-			let thisShot = document.querySelector(ShotTagId);
 			moveItem(thisShot, shot.x, shot.y);
 			// paint the shot
 
 			if (shot.team === 'spaceShip') {
-				if (isHit(shot)) clearBullet(shot.team, shot.id);
+				if (isHit(shot)) shots = clearBullet(shots, shot.id, ShotTagId);
 
-				if (isUfoHit(shot)) clearBullet(shot.team, shot.id);
+				if (isUfoHit(shot))
+					shots = clearBullet(shots, shot.id, ShotTagId);
 			}
 
 			if (shot.team === 'ufo') {
-				if (isSpaceShipHit(shot)) clearBullet(shot.team, shot.id);
+				if (isSpaceShipHit(shot))
+					ufoShots = clearBullet(ufoShots, shot.id, ShotTagId);
 			}
 		}
 	});

@@ -3,7 +3,7 @@
  * start the creation of the shot
  */
 const pewpew = () => {
-	if (lifeCnt > 0 && resetGun == true && inPlay == true) {
+	if (lifeCnt > 0 && resetGun === true && inPlay === true) {
 		shootSnd.play();
 		makeShot('spaceShip');
 		resetGun = false;
@@ -33,17 +33,18 @@ const makeShot = (team) => {
 	makeShotSVG(shotCnt, 'spaceShipShot', '#f00');
 };
 
+// REFACTOR to make a SVG creation object
 /**
  *
  * @param {*} id - int - the id of the shot to map to
- * @param {*} indenity - string -  the team of the shot, options: shot or ufoShot
+ * @param {*} team - string -  the team of the shot, options: shot or ufoShot
  * @param {*} color - string -  a hex or css color
  */
-const makeShotSVG = (id, indenity, color) => {
+const makeShotSVG = (id, team, color) => {
 	let newShot = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-	newShot.setAttribute('id', `${indenity}${id}`);
+	newShot.setAttribute('id', `${team}${id}`);
 	newShot.setAttribute('data-id', id);
-	newShot.setAttribute('class', `${indenity}`);
+	newShot.setAttribute('class', `${team}`);
 	newShot.setAttribute('height', 6);
 	newShot.setAttribute('width', 6);
 
@@ -63,17 +64,12 @@ const makeShotSVG = (id, indenity, color) => {
 };
 
 /**
- *
- * @param {*} team - string
+ * @param {*} array - array
  * @param {*} idx - int
+ * @param {*} element - string
  */
-let x = 0;
-const clearBullet = (team, idx) => {
-	if (team == 'ufo') {
-		clearDomItem(`ufoShot${idx}`);
-		ufoShots = ufoShots.filter((shot) => shot.id !== idx);
-	} else {
-		clearDomItem(`spaceShipShot${idx}`);
-		shots = shots.filter((shot) => shot.id !== idx);
-	}
+const clearBullet = (array, idx, element) => {
+	array = array.filter((shot) => shot.id !== idx);
+	clearDomItem(element);
+	return array;
 };

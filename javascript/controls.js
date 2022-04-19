@@ -50,11 +50,11 @@ if (lifeCnt > 0) {
 		switch (evt.code) {
 			case 'KeyA': //a = yaw left
 				turn = 0;
-				turnSnd.reset();
+				resetSound(turnSnd);
 				break;
 			case 'KeyD': //d = yaw right
 				turn = 0;
-				turnSnd.reset();
+				resetSound(turnSnd);
 				break;
 			case 'KeyW': //w = forward
 				thrust = 0;

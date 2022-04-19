@@ -6,17 +6,15 @@ function regenerateAsteroids() {
 	beatCnt = 1000;
 	clearInterval(heartBeat);
 	rock_max_v = rock_max_v + 0.25;
-	if (rock_max_v >= rock_max_v_cap) {
-		rock_max_v = rock_max_v_cap; //cap out speed
-	}
+	if (rock_max_v >= rock_max_v_cap) rock_max_v = rock_max_v_cap; //cap out speed
 
 	for (let i = 0; i < rockCnt; i++) {
-		rockID++;
+		rockId++;
 		let thisRockSize = 100;
 		asteroids.push(
 			new Asteroid(
-				rockID,
-				'asteroid' + i,
+				rockId,
+				`asteroid${rockId}`,
 				thisRockSize / screenScale,
 				thisRockSize / screenScale,
 				getSafeRandomFloat(0, xLimit - 150),
@@ -31,18 +29,16 @@ function regenerateAsteroids() {
 		);
 	}
 
-	for (let key in asteroids) {
-		if (asteroids.hasOwnProperty(key)) {
-			makeRock(
-				asteroids[key].id,
-				asteroids[key].width,
-				asteroids[key].height,
-				asteroids[key].color,
-				scale,
-				Asteroid.rocksLrg[Math.floor(getRandomFloat(0, 3))]
-			);
-		}
-	}
+	asteroids.forEach((asteroid) => {
+		makeRock(
+			asteroid.id,
+			asteroid.width,
+			asteroid.height,
+			asteroid.color,
+			scale,
+			Asteroid.rocksLrg[Math.floor(getRandomFloat(0, 3))]
+		);
+	});
 }
 
 /**
@@ -91,7 +87,7 @@ function makeRock(id, w, h, color, scale, path) {
  */
 function makeAsteroidPieces(x, y, size, cnt) {
 	for (let i = 0; i < cnt; i++) {
-		rockID++;
+		rockId++;
 		let maxVel = rock_max_v;
 		let rockPnt = 20;
 		//which transform scale to implement
@@ -115,8 +111,8 @@ function makeAsteroidPieces(x, y, size, cnt) {
 
 		asteroids.push(
 			new Asteroid(
-				rockID,
-				'test',
+				rockId,
+				`asteroid${rockId}`,
 				size,
 				size,
 				x,
@@ -140,13 +136,14 @@ function makeAsteroidPieces(x, y, size, cnt) {
 		);
 	}
 }
-
+// REFACTOR -  look at how we are cleaning up bullets - might want to do it here
 /**
  * handle asteroid being struck by a bullter
  * @param {*} obj array -the asteroid in the array to be worked on
  * @param {*} idx int - what asteroid -  index in the array
  */
 function blowUpAsteroid(obj, idx, shot) {
+	console.log(obj);
 	switch (obj.width) {
 		case 100:
 			astroBoom100Snd.cycle();

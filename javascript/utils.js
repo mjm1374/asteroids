@@ -241,7 +241,7 @@ const modalHandler = (dir) => {
  * @param {*} beatCnt - int - the timing on the beat. BTW, it must go on....
  */
 const heartBeatSnd = (beatCnt) => {
-	if (soundless == false) {
+	if (soundless === false) {
 		clearInterval(heartBeat);
 		heartBeat = setInterval(() => {
 			beat1Snd.play();
@@ -266,7 +266,7 @@ const checkHighScoreCookie = () => {
 	let hs = localStorage.getItem('highScore-asteroids');
 	let highscore = document.querySelector('#highScore').children;
 
-	if (hs == '' || hs == undefined) {
+	if (hs === '' || hs === undefined) {
 		localStorage.setItem('highScore-asteroids', score);
 		highscore[0].innerHTML = score;
 	} else {
