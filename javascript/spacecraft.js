@@ -46,8 +46,7 @@ const moveSpaceShip = (deltaTime) => {
 			turnSnd.play();
 		}
 	} else {
-		turnSnd.stop();
-		turnSnd.reset();
+		resetSound(turnSnd);
 	}
 	if (thrust != 0 && thrust != undefined) {
 		del_v = thrust * thrust_per_milli * deltaTime;
@@ -60,7 +59,7 @@ const moveSpaceShip = (deltaTime) => {
 	} else {
 		del_vx = 0;
 		del_vy = 0;
-		thrustSnd.stop();
+		resetSound(thrustSnd);
 	}
 	spaceship.vx = spaceship.vx + del_vx;
 	spaceship.vy = spaceship.vy + del_vy;
@@ -170,7 +169,7 @@ const addSpaceShip = () => {
 const spawnEnemy = () => {
 	clearDomItem('ufoShip');
 	let timer = Math.floor(getRandomFloat(25, 60) * 1000);
-	ufoTimer = setTimeout(function () {
+	ufoTimer = setTimeout(() => {
 		makeUFO(true, 0.1);
 	}, timer);
 };
@@ -184,11 +183,8 @@ const spawnEnemy = () => {
 const makeUFO = (active, scale) => {
 	ufoActive = active;
 	let direction = Math.random() < 0.5 ? -1 : 1;
-	if (direction > 0) {
-		ufo.x = 0 - ufo.width;
-	} else {
-		ufo.x = xLimit + ufo.width;
-	}
+	ufo.x =
+		direction > 0 ? (ufo.x = 0 - ufo.width) : (ufo.x = xLimit + ufo.width);
 
 	ufoSizeVar = Math.pow(Math.floor(Math.random() * 10), 2);
 	ufoAim--; //every ship aims better
@@ -255,22 +251,14 @@ const makeUFO = (active, scale) => {
 				)
 			);
 			ufoBulletSnd.play();
-			if (ufoScale == 0.1) {
-				saucerBigSnd.play();
-			} else {
-				saucerSmallSnd.play();
-			}
+			ufoScale == 0.1 ? saucerBigSnd.play() : saucerSmallSnd.play();
 
 			makeShotSVG(ufoShotCnt, 'ufoShot', '#0f0');
 		} else {
 			clearInterval(startFiring);
-			if (ufoScale == 0.1) {
-				saucerBigSnd.stop();
-				saucerBigSnd.reset();
-			} else {
-				saucerSmallSnd.stop();
-				saucerSmallSnd.reset();
-			}
+			ufoScale == 0.1
+				? resetSound(saucerBigSnd)
+				: resetSound(saucerSmallSnd);
 		}
 	}
 };
