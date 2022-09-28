@@ -18,7 +18,6 @@
 		"bootstrap": "^4.6.0",
 		"bootstrap-scss": "^4.6.0",
 		"browserlist": "^1.0.1",
-		"caniuse-lite": "^1.0.30001204",
 		"gulp": "^4.0.2",
 		"gulp-babel": "^8.0.0",
 		"gulp-concat": "^2.6.1",

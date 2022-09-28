@@ -33,7 +33,6 @@ const makeShot = (team) => {
 	makeShotSVG(shotCnt, 'spaceShipShot', '#f00');
 };
 
-// REFACTOR to make a SVG creation object
 /**
  *
  * @param {*} id - int - the id of the shot to map to

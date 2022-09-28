@@ -11,7 +11,7 @@ function resetWindowLimit(whatDim) {
 	let newDim, newDimx, newDimy;
 	newDimx = window.innerHeight;
 	newDimy = window.innerHeight;
-	if (whatDim == 'x') {
+	if (whatDim === 'x') {
 		newDim = window.innerWidth;
 		asteroids.forEach((asteroid) => {
 			if (asteroid.x >= newDimx - asteroid.width) {
@@ -169,7 +169,7 @@ const playExtraLife = () => {
  * @param {*} t int - theta , the rotational value
  */
 const moveItem = (obj, x, y, t) => {
-	if (t === undefined) t = 0;
+	if (t === undefined || typeof t !== 'number') t = 0;
 
 	try {
 		if (obj != null) {
