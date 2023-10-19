@@ -222,13 +222,13 @@ document.addEventListener('DOMContentLoaded', () => {
 	//establish reusable sounds
 	setUpSounds();
 
+	startOver = document.querySelector('#startOver');
 	scoreNum = document.querySelector('#scoreNum');
 	versionNum = document.querySelectorAll('.versionNum');
 	lifeNum = document.querySelector('#lifeNum');
 	highScoreCnt = document.querySelector('#highScoreCnt');
 	gameWrapper = document.querySelector('#game__wrapper');
 	gameOverBoard = document.querySelector('#gameOverBoard');
-	startOver = document.querySelector('#startOver');
 	document.querySelector('#currentYear').innerText = currentYear;
 
 	dialogCloseBtn.addEventListener('click', () => {
